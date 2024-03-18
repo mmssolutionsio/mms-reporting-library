@@ -1,0 +1,43 @@
+<script type="ld-conf">
+	{
+		"name": "marginal-container",
+		"label": "Marginal container",
+		"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-marginal-container.min.svg",
+		"properties": [
+			"sticky"
+		],
+		"directives": {
+			"aside": {
+				"allowedChildren": [
+					"paragraph",
+					"link-external",
+					"link-internal"
+				]
+			},
+			"content": {
+				"allowedChildren": [
+					"paragraph",
+					"unordered-list-group",
+					"ordered-list-group",
+					"alphanumeric-list-group",
+					"title-h5",
+					"title-h6",
+					"link-external",
+					"link-internal"
+				],
+				"defaultComponents": {
+					"paragraph": "paragraph"
+				},
+				"defaultContent": [{
+					"component": "paragraph"
+				}]
+			}
+		}
+	}
+</script>
+<div class="lc-component lc-component--aside-width lc-marginal" data-container-label="Marginal container">
+	<div class="lc-component__aside lc-marginal__aside" data-container-label="marginal aside container" doc-container="aside">
+	</div>
+	<div class="lc-component__content lc-marginal__content" data-container-label="marginal content container" doc-container="content">
+	</div>
+</div>

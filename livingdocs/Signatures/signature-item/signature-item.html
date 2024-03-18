@@ -1,0 +1,25 @@
+<script type="ld-conf">
+	{
+		"name": "signature-item",
+		"label": "Signature item",
+		"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-signature-item.min.svg",
+		"allowedParents": [
+			"signature-container"
+		],
+		"directives": {
+			"image": {
+				"imageRatios": ["1:1", "4:3", "16:9"],
+				"allowOriginalRatio": true
+			}
+		}
+	}
+</script>
+<div class="lc-signature__item">
+	<img class="lc-signature__img" doc-image="image" />
+	<p class="lc-signature__name" doc-editable="name">
+		Vorname Nachname
+	</p>
+	<p class="lc-signature__position" doc-editable="position">
+		Position
+	</p>
+</div>

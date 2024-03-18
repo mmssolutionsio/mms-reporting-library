@@ -1,0 +1,19 @@
+{
+  "horizontal-alignment": {
+    "label": "Horizontal alignment",
+    "type": "select",
+    "options": [
+      {
+        "caption": "left"
+      },
+      {
+        "caption": "center",
+        "value": "horizontal-center"
+      },
+      {
+        "caption": "right",
+        "value": "horizontal-right"
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+<script type="ld-conf">
+	{
+		"name": "nswow-table",
+		"label": "ns.wow table",
+		"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-nswow-table.min.svg",
+		"properties": [
+			"web-width",
+			"pdf-width",
+			"pdf-padding",
+			"pdf-font-size"
+		],
+		"directives": {
+			"nswow-table": {
+				"services": [{
+					"service": "nswow-table",
+					"label": "ns.wow Table"
+				}]
+			}
+		}
+	}
+</script>
+<div class="lc-component lc-component--table lc-table-wrap">
+	<div doc-include="nswow-table">
+			<div class="lc-table">
+					<div class="table-placeholder">Placeholder for ns.wow Table</div>
+			</div>
+	</div>
+</div>

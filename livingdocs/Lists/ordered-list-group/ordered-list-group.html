@@ -1,0 +1,19 @@
+<script type="ld-conf">
+	{
+		"name": "ordered-list-group",
+		"label": "List (numeric)",
+		"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-ordered-list.min.svg",
+		"directives": {
+			"list": {
+				"allowedChildren": ["list-item"],
+				"defaultComponents": {
+					"paragraph": "list-item"
+				},
+				"defaultContent": [{
+					"component": "list-item"
+				}]
+			}
+		}
+	}
+</script>
+<ol class="lc-component lc-list-group lc-list-group--ol" data-container-label="List container" doc-container="list"></ol>

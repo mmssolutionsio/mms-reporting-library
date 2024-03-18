@@ -1,0 +1,21 @@
+@use "variables";
+@use "sass:map";
+
+@function is($font) {
+  @return map.has-key(variables.$fonts, $font);
+}
+
+@function get($font) {
+  @if not map.has-key(variables.$fonts, $font) {
+    @error "Invalid font for fonts specified! Choose one of #{map.keys(variables.$fonts)}";
+  }
+  @return map.get(variables.$fonts, $font);
+}
+
+@function is-default() {
+  @return variables.$default-font != "";
+}
+
+@function get-default() {
+  @return variables.$default-font;
+}

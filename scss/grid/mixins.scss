@@ -1,0 +1,378 @@
+@use "variables";
+@use "functions";
+@use "../system";
+
+@mixin media($breakpoint) {
+    @if not map-has-key(variables.$breakpoints, $breakpoint) {
+        @error "Invalid breakpoint specified! Choose one of #{map-keys(variables.$breakpoints)}";
+    }
+    $min: map-get(variables.$breakpoints, $breakpoint);
+    @if $min == 0 {
+        $min: false;
+    }
+    $next: system.map-get-next(variables.$breakpoints, $breakpoint);
+    $max: false;
+    @if $next {
+        $max: $next - 1;
+    }
+    @if (not $min and $max) {
+        @media all and (max-width: #{system.size-unit($max)}) {
+            @content;
+        }
+    }
+    @else if ($min and not $max) {
+        @media all and (min-width: #{system.size-unit($min)}) {
+            @content;
+        }
+    }
+    @else if ($min and $max) {
+        @media all and (min-width: #{system.size-unit($min)}) and (max-width: #{system.size-unit($max)}) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+@mixin media-up($breakpoint) {
+    @if not map-has-key(variables.$breakpoints, $breakpoint) {
+        @error "Invalid breakpoint specified! Choose one of #{map-keys(variables.$breakpoints)}";
+    }
+    $min: map-get(variables.$breakpoints, $breakpoint);
+
+    @if $min == 0 {
+        @content;
+    }
+    @else {
+        @media all and (min-width: #{system.size-unit($min)}) {
+            @content;
+        }
+    }
+}
+
+@mixin media-down($breakpoint) {
+    @if not map-has-key(variables.$breakpoints, $breakpoint) {
+        @error "Invalid breakpoint specified! Choose one of #{map-keys(variables.$breakpoints)}";
+    }
+    $next: system.map-get-next(variables.$breakpoints, $breakpoint);
+    $max: false;
+    @if $next {
+        $max: $next - 1;
+    }
+    @if $max {
+        @media all and (max-width: #{system.size-unit($max)}) {
+            @content;
+        }
+    }
+    @else {
+        @error "Invalid max breakpoint #{$breakpoint} specified! Choose one of #{map-keys(map-remove(variables.$breakpoints, $breakpoint))}";
+    }
+}
+
+@mixin media-between($breakpoint-min, $breakpoint-max) {
+    @if (
+            not map-has-key(variables.$breakpoints, $breakpoint-min) or
+            not map-has-key(variables.$breakpoints, $breakpoint-max)
+    ) {
+        @error "Invalid breakpoint specified! Choose one of #{map-keys(variables.$breakpoints)}";
+    }
+    $min: map-get(variables.$breakpoints, $breakpoint-min);
+    @if $min == 0 {
+        $min: false;
+    }
+    $next: system.map-get-next(variables.$breakpoints, $breakpoint-max);
+    $max: false;
+    @if $next {
+        $max: $next - 1;
+    }
+    @if (not $min and $max) {
+        @media all and (max-width: #{system.size-unit($max)}) {
+            @content;
+        }
+    }
+    @else if ($min and not $max) {
+        @media all and (min-width: #{system.size-unit($min)}) {
+            @content;
+        }
+    }
+    @else if ($min and $max) {
+        @media all and (min-width: #{system.size-unit($min)}) and (max-width: #{system.size-unit($max)}) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+@mixin container-fluid {
+    @each $breakpoint in map-keys(variables.$breakpoints) {
+        @if map-has-key(variables.$containers, $breakpoint) {
+            $container: map-get(variables.$containers, $breakpoint);
+            @if $container {
+                $padding: map-get($container, padding);
+                @if( $padding ) {
+                    @include media($breakpoint) {
+                        padding-right: #{system.size-unit($padding)};
+                        padding-left: #{system.size-unit($padding)};
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin container {
+    @each $breakpoint in map-keys(variables.$breakpoints) {
+        @if map-has-key(variables.$containers, $breakpoint) {
+            $container: map-get(variables.$containers, $breakpoint);
+            @if $container {
+                $padding: map-get($container, padding);
+                $max-width: map-get($container, max-width);
+                @if( $padding or $max-width ) {
+                    @include media($breakpoint) {
+                        @if $max-width {
+                            max-width: #{system.size-unit($max-width)};
+                        }
+                        @if $padding {
+                            padding-right: #{system.size-unit($padding)};
+                            padding-left: #{system.size-unit($padding)};
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin _row-columns($columns) {
+    $columns-type: type-of($columns);
+    @if $columns-type == "number" {
+        grid-template-columns: repeat(system.strip-unit($columns), 1fr);
+    }
+    @else if $columns-type == "map" {
+        $col: map-get($columns, columns);
+        @if not $col {
+            $col: 1;
+        }
+        grid-template-columns: repeat(system.strip-unit($col), 1fr);
+    }
+    @else if $columns-type == "string" {
+        $gutter: map-get(variables.$gutter, $columns);
+        @if type-of($gutter) == "map" {
+            $col: map-get($gutter, columns);
+            @if not $col {
+                $col: 1;
+            }
+            grid-template-columns: repeat(system.strip-unit($col), 1fr);
+        }
+        @else {
+            grid-template-columns: #{$columns};
+        }
+    }
+    @else {
+        grid-template-columns: #{$columns};
+    }
+}
+
+@mixin _row-gutter($gutter) {
+    @if type-of($gutter) == "map" {
+        $gap: map-get($gutter, gap);
+        $row-gap: map-get($gutter, row-gap);
+        $col-gap: map-get($gutter, col-gap);
+
+        @if $gap {
+            gap: system.size-unit($gap);
+        }
+        @else {
+            @if $row-gap {
+                row-gap: system.size-unit($row-gap);
+            }
+            @if $col-gap {
+                column-gap: system.size-unit($col-gap);
+            }
+        }
+    }
+}
+
+@mixin row($columns: false, $gutter: false) {
+    display: grid;
+    @if not $columns and not $gutter {
+        @each $breakpoint, $gutter in  variables.$gutter {
+            @if type-of($gutter) == "map" {
+                @include media($breakpoint) {
+                    @include _row-columns($gutter);
+                    @include _row-gutter($gutter);
+                }
+            }
+        }
+    }
+    @else if $columns and not $gutter {
+        @include _row-columns($columns);
+        @include _row-columns($columns);
+    }
+    @else if $columns and $gutter {
+        @include _row-columns($columns);
+        @include _row-columns($gutter);
+    }
+}
+
+@mixin col($span: false, $breakpoint-start: false, $breakpoint-end: false) {
+    @if $breakpoint-start and $breakpoint-end and $span {
+        @include media-between($breakpoint-start, $breakpoint-end) {
+            width: auto;
+            grid-column-end: span #{$span};
+        }
+    } @else if $breakpoint-start and $span {
+        @include media($breakpoint-start) {
+            width: auto;
+            grid-column-end: span #{$span};
+        }
+    } @else if $span {
+        width: auto;
+        grid-column-end: span #{$span};
+    } @else {
+        width: auto;
+        grid-column-end: span #{variables.$column-default-span};
+    }
+}
+
+@mixin offset($offset, $breakpoint: false) {
+    @if $breakpoint {
+        @if not map-has-key(variables.$breakpoints, $breakpoint) {
+            @error "Invalid breakpoint specified! Choose one of #{map-keys(variables.$breakpoints)}";
+        }
+        @include media($breakpoint) {
+            grid-column-start: ($offset + 1);
+        }
+    } @else {
+        grid-column-start: ($offset + 1);
+    }
+}
+
+@each $breakpoint, $min-width in variables.$breakpoints {
+    @include system.add-root-style(
+                    #{variables.$variable-prefix}breakpoint-#{$breakpoint},
+                    system.size-unit($min-width, px)
+    );
+
+    $container: map-get(variables.$containers, $breakpoint);
+
+    $container-max-width: map-get($container, max-width);
+    @if not $container-max-width {
+        $container-max-width: unset;
+    }
+    @include system.add-root-style(
+                    #{variables.$variable-prefix}container-#{$breakpoint}-max-width,
+                    system.size-unit($container-max-width)
+    );
+
+    $container-padding: map-get($container, padding);
+    @if not $container-padding {
+        $container-padding: unset;
+    }
+    @include system.add-root-style(
+                    #{variables.$variable-prefix}container-#{$breakpoint}-padding,
+                    system.size-unit($container-padding)
+    );
+
+
+    $gutter: map-get(variables.$gutter, $breakpoint);
+    @if not $gutter {
+        $gutter: (columns: 1);
+    }
+
+    $columns: map-get($gutter, columns);
+    @if not $columns {
+        $columns: 1;
+    }
+
+    $gap: map-get($gutter, gap);
+    $row-gap: unset;
+    $col-gap: unset;
+    @if $gap {
+        $row-gap: $gap;
+        $col-gap: $gap;
+    }
+    @else {
+        @if map-has-key($gutter, row-gap) {
+            $row-gap: map-get($gutter, row-gap);
+        }
+        @if map-has-key($gutter, col-gap) {
+            $col-gap: map-get($gutter, col-gap);
+        }
+    }
+
+    @include system.add-root-style(
+                    #{variables.$variable-prefix}gutter-#{$breakpoint}-columns,
+                    $columns
+    );
+    @include system.add-root-style(
+                    #{variables.$variable-prefix}gutter-#{$breakpoint}-row-gap,
+                    system.size-unit($row-gap)
+    );
+    @include system.add-root-style(
+                    #{variables.$variable-prefix}gutter-#{$breakpoint}-column-gap,
+                    system.size-unit($col-gap)
+    );
+}
+
+
+@mixin core-styles {
+    @at-root {
+        @each $breakpoint in map-keys(variables.$breakpoints) {
+            @include media($breakpoint) {
+                .#{variables.$class-prefix}container {
+                    max-width: #{functions.get-container-max-width($breakpoint)};
+                    padding-right: #{functions.get-container-padding($breakpoint)};
+                    padding-left: #{functions.get-container-padding($breakpoint)};
+
+                    &-fluid {
+                        padding-right: #{functions.get-container-padding($breakpoint)};
+                        padding-left: #{functions.get-container-padding($breakpoint)};
+
+                        .#{variables.$class-prefix}container,
+                        .#{variables.$class-prefix}container-fluid {
+                            max-width: unset;
+                            padding-right: unset;
+                            padding-left: unset;
+                        }
+                    }
+
+                    .#{variables.$class-prefix}container,
+                    .#{variables.$class-prefix}container-fluid {
+                        max-width: unset;
+                        padding-right: unset;
+                        padding-left: unset;
+                    }
+                }
+
+                .#{variables.$class-prefix}row {
+                    display: grid;
+                    grid-template-columns: repeat(#{functions.get-gutter-columns($breakpoint)}, 1fr);
+                    row-gap: #{functions.get-gutter-row-gap($breakpoint)};
+                    column-gap: #{functions.get-gutter-col-gap($breakpoint)};
+                }
+
+                .#{variables.$class-prefix}col-#{$breakpoint} {
+                    &-span {
+                        @for $col from 1 to map-get(map-get(variables.$gutter, $breakpoint), columns) {
+                            &-#{$col} {
+                                grid-column-end: span #{$col};
+                            }
+                        }
+                    }
+
+                    &-offset {
+                        @for $offset from 1 to (map-get(map-get(variables.$gutter, $breakpoint), columns) - 1) {
+                            &-#{$offset} {
+                                grid-column-start: #{$offset + 1};
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

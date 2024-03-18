@@ -1,0 +1,29 @@
+<script type="ld-conf">
+	{
+		"name": "link-internal",
+		"label": "Link (internal)",
+		"description": "Opens link in same tab",
+		"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-link-internal.min.svg",
+		"directives": {
+			"showParagraph": {
+				"type": "toggle",
+    			"label": "Show paragraph",
+    			"default": true
+			},
+			"link": {
+				"plainText": true
+			}
+		}
+	}
+</script>
+<div class="lc-component lc-link lc-link--internal lc-linkable">
+	<p class="lc-paragraph" doc-toggle="showParagraph">
+		<span class="lc-paragraph__link-text" doc-editable="text">
+			Lorem ipsum dolor sit amet, consetetur sadipscing elitr:
+		</span>
+	</p>
+	<a doc-link="href" class="lc-link__link">
+		<span class="lc-link__text" doc-editable="link">Link internal</span>
+		<span class="lc-link__icon"></span>
+	</a>
+</div>

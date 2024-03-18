@@ -1,0 +1,35 @@
+@use "config";
+@forward "@multivisio/nswow/scss/typography";
+@use "@multivisio/nswow/scss/typography";
+
+@mixin headline1($margins: false) {
+  @include typography.get("headline1", $margins);
+}
+
+@mixin headline2($margins: false) {
+  @include typography.get("headline2", $margins);
+}
+
+@mixin headline3($margins: false) {
+  @include typography.get("headline3", $margins);
+}
+
+@mixin headline4($margins: false) {
+  @include typography.get("headline4", $margins);
+}
+
+@mixin headline5($margins: false) {
+  @include typography.get("headline5", $margins);
+}
+
+@mixin headline6($margins: false) {
+  @include typography.get("headline6", $margins);
+}
+
+@mixin copy($margins: false) {
+  @include typography.get("copy", $margins);
+}
+
+@mixin copy2($margins: false) {
+  @include typography.get("copy2", $margins);
+}

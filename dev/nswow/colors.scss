@@ -1,0 +1,27 @@
+@use "config";
+@forward "@multivisio/nswow/scss/colors";
+@use "@multivisio/nswow/scss/colors";
+
+@function primary() {
+  @return colors.get("primary");
+}
+
+@function copy() {
+  @return colors.get("copy");
+}
+
+@function light() {
+  @return colors.get("light");
+}
+
+@function dark() {
+  @return colors.get("dark");
+}
+
+@function accent() {
+  @return colors.get("accent");
+}
+
+@function alert() {
+  @return colors.get("alert");
+}

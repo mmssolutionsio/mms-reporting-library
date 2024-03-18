@@ -1,0 +1,70 @@
+{
+  "gradient-variant": {
+    "label": "Gradient variant",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Default"
+      },
+      {
+        "caption": "Half",
+        "value": "gradient-half"
+      },
+      {
+        "caption": "Full",
+        "value": "gradient-full"
+      },
+      {
+        "caption": "No gradient",
+        "value": "no-gradient"
+      }
+    ]
+  },
+  "bg-gradient-direction": {
+    "label": "Gradient direction",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Bottom to top"
+      },
+      {
+        "caption": "Top to bottom",
+        "value": "gradient-top-to-bottom"
+      }
+    ]
+  },
+  "bg-vertical-alignment": {
+    "label": "Background vertical alignment",
+    "type": "select",
+    "options": [
+      {
+        "caption": "center"
+      },
+      {
+        "caption": "top",
+        "value": "bg-vertical-top"
+      },
+      {
+        "caption": "bottom",
+        "value": "bg-vertical-bottom"
+      }
+    ]
+  },
+  "bg-horizontal-alignment": {
+    "label": "Background horizontal alignment",
+    "type": "select",
+    "options": [
+      {
+        "caption": "center"
+      },
+      {
+        "caption": "left",
+        "value": "bg-horizontal-left"
+      },
+      {
+        "caption": "right",
+        "value": "bg-horizontal-right"
+      }
+    ]
+  }
+}

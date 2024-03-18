@@ -1,0 +1,45 @@
+{
+  "show-mobile-image": {
+    "label": "Show mobile image",
+    "type": "option",
+    "value": "show-mobile-image"
+  },
+  "web-width-media": {
+    "label": "Web width",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Text width"
+      },
+      {
+        "caption": "Content width",
+        "value": "lc-component--web-content-width"
+      },
+      {
+        "caption": "Full width",
+        "value": "lc-component--web-full-width"
+      },
+      {
+        "caption": "Screen width",
+        "value": "lc-component--web-screen-width"
+      }
+    ]
+  },
+  "pdf-width-media": {
+    "label": "PDF width",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Text width"
+      },
+      {
+        "caption": "Full width",
+        "value": "lc-component--pdf-full-width"
+      },
+      {
+        "caption": "Page width",
+        "value": "lc-component--pdf-page-width"
+      }
+    ]
+  }
+}

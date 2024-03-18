@@ -1,0 +1,7 @@
+@use "../system";
+
+$variable-prefix: system.$variable-prefix !default;
+$class-prefix: system.$class-prefix !default;
+
+$default-list-margin: 10 !default;
+$default-list-padding: 20 !default;

@@ -1,0 +1,80 @@
+@use "variables";
+@use "../system";
+
+@function get-font-family($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-font-family-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-font-family)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-font-family);
+}
+
+@function get-font-size($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-font-size-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-font-size)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-font-size);
+}
+
+@function get-line-height($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-line-height-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-line-height)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-line-height);
+}
+
+@function get-font-weight($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-font-weight-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-font-weight)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-font-weight);
+}
+
+@function get-margin-top($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-margin-top-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-margin-top)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-margin-top);
+}
+
+@function get-margin-bottom($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-margin-bottom-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-margin-bottom)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-margin-bottom);
+}

@@ -1,0 +1,21 @@
+@use "sass:map";
+@use "variables";
+
+$styles: ();
+
+@mixin add-root-style($key, $value) {
+    $styles: map.set($styles, $key, $value) !global;
+}
+
+@mixin core-styles {
+    @each $key, $value in variables.$root-styles {
+        @include add-root-style($key, $value);
+    }
+    @at-root {
+        :root {
+            @each $key, $value in $styles {
+                --#{$key}: #{$value};
+            }
+        }
+    }
+}

@@ -1,0 +1,76 @@
+{
+  "web-spacer": {
+    "label": "Web spacer (appears in violet)",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Default"
+      },
+      {
+        "caption": "XS spacer",
+        "value": "lc-spacer-xs"
+      },
+      {
+        "caption": "S spacer",
+        "value": "lc-spacer-sm"
+      },
+      {
+        "caption": "M spacer",
+        "value": "lc-spacer-md"
+      },
+      {
+        "caption": "L spacer",
+        "value": "lc-spacer-lg"
+      },
+      {
+        "caption": "XL spacer",
+        "value": "lc-spacer-xl"
+      },
+      {
+        "caption": "XXL spacer",
+        "value": "lc-spacer-xxl"
+      }
+    ]
+  },
+  "pdf-spacer": {
+    "label": "PDF spacer (appears in grey)",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Default"
+      },
+      {
+        "caption": "XXXS spacer",
+        "value": "lc-spacer-pdf-xs"
+      },
+      {
+        "caption": "XXS spacer",
+        "value": "lc-spacer-pdf-xs"
+      },
+      {
+        "caption": "XS spacer",
+        "value": "lc-spacer-pdf-xs"
+      },
+      {
+        "caption": "S spacer",
+        "value": "lc-spacer-pdf-sm"
+      },
+      {
+        "caption": "M spacer",
+        "value": "lc-spacer-pdf-md"
+      },
+      {
+        "caption": "L spacer",
+        "value": "lc-spacer-pdf-lg"
+      },
+      {
+        "caption": "XL spacer",
+        "value": "lc-spacer-pdf-xl"
+      },
+      {
+        "caption": "XXL spacer",
+        "value": "lc-spacer-pdf-xxl"
+      }
+    ]
+  }
+}

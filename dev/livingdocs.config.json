@@ -1,0 +1,56 @@
+{
+  "name": "multivisio-ld",
+  "label": "skeleton",
+  "version": "0.0.1",
+  "author": "nsgroup",
+  "assets": {
+    "css": [],
+    "js": []
+  },
+  "wrapper": "<div class='livingdocs doc-section'></div>",
+  "imageRatios": {
+    "cover": {
+      "label": "Cover",
+      "ratio": "210x205"
+    },
+    "a4": {
+      "label": "A4",
+      "ratio": "70x99"
+    },
+    "3:2": {
+      "label": "3:2",
+      "ratio": "3x2"
+    },
+    "1:1": {
+      "label": "1:1",
+      "ratio": "1x1"
+    },
+    "4:3": {
+      "label": "4:3",
+      "ratio": "4x3"
+    },
+    "16:9": {
+      "label": "16:9",
+      "ratio": "16x9"
+    }
+  },
+  "componentProperties": {},
+  "groups": [],
+  "defaultComponents": {
+    "paragraph": "paragraph",
+    "image": "image"
+  },
+  "defaultContent": [
+    {
+      "component": "title-h1"
+    },
+    {
+      "component": "lead"
+    },
+    {
+      "component": "paragraph"
+    }
+  ],
+  "prefilledComponents": {},
+  "metadata": []
+}

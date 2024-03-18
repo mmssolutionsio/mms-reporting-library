@@ -1,0 +1,24 @@
+{
+  "vertical-alignment": {
+    "label": "Vertical alignment",
+    "type": "select",
+    "options": [
+      {
+        "caption": "top"
+      },
+      {
+        "caption": "center",
+        "value": "vertical-center"
+      },
+      {
+        "caption": "bottom",
+        "value": "vertical-bottom"
+      }
+    ]
+  },
+  "revert": {
+    "label": "Switch sides",
+    "type": "option",
+    "value": "revert"
+  }
+}

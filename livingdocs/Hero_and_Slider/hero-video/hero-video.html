@@ -1,0 +1,97 @@
+<script type="ld-conf">
+	{
+		"name": "hero-video",
+		"label": "Hero video",
+		"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-hero-video.min.svg",
+		"description": "Only  HTML 5 videos, no iframes",
+		"properties": [
+			"gradient-variant",
+			"bg-gradient-direction",
+			"bg-vertical-alignment",
+			"bg-horizontal-alignment",
+			"hide-play-button",
+			"show-volume-button",
+			"show-subtitle-button"
+		],
+		"directives": {
+			"showH2": {
+				"type": "toggle",
+    			"label": "Show title h2",
+    			"default": false
+			}
+		}
+	}
+</script>
+<div class="lc-component lc-component--web-screen-width lc-component--pdf-page-width lc-hero lc-hero-video">
+	<div class="lc-hero-video__thumbnail" doc-image="background">
+	</div>
+	<div doc-html="free-html" class="lc-hero-video__video-container">
+		<div class="iframe-placeholder"></div>
+	</div>
+	<div class="lc-hero-video__content">
+		<div class="lc-hero-video__content-inner">
+			<h1 class="lc-title-h1" doc-optional doc-editable="text">
+				Geschäftsbericht 2022
+			</h1>
+
+			<h2 class="lc-title-h2" doc-optional doc-editable="text2" doc-toggle="showH2">
+				Title H2 Lorem ipsum dolor sit amet
+			</h2>
+		</div>
+	</div>
+	<div class="lc-hero-video__controls">
+		<button class="lc-button lc-button--play lc-button--round" aria-pressed="false">
+			<span class="lc-button__inner">
+				<span class="lc-button__icon">
+					<svg class="svg svg-play" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M0.5 17C0.5 17.1844 0.601492 17.3538 0.764071 17.4408C0.92665 17.5278 1.12392 17.5183 1.27735 17.416L13.2774 9.41603C13.4164 9.32329 13.5 9.16718 13.5 9C13.5 8.83282 13.4164 8.67671 13.2774 8.58397L1.27735 0.583975C1.12392 0.481689 0.92665 0.472153 0.764071 0.559163C0.601492 0.646172 0.5 0.815602 0.5 1V17Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+
+					<svg class="svg svg-pause" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M5.5 1C5.5 0.723858 5.27614 0.5 5 0.5H1C0.723858 0.5 0.5 0.723858 0.5 1V17C0.5 17.2761 0.723858 17.5 1 17.5H5C5.27614 17.5 5.5 17.2761 5.5 17V1Z" stroke="currentColor" stroke-linejoin="round"/>
+						<path d="M15.5 1C15.5 0.723858 15.2761 0.5 15 0.5H11C10.7239 0.5 10.5 0.723858 10.5 1V17C10.5 17.2761 10.7239 17.5 11 17.5H15C15.2761 17.5 15.5 17.2761 15.5 17V1Z" stroke="currentColor" stroke-linejoin="round"/>
+					</svg>
+				</span>
+			</span>
+		</button>
+		<button class="lc-button lc-button--volume lc-button--round" aria-pressed="true">
+			<span class="lc-button__inner">
+				<span class="lc-button__icon">
+					<svg class="svg svg-volume" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M5.5 6H1V12H5.5L11 17V1L5.5 6Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M14 5C14.6667 5.4 16 6.76 16 9C16 11.24 14.6667 12.6 14 13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M17 2C18 2.7 20 5.08 20 9C20 12.92 18 15.3 17 16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+
+					<svg class="svg svg-muted" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M5.5 6H1V12H5.5L11 17V1L5.5 6Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M14 6L20 12M20 6L14 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</span>
+			</span>
+		</button>
+		<button class="lc-button lc-button--subtitle lc-button--round" aria-pressed="false">
+			<span class="lc-button__inner">
+				<span class="lc-button__icon">
+					<svg class="svg svg-subtitles-on" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect x="0.5" y="0.5" width="17" height="13" stroke="currentColor" stroke-linejoin="round"/>
+						<path d="M3 11L10 11" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M3 9L7 9" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M12 11H15" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M9 9L15 9" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M2 16L16 16" stroke="currentColor" stroke-linecap="round"/>
+					</svg>
+
+					<svg class="svg svg-subtitles-off" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect x="0.5" y="0.5" width="17" height="13" stroke="currentColor" stroke-linejoin="round"/>
+						<path d="M3 11L10 11" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M3 9L7 9" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M12 11H15" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M9 9L15 9" stroke="currentColor" stroke-linecap="round"/>
+						<path d="M2 16L16 16" stroke="transparent" stroke-linecap="round"/>
+					</svg>
+				</span>
+			</span>
+		</button>
+	</div>
+</div>

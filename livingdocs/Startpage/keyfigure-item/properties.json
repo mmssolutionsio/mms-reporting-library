@@ -1,0 +1,12 @@
+{
+  "has-space-prefix": {
+    "label": "Add space after prefix",
+    "type": "option",
+    "value": "has-space-prefix"
+  },
+  "has-space-suffix": {
+    "label": "Add space before suffix",
+    "type": "option",
+    "value": "has-space-suffix"
+  }
+}

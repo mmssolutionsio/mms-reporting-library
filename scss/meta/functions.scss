@@ -1,0 +1,49 @@
+@use "variables";
+@use "sass:list";
+@use "sass:map";
+
+@function is($list, $map: variables.$meta) {
+  $current: false;
+  $next: ();
+
+  @each $key, $index in $list {
+    @if $current == false {
+      $current: $key;
+    } @else {
+      $next: list.append($next, $key);
+    }
+  }
+
+  @if $current and map.has-key($map, $current) {
+    @if list.length($next) > 0 {
+      @return is($next, map.get($map, $current));
+    } @else {
+      @return true;
+    }
+  } @else {
+    @return false;
+  }
+}
+
+@function get($list, $map: variables.$meta) {
+  $current: false;
+  $next: ();
+
+  @each $key, $index in $list {
+    @if $current == false {
+      $current: $key;
+    } @else {
+      $next: list.append($next, $key);
+    }
+  }
+
+  @if $current and map.has-key($map, $current) {
+    @if list.length($next) > 0 {
+      @return get($next, map.get($map, $current));
+    } @else {
+      @return map.get($map, $current);
+    }
+  } @else {
+    @return false;
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "web-width": {
+    "label": "Web width",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Text width"
+      },
+      {
+        "caption": "Content width",
+        "value": "lc-component--web-content-width"
+      },
+      {
+        "caption": "Full width",
+        "value": "lc-component--web-full-width"
+      }
+    ]
+  },
+  "pdf-width": {
+    "label": "PDF width",
+    "type": "select",
+    "options": [
+      {
+        "caption": "Text width"
+      },
+      {
+        "caption": "Full width",
+        "value": "lc-component--pdf-full-width"
+      }
+    ]
+  },
+  "vertical-alignment": {
+    "label": "Vertical alignment",
+    "type": "select",
+    "options": [
+      {
+        "caption": "top"
+      },
+      {
+        "caption": "center",
+        "value": "vertical-center"
+      },
+      {
+        "caption": "bottom",
+        "value": "vertical-bottom"
+      }
+    ]
+  },
+  "columns": {
+    "label": "Columns",
+    "type": "select",
+    "options": [
+      {
+        "caption": "2 columns"
+      },
+      {
+        "caption": "3 columns",
+        "value": "lc-columns--3"
+      },
+      {
+        "caption": "4 columns",
+        "value": "lc-columns--4"
+      }
+    ]
+  },
+  "revert": {
+    "label": "Switch sides",
+    "type": "option",
+    "value": "revert"
+  }
+}

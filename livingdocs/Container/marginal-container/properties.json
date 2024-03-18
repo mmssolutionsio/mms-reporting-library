@@ -1,0 +1,7 @@
+{
+  "sticky": {
+    "label": "Sticky marginal column",
+    "type": "option",
+    "value": "lc-marginal--sticky"
+  }
+}
