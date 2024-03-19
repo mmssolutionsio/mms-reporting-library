@@ -35,7 +35,7 @@
     @return var(--#{variables.$variable-prefix}gutter-#{$breakpoint}-row-gap);
 }
 
-@function get-gutter-col-gap($breakpoint) {
+@function get-gutter-column-gap($breakpoint) {
     @if not map-has-key(variables.$breakpoints, $breakpoint) {
         @error "Invalid breakpoint for container specified! Choose one of #{map-keys(variables.$breakpoints)}";
     }

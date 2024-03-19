@@ -6,32 +6,38 @@
     @if not map-has-key(variables.$breakpoints, $breakpoint) {
         @error "Invalid breakpoint specified! Choose one of #{map-keys(variables.$breakpoints)}";
     }
-    $min: map-get(variables.$breakpoints, $breakpoint);
-    @if $min == 0 {
-        $min: false;
-    }
-    $next: system.map-get-next(variables.$breakpoints, $breakpoint);
-    $max: false;
-    @if $next {
-        $max: $next - 1;
-    }
-    @if (not $min and $max) {
-        @media all and (max-width: #{system.size-unit($max)}) {
+    @if $breakpoint ==  'print' {
+        @media print {
             @content;
         }
-    }
-    @else if ($min and not $max) {
-        @media all and (min-width: #{system.size-unit($min)}) {
+    } @else {
+        $min: map-get(variables.$breakpoints, $breakpoint);
+        @if $min == 0 {
+            $min: false;
+        }
+        $next: system.map-get-next(variables.$breakpoints, $breakpoint);
+        $max: false;
+        @if $next {
+            $max: $next - 1;
+        }
+        @if (not $min and $max) {
+            @media screen and (max-width: #{system.size-unit($max)}) {
+                @content;
+            }
+        }
+        @else if ($min and not $max) {
+            @media screen and (min-width: #{system.size-unit($min)}) {
+                @content;
+            }
+        }
+        @else if ($min and $max) {
+            @media screen and (min-width: #{system.size-unit($min)}) and (max-width: #{system.size-unit($max)}) {
+                @content;
+            }
+        }
+        @else {
             @content;
         }
-    }
-    @else if ($min and $max) {
-        @media all and (min-width: #{system.size-unit($min)}) and (max-width: #{system.size-unit($max)}) {
-            @content;
-        }
-    }
-    @else {
-        @content;
     }
 }
 
@@ -45,7 +51,7 @@
         @content;
     }
     @else {
-        @media all and (min-width: #{system.size-unit($min)}) {
+        @media screen and (min-width: #{system.size-unit($min)}) {
             @content;
         }
     }
@@ -61,7 +67,7 @@
         $max: $next - 1;
     }
     @if $max {
-        @media all and (max-width: #{system.size-unit($max)}) {
+        @media screen and (max-width: #{system.size-unit($max)}) {
             @content;
         }
     }
@@ -87,17 +93,17 @@
         $max: $next - 1;
     }
     @if (not $min and $max) {
-        @media all and (max-width: #{system.size-unit($max)}) {
+        @media screen and (max-width: #{system.size-unit($max)}) {
             @content;
         }
     }
     @else if ($min and not $max) {
-        @media all and (min-width: #{system.size-unit($min)}) {
+        @media screen and (min-width: #{system.size-unit($min)}) {
             @content;
         }
     }
     @else if ($min and $max) {
-        @media all and (min-width: #{system.size-unit($min)}) and (max-width: #{system.size-unit($max)}) {
+        @media screen and (min-width: #{system.size-unit($min)}) and (max-width: #{system.size-unit($max)}) {
             @content;
         }
     }
@@ -180,7 +186,7 @@
     @if type-of($gutter) == "map" {
         $gap: map-get($gutter, gap);
         $row-gap: map-get($gutter, row-gap);
-        $col-gap: map-get($gutter, col-gap);
+        $column-gap: map-get($gutter, column-gap);
 
         @if $gap {
             gap: system.size-unit($gap);
@@ -189,8 +195,8 @@
             @if $row-gap {
                 row-gap: system.size-unit($row-gap);
             }
-            @if $col-gap {
-                column-gap: system.size-unit($col-gap);
+            @if $column-gap {
+                column-gap: system.size-unit($column-gap);
             }
         }
     }
@@ -254,7 +260,7 @@
 @each $breakpoint, $min-width in variables.$breakpoints {
     @include system.add-root-style(
                     #{variables.$variable-prefix}breakpoint-#{$breakpoint},
-                    system.size-unit($min-width, px)
+                    system.size-unit($min-width)
     );
 
     $container: map-get(variables.$containers, $breakpoint);
@@ -290,17 +296,17 @@
 
     $gap: map-get($gutter, gap);
     $row-gap: unset;
-    $col-gap: unset;
+    $column-gap: unset;
     @if $gap {
         $row-gap: $gap;
-        $col-gap: $gap;
+        $column-gap: $gap;
     }
     @else {
         @if map-has-key($gutter, row-gap) {
             $row-gap: map-get($gutter, row-gap);
         }
-        @if map-has-key($gutter, col-gap) {
-            $col-gap: map-get($gutter, col-gap);
+        @if map-has-key($gutter, column-gap) {
+            $column-gap: map-get($gutter, column-gap);
         }
     }
 
@@ -314,7 +320,7 @@
     );
     @include system.add-root-style(
                     #{variables.$variable-prefix}gutter-#{$breakpoint}-column-gap,
-                    system.size-unit($col-gap)
+                    system.size-unit($column-gap)
     );
 }
 
@@ -352,7 +358,7 @@
                     display: grid;
                     grid-template-columns: repeat(#{functions.get-gutter-columns($breakpoint)}, 1fr);
                     row-gap: #{functions.get-gutter-row-gap($breakpoint)};
-                    column-gap: #{functions.get-gutter-col-gap($breakpoint)};
+                    column-gap: #{functions.get-gutter-column-gap($breakpoint)};
                 }
 
                 .#{variables.$class-prefix}col-#{$breakpoint} {

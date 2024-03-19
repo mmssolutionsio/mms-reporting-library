@@ -14,23 +14,27 @@ const require = createRequire(import.meta.url);
 
 const { Input } = require("enquirer");
 
-let folderCheck = false;
+let foldersChecked = false;
 
-if (!folderCheck) {
-    try {
-        await statSync(nswowPath);
-    } catch (e) {
-        await mkdirSync(nswowPath);
+async function checkFolders() {
+    if (!foldersChecked) {
+        foldersChecked = true;
+        try {
+            await statSync(nswowPath);
+        } catch (e) {
+            await mkdirSync(nswowPath);
+        }
+        try {
+            await statSync(outputPath);
+        } catch (e) {
+            await mkdirSync(outputPath);
+        }
     }
-    try {
-        await statSync(outputPath);
-    } catch (e) {
-        await mkdirSync(outputPath);
-    }
-    folderCheck = true;
+    return true;
 }
 
 async function cleanOutput() {
+    await checkFolders();
     const output = readdirSync(outputPath);
     for (let i = 0; i < output.length; i++) {
         await rmSync(`${outputPath}/${output[i]}`, {force: true, recursive: true })
@@ -39,10 +43,12 @@ async function cleanOutput() {
 }
 
 async function buildApp() {
+    await checkFolders();
     return await viteBuild();
 }
 
 async function zipApp() {
+    await checkFolders();
     const archiver = require('archiver');
     const output = createWriteStream(outputPath + '/app.zip');
     const archive = archiver('zip', {
@@ -72,6 +78,7 @@ async function zipApp() {
 }
 
 async function buildPdf() {
+    await checkFolders();
     const input = resolve(CWD, 'pdf.html');
     try {
         await statSync(input);
@@ -104,6 +111,7 @@ async function buildPdf() {
 }
 
 async function buildLdd(version) {
+    await checkFolders();
 
     const lddJsonFile = resolve(CWD, './livingdocs.config.json');
     const lddJson = JSON.parse(
@@ -184,6 +192,7 @@ async function buildLdd(version) {
 }
 
 async function buildWord() {
+    await checkFolders();
     const { alias } = await import(resolve(CWD, './alias.js'));
     const input = resolve(CWD, 'word.html');
     try {
@@ -216,6 +225,7 @@ async function buildWord() {
 }
 
 async function build() {
+    await checkFolders();
     const lddJsonFile = resolve(CWD, './livingdocs.config.json');
     const lddJson = JSON.parse(
         await readFileSync(lddJsonFile)
@@ -260,6 +270,7 @@ async function build() {
 }
 
 async function mapScss() {
+    await checkFolders();
     try {
         const relativePathToRoot = '../';
 
@@ -347,6 +358,7 @@ async function mapScss() {
 }
 
 async function mapLdd() {
+    await checkFolders();
     try {
         const writeJson = require('write-json');
         const packageJsonFile = resolve(CWD, './package.json');
@@ -445,6 +457,7 @@ async function mapLdd() {
 }
 
 async function map() {
+    await checkFolders();
     await mapScss().then( async () => await mapLdd() );
 }
 

@@ -3,18 +3,14 @@
         "typography": [
             {
                 "name": "headline1",
-                "font-size": 32,
+                "font-size": 24,
                 "line-height": 1.2,
-                "font-weight": 400,
-                "margin-top": 30,
+                "font-weight": 700,
                 "margin-bottom": 15,
                 "media": {
-                    "landscape": {
-                        "font-size": 16,
-                        "line-height": 1.5,
-                        "font-weight": 700,
-                        "margin-top": 10,
-                        "margin-bottom": 10
+                    "print": {
+                        "font-size": "16pt",
+                        "margin-bottom": "1cm"
                     }
                 }
             },
@@ -23,78 +19,91 @@
                 "font-size": 20,
                 "line-height": 1.2,
                 "font-weight": 400,
-                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
-                    "portrait": {
-                        "font-size": 28
-                    },
-                    "landscape": {
-                        "font-size": 28
-                    },
-                    "desktop": {
-                        "font-size": 28
+                    "print": {
+                        "font-size": "20pt",
+                        "margin-bottom": "1cm"
                     }
                 }
             },
             {
                 "name": "headline3",
-                "font-size": 16,
+                "font-size": 18,
                 "line-height": 1.2,
                 "font-weight": 400,
-                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
-                    "portrait": {
-                        "font-size": 18
-                    },
-                    "landscape": {
-                        "font-size": 20
-                    },
-                    "desktop": {
-                        "font-size": 20
+                    "print": {
+                        "font-size": "18pt",
+                        "margin-bottom": "1cm"
                     }
                 }
             },
             {
                 "name": "headline4",
-                "font-size": 22,
+                "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 400,
-                "margin-top": 0,
-                "margin-bottom": 15
+                "margin-bottom": 15,
+                "media": {
+                    "print": {
+                        "font-size": "16pt",
+                        "margin-bottom": "1cm"
+                    }
+                }
             },
             {
                 "name": "headline5",
-                "font-size": 20,
+                "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 400,
-                "margin-top": 0,
-                "margin-bottom": 15
+                "margin-bottom": 15,
+                "media": {
+                    "print": {
+                        "font-size": "16pt",
+                        "margin-bottom": "1cm"
+                    }
+                }
             },
             {
                 "name": "headline6",
-                "font-size": 18,
+                "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 400,
-                "margin-top": 0,
-                "margin-bottom": 15
+                "margin-bottom": 15,
+                "media": {
+                    "print": {
+                        "font-size": "16pt",
+                        "margin-bottom": "1cm"
+                    }
+                }
             },
             {
                 "name": "copy",
                 "font-size": 16,
                 "line-height": 1.5,
                 "font-weight": 300,
-                "margin-top": 0,
-                "margin-bottom": 20
+                "margin-bottom": 20,
+                "media": {
+                    "print": {
+                        "font-size": "16pt",
+                        "margin-bottom": "1cm"
+                    }
+                }
             },
             {
                 "name": "copy2",
                 "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 300,
-                "margin-top": 0,
-                "margin-bottom": 16
+                "margin-bottom": 16,
+                "media": {
+                    "print": {
+                        "font-size": "16pt",
+                        "margin-bottom": "1cm"
+                    }
+                }
             }
         ]
     },
@@ -146,13 +155,17 @@
             "desktop": {
                 "padding": 20,
                 "max-width": 1600
+            },
+            "print": {
+                "padding": 0
             }
         },
         "breakpoints": {
             "phone": 0,
             "portrait": 768,
             "landscape": 1024,
-            "desktop": 1280
+            "desktop": 1280,
+            "print": 0
         },
         "gutter": {
             "phone": {
@@ -173,6 +186,11 @@
                 "columns": 12,
                 "row-gap": 20,
                 "column-gap": 20
+            },
+            "print": {
+                "columns": 12,
+                "row-gap": ".5mm",
+                "column-gap": ".5mm"
             }
         }
     }
