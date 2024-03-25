@@ -6,11 +6,11 @@
                 "font-size": 24,
                 "line-height": 1.2,
                 "font-weight": 700,
+                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
                     "print": {
-                        "font-size": "16pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -19,11 +19,11 @@
                 "font-size": 20,
                 "line-height": 1.2,
                 "font-weight": 400,
+                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
                     "print": {
-                        "font-size": "20pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -32,11 +32,11 @@
                 "font-size": 18,
                 "line-height": 1.2,
                 "font-weight": 400,
+                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
                     "print": {
-                        "font-size": "18pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -45,11 +45,11 @@
                 "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 400,
+                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
                     "print": {
-                        "font-size": "16pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -58,11 +58,11 @@
                 "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 400,
+                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
                     "print": {
-                        "font-size": "16pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -71,11 +71,11 @@
                 "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 400,
+                "margin-top": 0,
                 "margin-bottom": 15,
                 "media": {
                     "print": {
-                        "font-size": "16pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -84,11 +84,11 @@
                 "font-size": 16,
                 "line-height": 1.5,
                 "font-weight": 300,
+                "margin-top": 0,
                 "margin-bottom": 20,
                 "media": {
                     "print": {
-                        "font-size": "16pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             },
@@ -97,11 +97,11 @@
                 "font-size": 16,
                 "line-height": 1.2,
                 "font-weight": 300,
+                "margin-top": 0,
                 "margin-bottom": 16,
                 "media": {
                     "print": {
-                        "font-size": "16pt",
-                        "margin-bottom": "1cm"
+                        "margin-bottom": "5mm"
                     }
                 }
             }
@@ -143,6 +143,9 @@
     } ,
     "grid": {
         "containers": {
+            "print": {
+                "padding": 48
+            },
             "phone": {
                 "padding": 15
             },
@@ -155,28 +158,27 @@
             "desktop": {
                 "padding": 20,
                 "max-width": 1600
-            },
-            "print": {
-                "padding": 0
             }
         },
         "breakpoints": {
+            "print": 0,
             "phone": 0,
             "portrait": 768,
             "landscape": 1024,
-            "desktop": 1280,
-            "print": 0
+            "desktop": 1280
         },
         "gutter": {
+            "print": {
+                "columns": 12,
+                "gap": 20
+            },
             "phone": {
                 "columns": 12,
-                "row-gap": 10,
-                "column-gap": 10
+                "gap": 10
             },
             "portrait": {
                 "columns": 12,
-                "row-gap": 15,
-                "column-gap": 15
+                "gap": 15
             },
             "landscape": {
                 "columns": 12,
@@ -184,13 +186,7 @@
             },
             "desktop": {
                 "columns": 12,
-                "row-gap": 20,
-                "column-gap": 20
-            },
-            "print": {
-                "columns": 12,
-                "row-gap": ".5mm",
-                "column-gap": ".5mm"
+                "gap": 20
             }
         }
     }

@@ -1,1 +1,63 @@
 @use "nswow";
+
+.srl-columns {
+  @include nswow.grid-container();
+  @include nswow.grid-row();
+  page-break-before: auto;
+  page-break-inside: auto;
+  page-break-after: auto;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+
+  .srl-columns__column {
+
+    page-break-before: auto;
+    page-break-inside: auto;
+    page-break-after: auto;
+    break-before: auto;
+    break-inside: auto;
+    break-after: auto;
+
+    @include nswow.grid-col(12, phone);
+    @include nswow.grid-col(6, portrait);
+    @include nswow.grid-col(6, landscape);
+    @include nswow.grid-col(6, desktop);
+    @include nswow.grid-col(6, print);
+
+    @include nswow.helpers-trim-margins();
+
+    &--3,
+    &--4 {
+      display: none;
+    }
+  }
+
+  &.srl-columns--3 {
+    .srl-columns__column {
+      @include nswow.grid-col(12, phone);
+      @include nswow.grid-col(4, portrait);
+      @include nswow.grid-col(4, landscape);
+      @include nswow.grid-col(4, desktop);
+      @include nswow.grid-col(4, print);
+      &--3 {
+        display: block;
+      }
+    }
+  }
+
+  &.srl-columns--4 {
+    .srl-columns__column {
+      @include nswow.grid-col(12, phone);
+      @include nswow.grid-col(3, portrait);
+      @include nswow.grid-col(3, landscape);
+      @include nswow.grid-col(3, desktop);
+      @include nswow.grid-col(3, print);
+      &--3,
+      &--4
+      {
+        display: block;
+      }
+    }
+  }
+}

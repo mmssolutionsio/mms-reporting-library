@@ -1,3 +1,6 @@
 @use "nswow";
 
-@import "modern-css-reset/dist/reset.css";
+@page  {
+  margin: 0;
+  size: A4;
+}

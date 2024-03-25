@@ -51,6 +51,8 @@
     @if type-of($size) == "number" and unitless($size) and $size != 0 {
         @if $size-unit == "rem" {
             @return math.div($size, variables.$root-size)+rem;
+        } @else if $size-unit == "in" {
+            @return math.div($size, variables.$dpi)+in;
         } @else {
             @return $size+$size-unit;
         }
