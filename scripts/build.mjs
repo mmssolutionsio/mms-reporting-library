@@ -5,7 +5,7 @@ import { glob } from "glob";
 import { beaver } from "./beaver.mjs";
 import { build as viteBuild } from 'vite';
 import { build as finalizeLdd } from "./migrate-livingdocs-build/bin/build.js";
-import { fileURLToPath, URL } from 'node:url'
+import { readPackageJson, writePackageJson, readLivingDocsJson, writeLivingDocsJson } from "./utils.mjs";
 
 const CWD = process.cwd();
 const nswowPath = resolve(CWD, '.nswow');
@@ -111,18 +111,20 @@ async function buildPdf() {
 }
 
 async function buildLdd(version) {
+    let action = false;
     await checkFolders();
 
-    const lddJsonFile = resolve(CWD, './livingdocs.config.json');
-    const lddJson = JSON.parse(
-        await readFileSync(lddJsonFile)
-    );
+    const packageJson = await readPackageJson();
+    const lddJson = await readLivingDocsJson();
 
     if (version) {
-        lddJson.version = version;
-        const writeJson = require('write-json');
-        writeJson.sync(lddJsonFile, lddJson);
+        packageJson.version = version;
+        await writePackageJson(packageJson);
+        action = true;
     }
+
+    lddJson.name = packageJson.name;
+    lddJson.version = packageJson.version;
 
     const input = resolve(CWD, 'ldd.html');
     try {
@@ -151,14 +153,8 @@ async function buildLdd(version) {
             }
         })
             .then(async () => {
-                const lddJsonFile = resolve(CWD, './livingdocs.config.json');
-                const lddJson = JSON.parse(
-                    await readFileSync(lddJsonFile)
-                );
-
                 const assetsPath = outputPath + '/ldd/assets';
                 const assetsFiles = await readdirSync( assetsPath );
-                let action = false;
                 for (let i = 0; i < assetsFiles.length; i++) {
                     const file = assetsFiles[i];
                     if (file.endsWith('.css')) {
@@ -177,8 +173,7 @@ async function buildLdd(version) {
                     }
                 }
                 if (action) {
-                    const writeJson = require('write-json');
-                    writeJson.sync(lddJsonFile, lddJson);
+                    await writeLivingDocsJson(lddJson);
                 }
                 return true;
             })
@@ -226,14 +221,11 @@ async function buildWord() {
 
 async function build() {
     await checkFolders();
-    const lddJsonFile = resolve(CWD, './livingdocs.config.json');
-    const lddJson = JSON.parse(
-        await readFileSync(lddJsonFile)
-    );
+    const packageJson = await readPackageJson();
 
     const prompt = new Input({
         message: 'Livingdocs version',
-        initial: lddJson.version
+        initial: packageJson.version
     });
 
     prompt.run()
@@ -360,16 +352,7 @@ async function mapScss() {
 async function mapLdd() {
     await checkFolders();
     try {
-        const writeJson = require('write-json');
-        const packageJsonFile = resolve(CWD, './package.json');
-        const lddJsonFile = resolve(CWD, './livingdocs.config.json');
-        const packageJson = JSON.parse(
-            await readFileSync(packageJsonFile)
-        );
-        const lddJson = JSON.parse(
-            await readFileSync(lddJsonFile)
-        );
-        lddJson.name = packageJson.name;
+        const lddJson = await readLivingDocsJson();
 
         const propertiesFiles = await glob(resolve(CWD, './livingdocs/**/properties.json'));
         const mapProperties = {};
@@ -448,7 +431,7 @@ async function mapLdd() {
             }
         }
         lddJson.groups = newMap;
-        writeJson.sync(lddJsonFile, lddJson);
+        await writeLivingDocsJson(lddJson);
         return true;
     } catch (e) {
         console.error(e);
