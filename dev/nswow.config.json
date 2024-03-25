@@ -7,12 +7,7 @@
                 "line-height": 1.2,
                 "font-weight": 700,
                 "margin-top": 0,
-                "margin-bottom": 15,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 15
             },
             {
                 "name": "headline2",
@@ -20,12 +15,7 @@
                 "line-height": 1.2,
                 "font-weight": 400,
                 "margin-top": 0,
-                "margin-bottom": 15,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 15
             },
             {
                 "name": "headline3",
@@ -33,12 +23,7 @@
                 "line-height": 1.2,
                 "font-weight": 400,
                 "margin-top": 0,
-                "margin-bottom": 15,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 15
             },
             {
                 "name": "headline4",
@@ -46,12 +31,7 @@
                 "line-height": 1.2,
                 "font-weight": 400,
                 "margin-top": 0,
-                "margin-bottom": 15,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 15
             },
             {
                 "name": "headline5",
@@ -59,12 +39,7 @@
                 "line-height": 1.2,
                 "font-weight": 400,
                 "margin-top": 0,
-                "margin-bottom": 15,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 15
             },
             {
                 "name": "headline6",
@@ -72,12 +47,7 @@
                 "line-height": 1.2,
                 "font-weight": 400,
                 "margin-top": 0,
-                "margin-bottom": 15,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 15
             },
             {
                 "name": "copy",
@@ -85,25 +55,31 @@
                 "line-height": 1.5,
                 "font-weight": 300,
                 "margin-top": 0,
-                "margin-bottom": 20,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 20
             },
             {
-                "name": "copy2",
-                "font-size": 16,
+                "name": "lead",
+                "font-size": 18,
                 "line-height": 1.2,
                 "font-weight": 300,
                 "margin-top": 0,
-                "margin-bottom": 16,
-                "media": {
-                    "print": {
-                        "margin-bottom": "5mm"
-                    }
-                }
+                "margin-bottom": 16
+            },
+            {
+                "name": "quote",
+                "font-size": 20,
+                "line-height": 1.2,
+                "font-weight": 300,
+                "margin-top": 0,
+                "margin-bottom": 16
+            },
+            {
+                "name": "footnote",
+                "font-size": 14,
+                "line-height": 1.2,
+                "font-weight": 400,
+                "margin-top": 0,
+                "margin-bottom": 0
             }
         ]
     },
