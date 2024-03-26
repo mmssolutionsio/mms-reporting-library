@@ -8,6 +8,7 @@ Starter Package for nswow development
 ### After installation
 
 > cd {{ project-name }}
+
 > npm install
 
 ## Usage
