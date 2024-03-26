@@ -2,10 +2,10 @@ import { resolve } from 'node:path';
 import {statSync, writeFileSync, readFileSync, mkdirSync, readdirSync, createWriteStream, rmSync} from 'node:fs';
 import { createRequire } from 'node:module';
 import { glob } from "glob";
-import { beaver } from "./beaver.mjs";
+import { beaver } from "./beaver.js";
 import { build as viteBuild } from 'vite';
 import { build as finalizeLdd } from "./migrate-livingdocs-build/bin/build.js";
-import { readPackageJson, writePackageJson, readLivingDocsJson, writeLivingDocsJson } from "./utils.mjs";
+import { readPackageJson, writePackageJson, readLivingDocsJson, writeLivingDocsJson } from "./utils.js";
 
 const CWD = process.cwd();
 const nswowPath = resolve(CWD, '.nswow');
@@ -16,6 +16,12 @@ const { Input } = require("enquirer");
 
 let foldersChecked = false;
 
+/**
+ * Checks if the required folders exist and creates them if necessary.
+ *
+ * @async
+ * @returns {Promise<boolean>} A promise that resolves to true once the folders are checked and created.
+ */
 async function checkFolders() {
     if (!foldersChecked) {
         foldersChecked = true;
@@ -33,6 +39,11 @@ async function checkFolders() {
     return true;
 }
 
+/**
+ * Cleans the output directory by removing all files and folders.
+ *
+ * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether the cleanup was successful.
+ */
 async function cleanOutput() {
     await checkFolders();
     const output = readdirSync(outputPath);
@@ -42,11 +53,26 @@ async function cleanOutput() {
     return true;
 }
 
+/**
+ * Builds the application by performing the following steps:
+ *
+ * 1. Checks the folders.
+ * 2. Executes the viteBuild function.
+ *
+ * @returns {Promise<void>} A Promise that resolves when the application is built.
+ */
 async function buildApp() {
     await checkFolders();
     return await viteBuild();
 }
 
+/**
+ * Compresses the 'app' folder into a zip file using archiver library.
+ *
+ * @async
+ * @function zipApp
+ * @returns {Promise<void>} - A Promise that resolves when the zip operation is complete, or rejects with an error.
+ */
 async function zipApp() {
     await checkFolders();
     const archiver = require('archiver');
@@ -77,6 +103,12 @@ async function zipApp() {
     archive.finalize();
 }
 
+/**
+ * Builds a PDF using the provided HTML template.
+ *
+ * @returns {Promise<boolean>} - Returns a Promise that resolves to true if the PDF was successfully built,
+ *                              false otherwise.
+ */
 async function buildPdf() {
     await checkFolders();
     const input = resolve(CWD, 'pdf.html');
@@ -84,7 +116,6 @@ async function buildPdf() {
         await statSync(input);
     } catch (e){return true;}
     try {
-        const { alias } = await import(resolve(CWD, './alias.js'));
         return await viteBuild({
             build: {
                 outDir: './.output/pdf',
@@ -99,9 +130,6 @@ async function buildPdf() {
                     }
                 },
                 copyPublicDir: false,
-            },
-            resolve: {
-                alias: alias
             }
         })
     } catch (e) {
@@ -110,6 +138,13 @@ async function buildPdf() {
     }
 }
 
+/**
+ * Builds Living Documentation (LDD) for a project.
+ *
+ * @async
+ * @param {string} version - The version number to update in the project's package.json file. (optional)
+ * @returns {Promise<boolean>} - A Promise that resolves to true if the LDD build is successful, false otherwise.
+ */
 async function buildLdd(version) {
     let action = false;
     await checkFolders();
@@ -132,7 +167,6 @@ async function buildLdd(version) {
     } catch (e){return true;}
     try {
         await writeFileSync(`${outputPath}/v${lddJson.version}.txt`, '');
-        const { alias } = await import(resolve(CWD, './alias.js'));
         return await viteBuild({
             build: {
                 outDir: './.output/ldd',
@@ -147,9 +181,6 @@ async function buildLdd(version) {
                     }
                 },
                 copyPublicDir: false,
-            },
-            resolve: {
-                alias: alias
             }
         })
             .then(async () => {
@@ -186,9 +217,15 @@ async function buildLdd(version) {
     }
 }
 
+/**
+ * Builds the word document by compiling the HTML file using Vite and
+ * returns the result.
+ *
+ * @returns {Promise<boolean>} - A promise that resolves to true if the word document is successfully built,
+ *                              or false if there was an error during the build process.
+ */
 async function buildWord() {
     await checkFolders();
-    const { alias } = await import(resolve(CWD, './alias.js'));
     const input = resolve(CWD, 'word.html');
     try {
         await statSync(input);
@@ -208,9 +245,6 @@ async function buildWord() {
                     }
                 },
                 copyPublicDir: false,
-            },
-            resolve: {
-                alias: alias
             }
         })
     } catch (e) {
@@ -219,48 +253,40 @@ async function buildWord() {
     }
 }
 
+/**
+ * Builds the project sequentially by executing a series of asynchronous tasks in a specific order.
+ * This method is used to build the project in a predetermined sequence.
+ *
+ * @return {Promise<void>} A Promise that resolves when the build process is completed or rejects if an error occurs.
+ */
 async function build() {
-    await checkFolders();
-    const packageJson = await readPackageJson();
-
-    const prompt = new Input({
-        message: 'Livingdocs version',
-        initial: packageJson.version
-    });
-
-    prompt.run()
-        .then(async version => {
-            await cleanOutput()
-                .then(async () => {
-                    beaver(1)
-                        .then(async () => {
-                            await mapScss()
-                                .then(async () => {
-                                    await mapLdd()
-                                        .then(async () => {
-                                            await buildApp()
-                                                .then(async () => {
-                                                        await buildPdf()
-                                                            .then(async () => {
-                                                                await buildWord()
-                                                                    .then(async () => {
-                                                                        await buildLdd(version)
-                                                                            .then(async () => {
-                                                                                await zipApp()
-                                                                            })
-                                                                    })
-                                                            })
-                                                    }
-                                                )
-                                        })
-
-                                })
-                        })
-                })
-        })
-        .catch(console.log);
+    try {
+        await checkFolders();
+        const packageJson = await readPackageJson();
+        const prompt = new Input({
+            message: 'Livingdocs version',
+            initial: packageJson.version
+        });
+        const version = await prompt.run();
+        await cleanOutput();
+        await beaver(1);
+        await mapScss();
+        await mapLdd();
+        await buildApp();
+        await buildPdf();
+        await buildWord();
+        await buildLdd(version);
+        await zipApp();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
+/**
+ * Maps SCSS files and generates import statements for different output files.
+ *
+ * @returns {Promise<boolean>} Returns a promise that resolves to true if the SCSS mapping is successful, and false if there's an error.
+ */
 async function mapScss() {
     await checkFolders();
     try {
@@ -349,6 +375,11 @@ async function mapScss() {
     }
 }
 
+/**
+ * Maps the livingdocs properties to components and groups.
+ *
+ * @returns {Promise<boolean>} Returns a promise that resolves to a boolean indicating the success or failure of the mapping.
+ */
 async function mapLdd() {
     await checkFolders();
     try {
@@ -439,9 +470,19 @@ async function mapLdd() {
     }
 }
 
+/**
+ * Maps the SCSS files and the LDD files in the project.
+ *
+ * @async
+ * @function map
+ * @returns {Promise<boolean>} A promise that resolves after successfully mapping the files.
+ * @throws {Error} If there is an error during the mapping process.
+ */
 async function map() {
     await checkFolders();
-    await mapScss().then( async () => await mapLdd() );
+    await mapScss();
+    await mapLdd();
+    return true;
 }
 
 export {

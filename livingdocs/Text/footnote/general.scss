@@ -2,7 +2,7 @@
 @use "nswow/grid";
 
 .srl-footnote {
-  @include nswow.typography-footnode();
+  @include nswow.typography-footnote();
 
   page-break-before: auto;
   page-break-inside: avoid;
@@ -33,7 +33,11 @@
       }
       @if $column-gap {
         @include nswow.grid-media($breakpoint) {
-          column-gap: $column-gap;
+          @if $breakpoint == print {
+            column-gap: nswow.system-size-unit($column-gap, in);
+          } @else {
+            column-gap: nswow.system-size-unit($column-gap);
+          }
         }
       }
     }

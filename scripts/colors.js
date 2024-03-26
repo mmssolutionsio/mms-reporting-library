@@ -1,5 +1,11 @@
 import { createRequire } from "node:module"
 const require = createRequire(import.meta.url);
+/**
+ * The colors module provides ANSI styling and coloring for terminal output.
+ *
+ * @module colors
+ * @requires colors/safe
+ */
 const colors = require("colors/safe")
 
 colors.setTheme({

@@ -1,9 +1,12 @@
 {
   "name": "@multivisio/nswow",
-  "version": "0.1.36",
+  "version": "0.1.44",
   "description": "Manage nswow templates, build and publish",
   "bin": {
     "nswow": "cli.js"
+  },
+  "scripts": {
+    "typescript": "npx -p typescript tsc"
   },
   "type": "module",
   "main": "cli.js",
@@ -20,8 +23,8 @@
     "html-minifier": "^4.0.0",
     "lodash": "^4.17.21",
     "modern-css-reset": "^1.4.0",
-    "vite": "^5.1.5",
-    "winston": "^3.12.0",
+    "vite": "^5.2.6",
+    "winston": "^3.13.0",
     "write-json": "^3.0.1"
   },
   "keywords": [
@@ -32,5 +35,8 @@
     "colors"
   ],
   "author": "Michael Dörer",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.3"
+  }
 }

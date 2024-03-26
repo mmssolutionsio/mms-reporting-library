@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
-
-import { beaver } from '@multivisio/nswow/scripts/beaver.mjs'
-import { map } from '@multivisio/nswow/scripts/build.mjs'
-import {nswowWatcher} from "@multivisio/nswow/scripts/vite.mjs"
-import { alias } from "./alias.js"
+import { fileURLToPath, URL } from 'node:url'
+import { beaver } from '@multivisio/nswow/scripts/beaver.js'
+import { map } from '@multivisio/nswow/scripts/build.js'
+import {nswowWatcher} from "@multivisio/nswow/scripts/vite.js"
 
 await beaver()
 await map()
@@ -21,6 +20,9 @@ export default defineConfig({
     outDir: './.output/app'
   },
   resolve: {
-    alias: alias
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'nswow': fileURLToPath(new URL('./nswow', import.meta.url))
+    }
   }
 })

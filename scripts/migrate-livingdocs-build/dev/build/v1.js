@@ -2,6 +2,13 @@ import configuration from "../configuration.js";
 import lib from "../lib.js";
 import fs from "fs";
 
+/**
+ * Builds and packages a design version.
+ *
+ * @param {object} designData - The design data object.
+ * @param {object} components - The components object.
+ * @returns {void}
+ */
 const BuildV1 = (designData, components) => {
   // critical tests
   lib.testComponentExistV1(designData, components);

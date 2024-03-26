@@ -1,6 +1,12 @@
-import {beaver} from './beaver.mjs';
-import {map, mapLdd} from './build.mjs';
+import {beaver} from './beaver.js';
+import {map, mapLdd} from './build.js';
 
+/**
+ * Configures the nswow-watcher for the server to monitor changes in specific files.
+ * When a change, add, or unlink event is triggered, corresponding actions are executed.
+ *
+ * @param {Object} server - The server object.
+ */
 function nswowWatcher() {
     return {
         name: "nswow-watcher",

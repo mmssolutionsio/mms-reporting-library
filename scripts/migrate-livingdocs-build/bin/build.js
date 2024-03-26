@@ -4,6 +4,11 @@ import configuration from "../dev/configuration.js";
 import logger from "../dev/logger.js";
 import Build from "../dev/build.js";
 
+/**
+ * Builds the Livingdocs design and components based on the configuration.
+ *
+ * @returns {boolean} - Indicates whether the build was successful or not.
+ */
 async function build() {
   try {
     const designData = LivingdocsDesign.loadDesign(configuration);

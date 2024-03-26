@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import { readFile } from 'fs/promises';
-import { addComponents, removeComponents, createComponent, addGroups, removeGroups, createGroup } from "./scripts/components.mjs";
-import { build, map } from "./scripts/build.mjs";
-import { beaver } from "./scripts/beaver.mjs";
+import { addComponents, removeComponents, createComponent, addGroups, removeGroups, createGroup } from "./scripts/components.js";
+import { build, map } from "./scripts/build.js";
+import { beaver } from "./scripts/beaver.js";
 
 const packageJson = JSON.parse(
     await readFile(
@@ -11,7 +11,7 @@ const packageJson = JSON.parse(
     )
 );
 
-import {init} from "./scripts/init.mjs";
+import {init} from "./scripts/init.js";
 
 const commander = new Command();
 

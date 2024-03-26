@@ -1,7 +1,14 @@
 import { writeFileSync, readFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
-import { colors } from './colors.mjs';
+import { colors } from './colors.js';
+import { readNsWowJson } from "./utils.js";
 
+/**
+ * Maps the values of an object or array recursively.
+ *
+ * @param {Object|Array} values - The object or array of values to map.
+ * @returns {Object|Array} - The mapped object or array.
+ */
 function mapValues( values ) {
     let r = {}
     if ( Array.isArray( values ) ) {
@@ -30,6 +37,13 @@ function mapValues( values ) {
     return r;
 }
 
+/**
+ * Generates SCSS code to import and write typography mixins.
+ *
+ * @param {Object} typography - The typography configuration object.
+ * @param {Object} typography.typography - The typography mixin definitions.
+ * @returns {string} - The generated SCSS code.
+ */
 function writeTypographyScss(typography) {
     let r = [`@use "config";`, `@forward "@multivisio/nswow/scss/typography";`];
     if (typography) {
@@ -50,6 +64,12 @@ function writeTypographyScss(typography) {
     return r.join(`\n`);
 }
 
+/**
+ * Writes SCSS code for importing and forwarding colors from a config file.
+ *
+ * @param {Object} colors - The colors object containing color keys and their values.
+ * @returns {string} - The SCSS code for importing and forwarding colors.
+ */
 function writeColorsScss(colors) {
     let r = [`@use "config";`, `@forward "@multivisio/nswow/scss/colors";`];
     if ( colors ) {
@@ -71,6 +91,12 @@ function writeColorsScss(colors) {
     return r.join(`\n`);
 }
 
+/**
+ * Checks if there are any commas outside of parentheses in the given text.
+ *
+ * @param {string} text - The text to be checked.
+ * @return {boolean} - True if there is at least one comma outside of parentheses, false otherwise.
+ */
 function hasCommasOutsideOfParentheses(text) {
     let depth = 0;
     for (let char of text) {
@@ -81,6 +107,12 @@ function hasCommasOutsideOfParentheses(text) {
     return false;
 }
 
+/**
+ * Determines if there are points outside of parentheses in the given text.
+ *
+ * @param {string} text - The text to check.
+ * @return {boolean} - True if there are points outside of parentheses, false otherwise.
+ */
 function hasPointsOutsideOfParentheses(text) {
     let depth = 0;
     for (let char of text) {
@@ -91,6 +123,13 @@ function hasPointsOutsideOfParentheses(text) {
     return false;
 }
 
+/**
+ * Converts a JavaScript object into SCSS variables.
+ *
+ * @param {object} values - The JavaScript object containing the variable names and values.
+ * @param {number} indent - The number of spaces to indent each line of the generated SCSS. Default is 2.
+ * @returns {string} - The SCSS variables as a string.
+ */
 function makeScssVariables( values, indent = 2 ) {
     let r = [];
     if (typeof values === "object") {
@@ -121,10 +160,13 @@ function makeScssVariables( values, indent = 2 ) {
     return r.join(`\n`);
 }
 
+/**
+ * Generates configuration files for nswow.
+ * @param {number} [verbose=0] - The verbosity level. Default is 0.
+ * @returns {Promise<void>} - A promise that resolves once the files have been generated.
+ */
 async function beaver(verbose = 0) {
-    const configJson = JSON.parse(
-        await readFileSync(resolve(process.cwd(),'./nswow.config.json'))
-    );
+    const configJson = await readNsWowJson();
     const nswowPath = resolve(process.cwd(), './nswow');
 
     if (typeof verbose === "boolean") {
@@ -213,7 +255,7 @@ async function beaver(verbose = 0) {
         if (verbose > 1) {
             console.log(colors.prompt(`\n` + colorsOutput + `\n`));
         }
-        console.log("")
+        console.log("");
     }
 }
 

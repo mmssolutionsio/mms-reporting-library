@@ -4,8 +4,8 @@ import { glob } from "glob";
 import { copy, ensureDir } from "fs-extra";
 import { rm, statSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from 'node:url';
-import { lddGroupNames } from "./utils.mjs";
-import { map } from "@multivisio/nswow/scripts/build.mjs";
+import { lddGroupNames } from "./utils.js";
+import { map } from "@multivisio/nswow/scripts/build.js";
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +16,10 @@ const CWD = process.cwd();
 
 const { MultiSelect, Confirm, AutoComplete, Input } = require("enquirer");
 
+/**
+ * Adds groups of livingdocs to a specified output directory.
+ * @returns {boolean} - Returns true if groups were added successfully.
+ */
 async function addGroups() {
     const outputPath = resolve(CWD, './livingdocs');
     const groupsPath = `${packagePath}/livingdocs`;
@@ -77,6 +81,15 @@ async function addGroups() {
     return true;
 }
 
+/**
+ * Adds components from a specified directory to another directory.
+ * Prompts the user to select which components to add.
+ *
+ * @async
+ * @function addComponents
+ *
+ * @returns {Promise<void>} - A promise that resolves when the components are added successfully.
+ */
 async function addComponents() {
     const filesToAdd = await glob(`${packagePath}/livingdocs/**/*`, { maxDepth: 6 });
     const filesExists = await glob(`${CWD}/livingdocs/**/*`, { maxDepth: 3 });
@@ -133,6 +146,11 @@ async function addComponents() {
     }
 }
 
+/**
+ * Removes livingdocs groups from the specified directory.
+ *
+ * @returns {boolean} Returns true if the livingdocs groups were successfully removed, otherwise false.
+ */
 async function removeGroups() {
     const livingdocsPath = resolve(CWD, './livingdocs');
     const groupsExists = [];
@@ -191,6 +209,11 @@ async function removeGroups() {
     return true;
 }
 
+/**
+ * Removes livingdocs components based on user selection.
+ *
+ * @returns {Promise<void>} A promise that resolves once the components are removed.
+ */
 async function removeComponents() {
     const filesExists = await glob(`${CWD}/livingdocs/**/*`, { maxDepth: 3 });
     const livingdocsExists = [];
@@ -254,6 +277,12 @@ async function removeComponents() {
         .catch(console.error);
 }
 
+/**
+ * Maps the given component name to a component object containing group and name properties.
+ *
+ * @param {string} name - The name of the component.
+ * @return {object} - An object with group and name properties representing the mapped component.
+ */
 function mapComponentName(name) {
     const component = {
         group: false,
@@ -271,6 +300,12 @@ function mapComponentName(name) {
     return component;
 }
 
+/**
+ * Creates a component in the specified group with the given name.
+ * @param {string} group - The group for the component.
+ * @param {string} name - The name of the component.
+ * @return {boolean} - Returns true if the component is successfully created, false otherwise.
+ */
 async function writeComponent(group, name){
     if (!group) {
         console.error('Component could not be created. The group is not set!');
@@ -316,6 +351,14 @@ async function writeComponent(group, name){
     return true;
 }
 
+/**
+ * Create a component with the given name. If the component name is not provided, it prompts the user to enter a name.
+ * If the component name does not have a group, it prompts the user to select a group.
+ * Once the component name and group are determined, it writes the component.
+ *
+ * @param {string} name - The name of the component (optional)
+ * @return {boolean} - Returns true
+ */
 async function createComponent(name){
     let component = mapComponentName(name);
 
@@ -398,6 +441,12 @@ async function createComponent(name){
     return true;
 }
 
+/**
+ * Creates a new group folder for saving living documents.
+ *
+ * @param {string} group - The name of the group to create.
+ * @returns {Promise<boolean>} - Returns a promise that resolves to true if the group was created successfully, otherwise false.
+ */
 async function writeGroup(group) {
     if (!group) {
         console.error('No group name set!');
@@ -415,6 +464,12 @@ async function writeGroup(group) {
     return true;
 }
 
+/**
+ * Creates a group.
+ *
+ * @param {string} group - The name of the group to be created. If not provided, user will be prompted to enter the group name.
+ * @returns {Promise<boolean>} - A promise that resolves to a boolean value indicating if the group was successfully created or not.
+ */
 async function createGroup(group) {
     if (!group) {
         const { Input } = require('enquirer');
