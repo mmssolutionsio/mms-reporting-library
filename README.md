@@ -3,7 +3,7 @@
 Starter Package for nswow development
 
 ## Installation
-> npx @multivisio/nswow@latest init <project-name>
+> npx @multivisio/nswow@latest init {{ project-name }}
 
 ### After installation
 
