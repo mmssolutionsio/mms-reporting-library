@@ -7,8 +7,18 @@ Starter Package for nswow development
 
 ### After installation
 
-> cd <project-name>
+> cd {{ project-name }}
 > npm install
+
+## Usage
+
+Run dev server:
+
+> npm run dev
+
+Build all required files.
+
+> npm run build
 
 
 
