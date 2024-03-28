@@ -1,12 +1,9 @@
 {
   "name": "@multivisio/nswow",
-  "version": "0.1.44",
+  "version": "0.1.47",
   "description": "Manage nswow templates, build and publish",
   "bin": {
     "nswow": "cli.js"
-  },
-  "scripts": {
-    "typescript": "npx -p typescript tsc"
   },
   "type": "module",
   "main": "cli.js",
@@ -37,6 +34,7 @@
   "author": "Michael Dörer",
   "license": "ISC",
   "devDependencies": {
+    "npm-api": "^1.0.1",
     "typescript": "^5.4.3"
   }
 }

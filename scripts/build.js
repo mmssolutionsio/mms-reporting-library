@@ -376,6 +376,27 @@ async function mapScss() {
 }
 
 /**
+ * This function asynchronously maps JavaScript files and imports them into specific files.
+ * @returns {Promise<boolean>} A promise that resolves to true if the mapping and importing is successful.
+ */
+async function mapJs() {
+    const jsFiles = await glob(resolve(process.cwd(),'./livingdocs/**/app.js'), {
+        withFileTypes: true
+    });
+
+    for (let i = 0; i < jsFiles.length; i++) {
+        const file = jsFiles[i];
+        const content = readFileSync(file.fullpath(), 'utf-8');
+        const importStatements = content.match(/import\s.*?from\s['"].*?['"]/g);
+        if (importStatements) {
+            const imports = importStatements.map(statement => statement.replace(/import\s(.*?)\sfrom\s['"](.*?)['"]/g, '$1'));
+            const output = imports.map(importName => `import '${importName}';`).join('\n');
+            writeFileSync(file.fullpath(), output, 'utf-8');
+        }
+    }
+}
+
+/**
  * Maps the livingdocs properties to components and groups.
  *
  * @returns {Promise<boolean>} Returns a promise that resolves to a boolean indicating the success or failure of the mapping.
