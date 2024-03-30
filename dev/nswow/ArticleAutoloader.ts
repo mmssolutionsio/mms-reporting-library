@@ -30,7 +30,7 @@ class ArticleAutoloader {
    */
   init(obj: HTMLElement) {
     const nodes: NodeListOf<Element> = obj.querySelectorAll(this.selector);
-    if (nodes) { for (let index = 0; index < nodes.length; index++) { this.initAutoload(nodes[index] as HTMLElement); } }
+    if (nodes) { for (let index = 0; index < nodes.length; index++) { this._initAutoload(nodes[index] as HTMLElement); } }
   }
 
 
@@ -53,7 +53,7 @@ class ArticleAutoloader {
    *
    * @return {void} - This method does not return any value.
    */
-  createInstance(node: HTMLElement, options: any, className: string) {
+  _createInstance(node: HTMLElement, options: any, className: string) {
     if (this.classes[className] !== undefined) {
       new this.classes[className](node, options);
     }
@@ -64,7 +64,7 @@ class ArticleAutoloader {
    *
    * @param {HTMLElement} node - The node for which to initialize the autoload feature.
    */
-  initAutoload(node: HTMLElement): void {
+  _initAutoload(node: HTMLElement): void {
     let load: AutoloadList = node.dataset.autoload
 
     // Converting to array in case of single string for uniform processing
@@ -80,12 +80,14 @@ class ArticleAutoloader {
     // check if it's a single string or a list
     if (load.length === 1) {
       const options = node.dataset.options || {}
-      this.createInstance(node, options, camelCase(load[0]))
+      this._createInstance(node, options, camelCase(load[0]))
     } else {
       const optionsDataSet = JSON.parse(node.dataset.options || '{}')
       for (const className of load) {
-        const options = optionsDataSet[className] || {}
-        this.createInstance(node, options, camelCase(className))
+        if ( className !== "" ) {
+          const options = optionsDataSet[className] || {}
+          this._createInstance(node, options, camelCase(className))
+        }
       }
     }
   }

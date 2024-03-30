@@ -15,9 +15,9 @@ abstract class ArticleLoader {
    */
   protected constructor(selector: string | Node, options: any) {
     if (typeof selector === 'string' || selector instanceof NodeList) {
-      this.initializeNodeList(selector, options)
+      this._initializeNodeList(selector, options)
     } else if (selector instanceof Node) {
-      this.initializeNode(selector, options)
+      this._initializeNode(selector, options)
     }
   }
 
@@ -29,7 +29,7 @@ abstract class ArticleLoader {
    *
    * @return {void} - No return value.
    */
-  protected initializeNodeList(selector: string | NodeList, options: unknown) {
+  protected _initializeNodeList(selector: string | NodeList, options: unknown) {
     const nodeList = (typeof selector === 'string') ? document.querySelectorAll(selector) : selector
     Array.from(nodeList).forEach(node => new this.constructor(node, options))
   }
@@ -41,10 +41,10 @@ abstract class ArticleLoader {
    * @param {unknown} options - The options to assign to the Node.
    * @return {void}
    */
-  protected initializeNode(node: Node, options: unknown) {
+  protected _initializeNode(node: Node, options: unknown) {
     this.element = node
     this.element[this.constructor.name] = this
-    this.assignOptions(options)
+    this._assignOptions(options)
     this._create()
   }
 
@@ -54,7 +54,7 @@ abstract class ArticleLoader {
    * @param {unknown} options - The options to be assigned.
    * @return {void}
    */
-  protected assignOptions(options: unknown) {
+  protected _assignOptions(options: unknown) {
     if (options !== undefined) {
       this.options = (typeof options === 'string')
         ? JSON.parse(options)
