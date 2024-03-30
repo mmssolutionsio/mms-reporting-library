@@ -6,6 +6,7 @@ import { beaver } from "./beaver.js";
 import { build as viteBuild } from 'vite';
 import { build as finalizeLdd } from "./migrate-livingdocs-build/bin/build.js";
 import { readPackageJson, writePackageJson, readLivingDocsJson, writeLivingDocsJson } from "./utils.js";
+import { camelCase } from 'cheerio/lib/utils';
 
 const CWD = process.cwd();
 const nswowPath = resolve(CWD, '.nswow');
@@ -183,34 +184,34 @@ async function buildLdd(version) {
                 copyPublicDir: false,
             }
         })
-            .then(async () => {
-                const assetsPath = outputPath + '/ldd/assets';
-                const assetsFiles = await readdirSync( assetsPath );
-                for (let i = 0; i < assetsFiles.length; i++) {
-                    const file = assetsFiles[i];
-                    if (file.endsWith('.css')) {
-                        const path = './assets/' + file;
-                        if (!lddJson.assets.css.includes(path)) {
-                            action = true;
-                            lddJson.assets.css.push(path)
-                        }
-                    }
-                    if (file.endsWith('.js')) {
-                        const path = './assets/' + file;
-                        if (!lddJson.assets.js.includes(path)) {
-                            action = true;
-                            lddJson.assets.js.push(path)
-                        }
-                    }
-                }
-                if (action) {
-                    await writeLivingDocsJson(lddJson);
-                }
-                return true;
-            })
-            .then(async () => {
-                return await finalizeLdd();
-            })
+          .then(async () => {
+              const assetsPath = outputPath + '/ldd/assets';
+              const assetsFiles = await readdirSync( assetsPath );
+              for (let i = 0; i < assetsFiles.length; i++) {
+                  const file = assetsFiles[i];
+                  if (file.endsWith('.css')) {
+                      const path = './assets/' + file;
+                      if (!lddJson.assets.css.includes(path)) {
+                          action = true;
+                          lddJson.assets.css.push(path)
+                      }
+                  }
+                  if (file.endsWith('.js')) {
+                      const path = './assets/' + file;
+                      if (!lddJson.assets.js.includes(path)) {
+                          action = true;
+                          lddJson.assets.js.push(path)
+                      }
+                  }
+              }
+              if (action) {
+                  await writeLivingDocsJson(lddJson);
+              }
+              return true;
+          })
+          .then(async () => {
+              return await finalizeLdd();
+          })
     } catch (e) {
         console.error(e);
         return false;
@@ -377,23 +378,40 @@ async function mapScss() {
 
 /**
  * This function asynchronously maps JavaScript files and imports them into specific files.
- * @returns {Promise<boolean>} A promise that resolves to true if the mapping and importing is successful.
+ * @returns {Promise<boolean>} - A promise that resolves to true if the mapping and importing is successful.
  */
 async function mapJs() {
-    const jsFiles = await glob(resolve(process.cwd(),'./livingdocs/**/app.js'), {
-        withFileTypes: true
-    });
+    const jsFiles = await glob(resolve(CWD, './livingdocs/'+'**/app.[t,j]s'), { withFileTypes: true });
+
+    const imports = [];
+    const register = [];
 
     for (let i = 0; i < jsFiles.length; i++) {
         const file = jsFiles[i];
-        const content = readFileSync(file.fullpath(), 'utf-8');
-        const importStatements = content.match(/import\s.*?from\s['"].*?['"]/g);
-        if (importStatements) {
-            const imports = importStatements.map(statement => statement.replace(/import\s(.*?)\sfrom\s['"](.*?)['"]/g, '$1'));
-            const output = imports.map(importName => `import '${importName}';`).join('\n');
-            writeFileSync(file.fullpath(), output, 'utf-8');
+        const className = camelCase(file.parent.name);
+        const path = [file.name];
+        let parent = file.parent;
+        while (parent) {
+            path.unshift(parent.name);
+            if (parent.name !== 'livingdocs') {
+                parent = parent.parent;
+            } else {
+                parent = false;
+            }
         }
+        imports.push(`import ${className} from "../${path.join(file.sep)}"`)
+        register.push(`ClassAutoLoader.register(${className}, "${className}")`)
     }
+
+    const content = `import ArticleAutoloader from 'nswow/ArticleAutoloader'
+${imports.join("\n")}
+const ClassAutoLoader = new ArticleAutoloader()
+${register.join("\n")}
+export default ClassAutoLoader
+export { ClassAutoLoader }`;
+
+    await writeFileSync(resolve(CWD, './src/Autoload.ts'), content);
+    return true;
 }
 
 /**
@@ -424,8 +442,8 @@ async function mapLdd() {
         for ( let x = 0; x < groups.length; x++) {
             const group = groups[x];
             const groupName = group
-                .replace('_and_', ' / ')
-                .replace('_', ' ')
+              .replace('_and_', ' / ')
+              .replace('_', ' ')
             ;
 
             try {
@@ -510,5 +528,6 @@ export {
     build,
     map,
     mapScss,
-    mapLdd
+    mapLdd,
+    mapJs
 }

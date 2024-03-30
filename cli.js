@@ -2,7 +2,7 @@
 import { Command } from "commander";
 import { readFile } from 'fs/promises';
 import { addComponents, removeComponents, createComponent, addGroups, removeGroups, createGroup } from "./scripts/components.js";
-import { build, map } from "./scripts/build.js";
+import { build, map, mapJs } from "./scripts/build.js";
 import { beaver } from "./scripts/beaver.js";
 
 const packageJson = JSON.parse(
@@ -77,10 +77,17 @@ commander.command("build")
 ;
 
 commander.command("map")
-    .description("Build all necessary entries for production")
+    .description("Build all necessary scss and livingdocs entries for production")
     .action(async () => {
         await map();
     })
+;
+
+commander.command("mapjs")
+  .description("Build all necessary javascript and typescript entries for production")
+  .action(async () => {
+    await mapJs();
+  })
 ;
 
 commander.command("beaver")

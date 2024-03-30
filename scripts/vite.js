@@ -1,5 +1,5 @@
 import {beaver} from './beaver.js';
-import {map, mapLdd} from './build.js';
+import {map, mapLdd, mapJs} from './build.js';
 
 /**
  * Configures the nswow-watcher for the server to monitor changes in specific files.
@@ -34,6 +34,13 @@ function nswowWatcher() {
                 ) {
                     map();
                 }
+
+                if (
+                  path.endsWith("/app.js") ||
+                  path.endsWith("/app.ts")
+                ) {
+                    mapJs();
+                }
             })
             server.watcher.on("unlink", path => {
                 if (
@@ -45,6 +52,13 @@ function nswowWatcher() {
                     path.endsWith("/properties.json")
                 ) {
                     map();
+                }
+
+                if (
+                  path.endsWith("/app.js") ||
+                  path.endsWith("/app.ts")
+                ) {
+                    mapJs();
                 }
             })
         },

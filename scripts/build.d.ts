@@ -26,3 +26,8 @@ export function mapScss(): Promise<boolean>;
  * @returns {Promise<boolean>} Returns a promise that resolves to a boolean indicating the success or failure of the mapping.
  */
 export function mapLdd(): Promise<boolean>;
+/**
+ * This function asynchronously maps JavaScript files and imports them into specific files.
+ * @returns {Promise<boolean>} - A promise that resolves to true if the mapping and importing is successful.
+ */
+export function mapJs(): Promise<boolean>;
