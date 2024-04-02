@@ -146,23 +146,23 @@
         "gutter": {
             "print": {
                 "columns": 12,
-                "gap": 20
+                "column-gap": 20
             },
             "phone": {
                 "columns": 12,
-                "gap": 10
+                "column-gap": 20
             },
             "portrait": {
                 "columns": 12,
-                "gap": 15
+                "column-gap": 20
             },
             "landscape": {
                 "columns": 12,
-                "gap": 20
+                "column-gap": 20
             },
             "desktop": {
                 "columns": 12,
-                "gap": 20
+                "column-gap": 20
             }
         }
     }

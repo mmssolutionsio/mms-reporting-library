@@ -4,10 +4,10 @@
   @include nswow.grid-container();
   @include nswow.grid-row();
 
-  padding-bottom: nswow.system-size-unit(30);
+  margin-bottom: nswow.system-size-unit(30);
 
   @include nswow.grid-media(print) {
-    padding-bottom: nswow.system-size-unit(30, in);
+    margin-bottom: nswow.system-size-unit(30, in);
   }
 
   page-break-before: auto;

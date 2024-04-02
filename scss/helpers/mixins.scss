@@ -66,6 +66,18 @@
   }
 }
 
+@mixin clearfix {
+  &:after {
+    content: "";
+    font-size: 0;
+    line-height: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+  }
+}
+
 @mixin core-styles {
 
 }
