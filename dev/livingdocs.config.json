@@ -7,7 +7,7 @@
     "css": [],
     "js": []
   },
-  "wrapper": "<div class='livingdocs doc-section'></div>",
+  "wrapper": "<div class='srl-article-root'></div>",
   "imageRatios": {
     "cover": {
       "label": "Cover",

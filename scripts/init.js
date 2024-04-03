@@ -35,7 +35,7 @@ async function init(folder, options){
                 const writeJson = require('write-json');
                 writeJson.sync(packageJsonFile, packageJson);
 
-                await writeFileSync(`${projectPath}/.gitignore`, `/.output/\n/.nswow/\n/node_modules/`)
+                await writeFileSync(`${projectPath}/.gitignore`, `/.output/\n/.nswow/\n/node_modules/\n/public/downloads/\n/public/html/\n/public/images/\n/public/json/`)
                 console.log(`Project has created`);
                 console.log(`cd ${folder}`);
                 console.log(`npm install`);

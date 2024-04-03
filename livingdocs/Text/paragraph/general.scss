@@ -7,14 +7,11 @@
   page-break-before: auto;
   page-break-inside: avoid;
   page-break-after: auto;
-  break-before: auto;
-  break-inside: avoid;
-  break-after: auto;
 }
 
-.srl-sub__component,
-.ns-article,
-.livingdocs {
+.srl-article-root,
+.ns-article
+{
   > .srl-paragraph {
     @include nswow.grid-container();
     @include nswow.grid-row();

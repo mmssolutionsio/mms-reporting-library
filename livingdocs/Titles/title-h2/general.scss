@@ -1,43 +1,51 @@
 @use "nswow";
 @use "nswow/grid";
 
+$numberSize: 50;
+
 .srl-title-h2 {
-  @include nswow.typography-headline1(true);
+  @include nswow.typography-headline2(true);
   color: nswow.colors-primary();
 
   page-break-before: auto;
   page-break-inside: avoid;
   page-break-after: auto;
-  break-before: auto;
-  break-inside: avoid;
-  break-after: auto;
+
+  > span {
+    position: relative;
+  }
 
   &__number {
     color: nswow.colors-copy();
-    width: nswow.system-size-unit(50);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: nswow.system-size-unit($numberSize);
     @include nswow.grid-media(print) {
-      width: nswow.system-size-unit(50, in);
+      width: nswow.system-size-unit($numberSize, in);
     }
   }
 
   &__text {
+    display: block;
     color: nswow.colors-primary();
-  }
 
-  > span {
-    display: flex;
-    @each $breakpoint, $gutter in grid.$gutter {
-      $gap: map-get($gutter, gap);
-      $column-gap: map-get($gutter, column-gap);
-      @if not $column-gap {
-        $column-gap: $gap;
-      }
-      @if $column-gap {
-        @include nswow.grid-media($breakpoint) {
+    &:not(:first-child) {
+      @each $breakpoint, $gutter in grid.$gutter {
+        $gap: map-get($gutter, gap);
+        $column-gap: map-get($gutter, column-gap);
+        @if not $column-gap {
+          $column-gap: $gap;
+        }
+        @if not $column-gap {
+          $column-gap: 0;
+        }
+        @include nswow.grid-media($breakpoint){
           @if $breakpoint == print {
-            gap: nswow.system-size-unit($column-gap, in);
+            margin-left: nswow.system-size-unit($numberSize + $column-gap, in);
           } @else {
-            column-gap: nswow.system-size-unit($column-gap);
+            margin-left: nswow.system-size-unit($numberSize + $column-gap);
           }
         }
       }
@@ -45,9 +53,9 @@
   }
 }
 
-.srl-sub__component,
-.ns-article,
-.livingdocs {
+.srl-article-root,
+.ns-article
+{
   > .srl-title-h2 {
     @include nswow.grid-container();
     @include nswow.grid-row();
