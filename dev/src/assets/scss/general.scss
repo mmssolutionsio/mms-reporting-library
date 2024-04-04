@@ -1,6 +1,14 @@
 @use "nswow";
 
-@page  {
+@page {
   margin: 0;
   size: A4;
+}
+
+body {
+  @if nswow.fonts-is-default() {
+    font-family: nswow.fonts-get-default();
+  } @else {
+    font-family: "Comic Sans MS", sans-serif;
+  }
 }

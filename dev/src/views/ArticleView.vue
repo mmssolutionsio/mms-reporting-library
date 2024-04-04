@@ -1,94 +1,96 @@
-<script>
-import axios from 'axios';
+<script lang="ts" setup>
+import Autoload from '@/Autoload.ts'
+import axios from 'axios'
 import { useLanguageStore } from '@/stores/languagestore'
-import PrevNext from "../components/PrevNext.vue";
+import PrevNext from '@/components/PrevNext.vue'
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-export default {
-  data() {
-    return {
-      url: this.$route.fullPath,
-      data: null,
-      routeConfig: null,
-      language: '',
-    }
-  },
-  props: {
-    route: {
-      type: String,
-    },
-  },
-  components: {
-    PrevNext,
-  },
-  mounted() {
-    const languageStore = useLanguageStore();
-    this.language = languageStore.language;
-    const currendID = this.$route.params.id;
+const router = useRouter()
+const route = useRoute()
+const articleContent = ref()
+const article = ref()
+const url = route.fullPath
+const html = ref('')
+const routeConfig = ref(null)
+const language = ref('')
 
-    axios
-      .get(`${window.baseUrl}/json/routing_${this.language}.json`)
-      .then(response => {
-        this.routeConfig = response.data
-        const currentPage = this.routeConfig && this.routeConfig.pages.find(element => element.slug === this.$route.params.id);
+onMounted(() => {
+  const languageStore = useLanguageStore()
+  language.value = languageStore.language
 
-        if (currentPage && currentPage.slug) {
-          this.props = axios.get(`${window.baseUrl}/html/${this.language}/${currentPage.name}.html`).then(({data}) => {
-            this.data = data;
-          }).catch((error) => {
-            console.log('error', error.toJSON());
-            this.navigateTo404();
+  axios
+    .get(`${window.baseUrl}/json/routing_${language.value}.json`)
+    .then(response => {
+      routeConfig.value = response.data
+      const currentPage = routeConfig.value && routeConfig.value.pages.find(element => element.slug === route.params.id)
+
+      if (currentPage && currentPage.slug) {
+        axios.get(`${window.baseUrl}/html/${language.value}/${currentPage.name}.html`).then(({ data }) => {
+          html.value = data
+          nextTick(() => {
+            Autoload.init(articleContent.value)
           })
-        } else {
-          this.navigateTo404();
-        }
-      })
-      .catch((error) => {
-        console.log('error', error.toJSON());
-      })
-
-    this.$refs.article.addEventListener('click', this.handleMissingLink);
-  },
-  beforeUnmount() {
-    this.$refs.article.removeEventListener('click', this.handleMissingLink)
-  },
-
-  methods: {
-    navigateTo404() {
-      const languageStore = useLanguageStore();
-      this.$router.push({path: `/${languageStore.language}/404`})
-    },
-
-    handleMissingLink(event) {
-      if (event.target.localName === 'a') {
-        const languageStore = useLanguageStore();
-        const splitUrl = event.target.href.split('/');
-        const pageReference = splitUrl.pop();
-
-        const currentPage = this.routeConfig && this.routeConfig.pages.find(element => element.uuid === pageReference);
-
-        if (currentPage !== undefined) {
-          event.preventDefault();
-          this.$router.push({path: `/${languageStore.language}/${currentPage.slug}`});
-        }
-
+        }).catch((error) => {
+          console.log('error', error.toJSON())
+          navigateTo404()
+        })
+      } else {
+        navigateTo404()
       }
-    }
-  },
+    })
+    .catch((error) => {
+      console.log('error', error.toJSON())
+    })
+
+  article.value.addEventListener('click', handleMissingLink)
+})
+
+onBeforeUnmount(() => {
+  article.value.removeEventListener('click', handleMissingLink)
+})
+
+function navigateTo404() {
+  const languageStore = useLanguageStore()
+  router.push({ path: `/${languageStore.language}/404` })
 }
+
+function handleMissingLink(event) {
+  if (event.target.localName === 'a') {
+    const languageStore = useLanguageStore()
+    const splitUrl = event.target.href.split('/')
+    const pageReference = splitUrl.pop()
+    const currentPage = routeConfig.value && routeConfig.value.pages.find(element => element.uuid === pageReference)
+
+    if (currentPage !== undefined) {
+      event.preventDefault()
+      router.push({ path: `/${languageStore.language}/${currentPage.slug}` })
+    }
+  }
+}
+
 </script>
 
 <template>
-  <article ref="article" class="mms__article">
-    <div class="mms__container mms__container--main">
+  <article ref="article">
+    <div class="srl-article-container">
       <transition name="fade">
-        <div v-html="data" :key="data"></div>
+        <div ref="articleContent" class="srl-article-root" v-html="html"></div>
       </transition>
     </div>
     <PrevNext />
   </article>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "nswow";
+
+.srl-article-container {
+  @include nswow.grid-container();
+  margin: 0 auto;
+  padding-bottom: nswow.system-size-unit(50);
+}
+
 .fade-enter-from {
   opacity: 0;
 }

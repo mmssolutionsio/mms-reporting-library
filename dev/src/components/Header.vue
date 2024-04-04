@@ -1,31 +1,31 @@
-<script setup>
-import { useLanguageStore } from "@/stores/languagestore";
-import { RouterLink } from "vue-router";
-import { onMounted } from "vue";
+<script lang="ts" setup>
+import { useLanguageStore } from '@/stores/languagestore'
+import { RouterLink } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
-const languageStore = useLanguageStore();
-let searchValue = "";
+const languageStore = useLanguageStore()
+const srlSearch = ref()
+let searchValue = ''
 
 function changeLanguage() {
-  return `/${languageStore.language}`;
+  return `/${languageStore.language}`
 }
 
 function toggleSearchVisible() {
-  let element = document.getElementById("mms__search-row");
-  element.classList.toggle("mms__search-row--visible");
+  srlSearch.value.classList.toggle('visible')
 }
 
 onMounted(() => {
-  changeLanguage();
-});
+  changeLanguage()
+})
 </script>
 
 <template>
-  <header class="mms__header">
-    <div class="mms__header-inner">
-      <router-link class="mms-header__logo" :to="{ path: `/` }"> </router-link>
-      <div class="mms__header-content">
-        <div class="mms-languages">
+  <header>
+    <div class="srl-header__inner">
+      <router-link class="srl-header__inner-logo" :to="{ path: `/` }"></router-link>
+      <div class="srl-header__inner-content">
+        <div class="srl-header__inner-languages">
           <router-link :to="{ path: `/${languageStore.language}/downloads` }">
             <button>
               <svg
@@ -63,7 +63,6 @@ onMounted(() => {
             v-for="langCode in languageStore.allLanguages || ['de', 'en']"
             :key="langCode"
             type="button"
-            class="btn btn-primary"
             :class="{ active: languageStore.language === langCode }"
             @click="languageStore.setCurrentLanguage(langCode)"
             @click.prevent="$router.push(changeLanguage())"
@@ -71,37 +70,94 @@ onMounted(() => {
             {{ langCode.toUpperCase() }}
           </button>
         </div>
-
-        <span>multivisio report</span>
       </div>
     </div>
-    <div id="mms__search-row" class="mms__search-row">
-      <div class="mms__container mms__search-input-wrapper">
-        <input
-          type="search"
-          class="mms__search-input"
-          placeholder="Search ..."
-          v-model="searchValue"
-          @keypress.enter="$router.push(`/${languageStore.language}/search?searchValue=${searchValue}`); toggleSearchVisible()"
-        />
-      </div>
+    <div ref="srlSearch" class="srl-header__search">
+      <input
+        type="search"
+        placeholder="Search ..."
+        v-model="searchValue"
+        @keypress.enter="$router.push(`/${languageStore.language}/search?searchValue=${searchValue}`); toggleSearchVisible()"
+      />
     </div>
   </header>
 </template>
 
-<style scoped>
-@keyframes logoAnimation {
-  0% {
-    top: 60px;
-    opacity: 0;
+<style scoped lang="scss">
+@use "nswow";
+
+header {
+  background: nswow.colors-primary();
+  color: nswow.colors-light();
+  min-height: nswow.system-size-unit(60);
+  padding: nswow.system-size-unit(10) 0;
+
+  .srl-header {
+    &__inner {
+      @include nswow.grid-container();
+      @include nswow.grid-row();
+      margin: 0 auto;
+
+      &-logo {
+        @include nswow.grid-col(4, phone);
+        @include nswow.grid-col(3, portrait);
+        @include nswow.grid-col(2, landscape);
+        @include nswow.grid-col(2, desktop);
+
+        background-image: url("@/assets/images/mms-logo-white.svg");
+        background-repeat: no-repeat;
+        height: nswow.system-size-unit(60);
+        width: 100%;
+        display: block;
+      }
+
+      &-content {
+        @include nswow.grid-col(8, phone);
+        @include nswow.grid-col(9, portrait);
+        @include nswow.grid-col(10, landscape);
+        @include nswow.grid-col(10, desktop);
+      }
+
+      &-languages {
+        display: flex;
+        justify-content: flex-end;
+        min-height: nswow.system-size-unit(5);
+
+        button {
+          color: nswow.colors-light();
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          outline: none;
+        }
+      }
+    }
+
+    &__search {
+      @include nswow.grid-container();
+      margin: 0 auto;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: height 100ms linear;
+
+      &.visible {
+        min-height: nswow.system-size-unit(40);
+        opacity: 1;
+      }
+
+      input {
+        width: 100%;
+        height: 100%;
+        border: nswow.system-size-unit(1) solid nswow.colors-light();
+        padding: nswow.system-size-unit(5) nswow.system-size-unit(10);
+      }
+    }
   }
-  100% {
-    top: 0;
-    opacity: 1;
+
+  @include nswow.grid-media(print) {
+    display: none;
   }
 }
 
-.mms-header__logo {
-  animation: logoAnimation 600ms linear 1;
-}
 </style>

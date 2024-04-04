@@ -1,5 +1,4 @@
 <script>
-import { RouterLink } from "vue-router";
 import { useLanguageStore } from "@/stores/languagestore";
 
 export default {
