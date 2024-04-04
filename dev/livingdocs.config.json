@@ -7,7 +7,7 @@
     "css": [],
     "js": []
   },
-  "wrapper": "<div class='srl-article-root'></div>",
+  "wrapper": "<div class='srl-article-root doc-section'></div>",
   "imageRatios": {
     "cover": {
       "label": "Cover",

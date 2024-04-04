@@ -1,14 +1,11 @@
 @use "nswow";
 
 $numberSize: 50;
-$iconSize: 20;
 
-.srl-accordion {
-  &__title {
+.srl-title-h2 {
+  > span {
     display: flex;
     flex-wrap: nowrap;
-    width: 100%;
-
     @each $breakpoint, $gutter in nswow.$grid-gutter {
       $gap: map-get($gutter, gap);
       $column-gap: map-get($gutter, column-gap);
@@ -21,15 +18,9 @@ $iconSize: 20;
         }
       }
     }
+  }
 
-    &-number {
-      width: nswow.system-size-unit($numberSize);
-    }
-
-    &-icon {
-      margin-left: auto;
-      width: nswow.system-size-unit($iconSize);
-      height: nswow.system-size-unit($iconSize);
-    }
+  &__number {
+    flex: 0 0 nswow.system-size-unit($numberSize);
   }
 }
