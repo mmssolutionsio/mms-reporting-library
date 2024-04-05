@@ -27,7 +27,7 @@
         }
 
         @if (map.has-key($map, font-style)) or (system.$environment == development) {
-            font-weight: functions.get-font-style($typo);
+            font-style: functions.get-font-style($typo);
         }
 
         @if (map.has-key($map, font-weight)) or (system.$environment == development) {
@@ -72,7 +72,7 @@
             }
 
             @if (map.has-key($map, font-style)) or (system.$environment == development) {
-                font-weight: functions.get-font-style($typo, $media);
+                font-style: functions.get-font-style($typo, $media);
             }
 
             @if (map.has-key($map, font-weight)) or (system.$environment == development) {
