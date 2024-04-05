@@ -25,6 +25,11 @@
         @if (map.has-key($map, line-height)) or (system.$environment == development) {
             line-height: functions.get-line-height($typo);
         }
+
+        @if (map.has-key($map, font-style)) or (system.$environment == development) {
+            font-weight: functions.get-font-style($typo);
+        }
+
         @if (map.has-key($map, font-weight)) or (system.$environment == development) {
             font-weight: functions.get-font-weight($typo);
         }
@@ -65,6 +70,11 @@
             @if (map.has-key($map, line-height)) or (system.$environment == development) {
                 line-height: functions.get-line-height($typo, $media);
             }
+
+            @if (map.has-key($map, font-style)) or (system.$environment == development) {
+                font-weight: functions.get-font-style($typo, $media);
+            }
+
             @if (map.has-key($map, font-weight)) or (system.$environment == development) {
                 font-weight: functions.get-font-weight($typo, $media);
             }
@@ -88,6 +98,7 @@
                 font-family: unset,
                 font-size: unset,
                 line-height: unset,
+                font-style: normal,
                 font-weight: unset,
                 margin-top: 0,
                 margin-bottom: 0
@@ -101,6 +112,11 @@
         @include system.add-root-style(
                         #{variables.$variable-prefix}typography-#{$typo}-line-height,
                         system.size-unit(map.get($defaults, line-height), em)
+        );
+
+        @include system.add-root-style(
+                        #{variables.$variable-prefix}typography-#{$typo}-font-style,
+                        unquote(map.get($defaults, font-style))
         );
 
         @include system.add-root-style(
@@ -158,6 +174,13 @@
             );
         }
 
+        @if map.has-key($map, font-style) or system.$environment == development {
+            @include system.add-root-style(
+                            #{variables.$variable-prefix}typography-#{$typo}-font-style-#{$media},
+                            unquote(map.get($defaults, font-style))
+            );
+        }
+
         @if map.has-key($map, font-weight) or system.$environment == development {
             @include system.add-root-style(
                             #{variables.$variable-prefix}typography-#{$typo}-font-weight-#{$media},
@@ -207,6 +230,10 @@
 
 @mixin set-line-height($typo, $value) {
     --#{variables.$variable-prefix}typography-#{$typo}-line-height: #{system.size-unit($value, em)};
+}
+
+@mixin set-font-style($typo, $value) {
+    --#{variables.$variable-prefix}typography-#{$typo}-font-style: #{$value};
 }
 
 @mixin set-font-weight($typo, $value) {

@@ -40,6 +40,19 @@
     @return var(--#{variables.$variable-prefix}typography-#{$typo}-line-height);
 }
 
+@function get-font-style($typo, $media: false) {
+    @if not map-has-key(variables.$typography, $typo) {
+        @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";
+    }
+    @if $media {
+        @return var(
+                        --#{variables.$variable-prefix}typography-#{$typo}-font-style-#{$media},
+                        var(--#{variables.$variable-prefix}typography-#{$typo}-font-style)
+        );
+    }
+    @return var(--#{variables.$variable-prefix}typography-#{$typo}-font-style);
+}
+
 @function get-font-weight($typo, $media: false) {
     @if not map-has-key(variables.$typography, $typo) {
         @error "Invalid typo for typography specified! Choose one of #{map-keys(variables.$typography)}";

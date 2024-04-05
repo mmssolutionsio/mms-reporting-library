@@ -5,18 +5,11 @@ $numberSize: 50;
 
 .srl-title-h3 {
   @include nswow.typography-headline3(true);
+  color: nswow.colors-gray-800();
 
   break-before: auto;
   break-inside: avoid;
   break-after: auto;
-
-  &__number {
-    color: nswow.colors-copy();
-  }
-
-  &__text {
-    color: nswow.colors-primary();
-  }
 }
 
 .srl-article-root,

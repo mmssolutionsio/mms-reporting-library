@@ -4,7 +4,7 @@
   display: inline-block;
   text-decoration: none;
   background-color: nswow.colors-primary();
-  color: white;
+  color: nswow.colors-on-primary();
   padding: #{nswow.system-size-unit(10)} #{nswow.system-size-unit(30)};
   @include nswow.grid-media(print) {
     padding: #{nswow.system-size-unit(10, in)} #{nswow.system-size-unit(30, in)};
@@ -27,7 +27,7 @@
     }
   }
   &__text {
-    @include nswow.typography-copy();
+    @include nswow.typography-copy1();
     @include nswow.helpers-trim-margins
   }
 }

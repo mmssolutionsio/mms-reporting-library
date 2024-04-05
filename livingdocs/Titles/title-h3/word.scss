@@ -17,7 +17,6 @@ $column-gap: map-get(nswow.$grid-gutter, print, column-gap);
   }
 
   &__number {
-    color: nswow.colors-copy();
     display: block;
     position: absolute;
     top: 0;
@@ -27,8 +26,6 @@ $column-gap: map-get(nswow.$grid-gutter, print, column-gap);
 
   &__text {
     display: block;
-    color: nswow.colors-primary();
-
     &:not(:first-child) {
       margin-left: nswow.system-size-unit($numberSize + $column-gap, in);
     }

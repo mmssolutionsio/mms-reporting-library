@@ -2,7 +2,7 @@
 
 .srl-title-h6 {
   @include nswow.typography-headline6(true);
-  color: nswow.colors-primary();
+  color: nswow.colors-gray-800();
 
   break-before: auto;
   break-inside: avoid;

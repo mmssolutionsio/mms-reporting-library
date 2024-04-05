@@ -1,1 +1,64 @@
 @use "nswow";
+
+.srl-quote {
+
+  break-before: auto;
+  break-inside: avoid;
+  break-after: auto;
+
+  &__container {
+    padding: nswow.system-size-unit(20);
+    background-color: nswow.colors-secondary-light();
+  }
+
+  &__text {
+    @include nswow.typography-blockquote();
+    color: nswow.colors-gray-800();
+  }
+
+  &:not(.hide-quote-characters) {
+    .srl-quote__text {
+      &:before {
+        content: "\301E";
+      }
+      &:after {
+        content: "\301D";
+      }
+    }
+  }
+
+  &__cite {
+    margin-top: nswow.system-size-unit(20);
+  }
+
+  &__author {
+    @include nswow.typography-copy3(true);
+    font-weight: 700;
+    color: nswow.colors-gray-800();
+  }
+
+  &__function {
+    @include nswow.typography-copy3(true);
+    color: nswow.colors-gray-800();
+  }
+
+}
+
+.srl-article-root,
+.ns-article
+{
+  > .srl-quote {
+    @include nswow.grid-container();
+    @include nswow.grid-row();
+
+    &__row {
+      @include nswow.grid-col(12, phone);
+      @include nswow.grid-col(12, portrait);
+      @include nswow.grid-col(12, landscape);
+      @include nswow.grid-col(9, desktop);
+      @include nswow.grid-offset(2, desktop);
+      @include nswow.grid-col(9, print);
+      @include nswow.grid-offset(2, print);
+    }
+  }
+}

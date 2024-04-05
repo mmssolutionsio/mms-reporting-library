@@ -1,8 +1,8 @@
 @use "nswow";
 
 .srl-lead {
-  @include nswow.typography-lead(true);
-  color: nswow.colors-copy();
+  @include nswow.typography-headline1(true);
+  color: nswow.colors-gray-800();
 
   break-before: auto;
   break-inside: avoid;

@@ -11,7 +11,7 @@ $column-gap: map-get(nswow.$grid-gutter, print, column-gap);
   $column-gap: 0;
 }
 
-.srl-title-h3 {
+.srl-footnote {
   > span {
     position: relative;
   }
@@ -26,6 +26,8 @@ $column-gap: map-get(nswow.$grid-gutter, print, column-gap);
 
   &__text {
     display: block;
+    color: nswow.colors-primary();
+
     &:not(:first-child) {
       margin-left: nswow.system-size-unit($numberSize + $column-gap, in);
     }
