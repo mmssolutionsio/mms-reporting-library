@@ -46,8 +46,8 @@ onMounted(() => {
 @use "nswow";
 
 footer {
-  background: nswow.colors-accent();
-  color: nswow.colors-copy();
+  background: nswow.colors-secondary-light();
+  color: nswow.colors-dark();
   min-height: nswow.system-size-unit(60);
   padding: nswow.system-size-unit(20) 0;
 
@@ -57,8 +57,8 @@ footer {
       margin: 0 auto;
 
       &-imprint {
-        color: nswow.colors-copy();
-        font-size: nswow.typography-get-font-size(footnote);
+        @include nswow.typography-copy3();
+        color: nswow.colors-dark();
         text-align: center;
       }
 
@@ -68,7 +68,7 @@ footer {
           padding: 0 0 0 0;
           display: flex;
           gap: nswow.system-size-unit(10);
-          font-size: nswow.typography-get-font-size(copy);
+          @include nswow.typography-copy1();
         }
       }
     }

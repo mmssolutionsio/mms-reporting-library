@@ -4,24 +4,18 @@
   @include nswow.grid-container();
   @include nswow.grid-row();
 
-  margin-bottom: nswow.system-size-unit(30);
+  padding-bottom: nswow.system-size-unit(30);
 
   @include nswow.grid-media(print) {
-    margin-bottom: nswow.system-size-unit(30, in);
+    padding-bottom: nswow.system-size-unit(30, in);
   }
 
-  page-break-before: auto;
-  page-break-inside: auto;
-  page-break-after: auto;
   break-before: auto;
   break-inside: auto;
   break-after: auto;
 
   .srl-columns__column {
 
-    page-break-before: auto;
-    page-break-inside: auto;
-    page-break-after: auto;
     break-before: auto;
     break-inside: auto;
     break-after: auto;

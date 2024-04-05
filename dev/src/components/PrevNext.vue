@@ -136,7 +136,7 @@ function getPrevTitle() {
     align-items: center;
     background-color: nswow.colors-primary();
     color: nswow.colors-light();
-    font-size: nswow.typography-get-font-size(footnote);
+    @include nswow.typography-copy3();
     padding: nswow.system-size-unit(10) nswow.system-size-unit(15);
 
     svg {

@@ -7,9 +7,9 @@ $numberSize: 50;
   @include nswow.typography-footnote(true);
   color: nswow.colors-primary();
 
-  page-break-before: auto;
-  page-break-inside: avoid;
-  page-break-after: auto;
+  break-before: auto;
+  break-inside: avoid;
+  break-after: auto;
 
   > span {
     position: relative;

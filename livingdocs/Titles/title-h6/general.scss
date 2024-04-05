@@ -4,9 +4,9 @@
   @include nswow.typography-headline6(true);
   color: nswow.colors-primary();
 
-  page-break-before: auto;
-  page-break-inside: avoid;
-  page-break-after: auto;
+  break-before: auto;
+  break-inside: avoid;
+  break-after: auto;
 }
 
 .srl-article-root,

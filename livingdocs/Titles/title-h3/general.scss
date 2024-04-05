@@ -6,9 +6,9 @@ $numberSize: 50;
 .srl-title-h3 {
   @include nswow.typography-headline3(true);
 
-  page-break-before: auto;
-  page-break-inside: avoid;
-  page-break-after: auto;
+  break-before: auto;
+  break-inside: avoid;
+  break-after: auto;
 
   &__number {
     color: nswow.colors-copy();
