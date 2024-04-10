@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
-import {useI18n} from 'vue-i18n'
+import { useI18n } from 'vue-i18n'
 import LanguageSwitch from '@/components/LanguageSwitch.vue'
 
-const {locale} = useI18n();
+const { locale } = useI18n()
 const srlSearch = ref()
 let searchValue = ref('')
 
@@ -52,7 +52,7 @@ function toggleSearchVisible() {
               />
             </svg>
           </button>
-          <LanguageSwitch/>
+          <LanguageSwitch />
         </div>
       </div>
     </div>
@@ -93,6 +93,20 @@ header {
         height: nswow.system-size-unit(60);
         width: 100%;
         display: block;
+      }
+
+      &-languages {
+        display: flex;
+        justify-content: flex-end;
+        min-height: nswow.system-size-unit(5);
+
+        button {
+          color: nswow.colors-light();
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          outline: none;
+        }
       }
 
       &-content {

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { useI18n } from "vue-i18n"
+import { useI18n } from 'vue-i18n'
 import useConfig from '@/composables/config'
+import { MenuArticle, MenuEntry, MenuExternal } from '@/components/MenuItem'
 
 const { locale } = useI18n()
 const config = useConfig()
@@ -10,101 +11,166 @@ const activeSubmenu = ref<NsWowMenu[]>([])
 const activeSubSubmenu = ref<NsWowMenu[]>([])
 
 const currentMenus = computed(() => {
-  return config.value.menus[locale.value]??{}
+  return config.value.menus[locale.value] ?? {}
 })
 
-const currentMenu =  computed(() => {
-  const m = currentMenus.value.menuMain;
-  return m??[];
+const currentMenu = computed(() => {
+  const m = currentMenus.value.menuMain
+  return m ?? []
 })
 
 const currentArticles = computed<NsWowArticle[]>(() => {
-  return config.value.articles[locale.value]??[]
+  return config.value.articles[locale.value] ?? []
 })
 
 
 function getLinkByPage(page: string): string {
-  const currentPage = currentArticles.value.find(element => element.uuid === page);
-  return currentPage?
-    `/${locale.value}/${currentPage.slug}`:"";
+  const currentPage = currentArticles.value.find(element => element.uuid === page)
+  return currentPage ?
+    `/${locale.value}/${currentPage.slug}` : ''
 }
 
-function activateSubmenu(index: number): void {
-  const menu = currentMenu.value[index];
+function activateSubmenu(index: string | number): void {
+  const menu = currentMenu.value[index]
   if (menu) {
-    activeSubmenu.value = menu.submenuEntries??[]
+    activeSubmenu.value = menu.submenuEntries ?? []
 
     if (!subNavigationVisible.value) {
-      subNavigationVisible.value = !subNavigationVisible.value;
+      subNavigationVisible.value = !subNavigationVisible.value
     }
   }
 }
 
 function closeSubmenu() {
-  subNavigationVisible.value = false;
+  subNavigationVisible.value = false
 }
 </script>
 
 <template>
-  <nav class="mms-nav">
-    <div class="mms__nav-top">
-      <div class="mms__container">
-        <ul class="mms__main-navigation">
-          <li class="mms__main-navigation-li" v-for="(level1Item, level1ItemIndex) in currentMenu" @click="activateSubmenu(level1ItemIndex)">
-            {{ level1Item.label }}
+  <nav class="srl-navigation">
+    <div class="srl-navigation__menuMain">
+      <div class="srl-navigation__menuMain-inner">
+        <ul>
+          <li v-for="(level1Item, level1ItemIndex) in currentMenu" :class="level1Item.type">
+            <MenuArticle v-if="level1Item.type==='Article'" :label="level1Item.label"
+                         :page="getLinkByPage(<string>level1Item.page)"
+                         @click="closeSubmenu()" />
+            <MenuEntry v-if="level1Item.type==='MenuEntry'" :label="level1Item.label"
+                       @click="activateSubmenu(level1ItemIndex)" />
+            <MenuExternal v-if="level1Item.type==='ExternalLink'" :label="level1Item.label" :url="level1Item.url" />
           </li>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" @click="subNavigationVisible = false" v-if="subNavigationVisible">
-            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-          </svg>
+          <li v-if="subNavigationVisible" @click="subNavigationVisible = false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                 viewBox="0 0 16 16">
+              <path
+                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+            </svg>
+          </li>
         </ul>
       </div>
-
-      <transition name="fade">
-        <div class="mms__container--border-top" v-if="activeSubmenu!==undefined && activeSubmenu.length && subNavigationVisible">
-          <div class="mms__container ">
-            <div class="mms__sub-navigation-container">
-
-              <div>
-                <div class="mms__main-navigation-sub-li" v-for="(level2Item, level2ItemIndex) in activeSubmenu">
-
-                  <div class="mms__main-navigation-sub-li-item">
-                    <router-link v-if="level2Item.type === 'Article' && level2Item.page" :to="{path: getLinkByPage(level2Item.page)}">{{ level2Item.label }}</router-link>
-                    <span v-if="level2Item.type === 'MenuEntry' && !level2Item.page">
-                    {{ level2Item.label }}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                    </svg>
-                  </span>
-                    <a v-if="level2Item.type === 'ExternalLink' && level2Item.url" :href="level2Item.url" target="_blank">
-                      {{ level2Item.label }}
-                      <svg class="mms__main-navigation-external-link-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z"/>
-                        <path fill-rule="evenodd" d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z"/>
-                      </svg>
-                    </a>
-                  </div>
-
-                  <div class="mms__main-navigation-sub-li-item">
-                    <div v-for="(level3Item, index) in level2Item && level2Item.submenuEntries">
-                      <router-link v-if="level3Item.type === 'Article' && level3Item.page" :to="{path: getLinkByPage(level3Item.page)}" @click="closeSubmenu">{{ level3Item.label }}</router-link>
-                      <span class="pl-10" v-if="level3Item.type === 'MenuEntry' && !level3Item.page">{{ level3Item.label }}</span>
-                      <a v-if="level3Item.type === 'ExternalLink' && level3Item.url" :href="level3Item.url" target="_blank">
-                        {{ level3Item.label }}
-                        <svg class="mms__main-navigation-external-link-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z"/>
-                          <path fill-rule="evenodd" d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z"/>
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </transition>
     </div>
+
+    <transition name="fade">
+      <div class="srl-navigation__subNav">
+        <div class="srl-navigation__subNav-inner">
+          <ul v-if="activeSubmenu.length && subNavigationVisible">
+            <li v-for="(level2Item, level2ItemIndex) in activeSubmenu">
+              <MenuArticle v-if="level2Item.type==='Article'" :label="level2Item.label"
+                           :page="getLinkByPage(<string>level2Item.page)" @click="closeSubmenu()" />
+              <MenuEntry v-if="level2Item.type==='MenuEntry'" :label="level2Item.label" />
+              <MenuExternal v-if="level2Item.type==='ExternalLink'" :label="level2Item.label"
+                            :url="<string>level2Item.url" />
+
+              <ul>
+                <li v-for="(level3Item, index) in level2Item && level2Item.submenuEntries">
+                  <MenuArticle v-if="level3Item.type==='Article'" :label="level3Item.label"
+                               :page="getLinkByPage(<string>level3Item.page)" @click="closeSubmenu()" />
+                  <MenuEntry v-if="level3Item.type==='MenuEntry'" :label="level3Item.label" />
+                  <MenuExternal v-if="level3Item.type==='ExternalLink'" :label="level3Item.label"
+                                :url="<string>level3Item.url" />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </transition>
   </nav>
 </template>
+
+<style lang="scss">
+@use "nswow";
+
+.srl-navigation {
+  &__menuMain,
+  &__subNav {
+    &-inner {
+      @include nswow.grid-container();
+      margin: 0 auto;
+
+      ul {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        list-style-type: none;
+
+        li {
+          @include nswow.typography-copy1();
+
+          a {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  &__menuMain {
+    background: nswow.colors-secondary-light();
+
+    &-inner {
+      ul {
+        display: flex;
+        align-items: center;
+        gap: nswow.system-size-unit(20);
+
+        li {
+          position: relative;
+          padding: nswow.system-size-unit(10) nswow.system-size-unit(20);
+          cursor: pointer;
+
+          &:hover {
+            background: nswow.colors-primary();
+            color: nswow.colors-light();
+          }
+        }
+      }
+    }
+  }
+
+  &__subNav {
+    background: nswow.colors-secondary-light();
+    border-bottom: nswow.system-size-unit(1) solid nswow.colors-gray-800();
+
+    &-inner {
+
+      ul {
+        display: flex;
+        flex-direction: column;
+
+        li {
+          display: flex;
+          align-items: center;
+          position: relative;
+          padding: nswow.system-size-unit(5) nswow.system-size-unit(20);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @include nswow.grid-media(print) {
+    display: none;
+  }
+}
+
+</style>

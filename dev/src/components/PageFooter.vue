@@ -12,6 +12,10 @@ const currentMenus = computed<NsWowMenus>(() => {
   return config.value.menus[locale.value]??{}
 })
 
+function getLinkByPage(page: string): string {
+  return `/${locale.value}/${page}`
+}
+
 if (currentMenus.value?.footer) {
   navigation.value = currentMenus.value.footer
 }
@@ -24,9 +28,9 @@ if (currentMenus.value?.footer) {
         <h2>Footernavigation</h2>
         <ul>
           <li v-for="(item, index) in navigation" :key="index">
-            <MenuArticle v-if="item.type==='Article'" :label="item.label" :page="item.page" />
+            <MenuArticle v-if="item.type==='Article'" :label="item.label" :page="getLinkByPage(<string>item.page)" />
             <MenuEntry v-if="item.type==='MenuEntry'" :label="item.label" />
-            <MenuExternal v-if="item.type==='ExternalLink'" :label="item.label" :url="item.url" />
+            <MenuExternal v-if="item.type==='ExternalLink'" :label="item.label" :url="<string>item.url" />
           </li>
         </ul>
       </div>
