@@ -16,26 +16,33 @@ const config = ref<NsWowConfig>({
   menus: {}
 })
 
-const file = `${config.value.baseUrl}/json/settings.json`
-try {
-  const response: Response = await fetch(file)
-  const lazySettings: NsWowSettings = await response.json()
-  config.value.settings = Object.assign(config.value.settings, lazySettings)
-} catch (e) {
-  console.error(`"${file}" could not be loaded.`)
-}
 
-for (const locale of config.value.settings.languages) {
-  const file: string = `${config.value.baseUrl}/json/routing_${locale}.json`
+async function getData() {
+  const file = `${config.value.baseUrl}/json/settings.json`
   try {
     const response: Response = await fetch(file)
-    const routing: NsWowResponseRouting = await response.json()
-    config.value.articles[locale] = routing.pages
-    config.value.menus[locale] = routing.menu
+    const lazySettings: NsWowSettings = await response.json()
+    config.value.settings = Object.assign(config.value.settings, lazySettings)
   } catch (e) {
     console.error(`"${file}" could not be loaded.`)
   }
+
+  for (const locale of config.value.settings.languages) {
+    const file: string = `${config.value.baseUrl}/json/routing_${locale}.json`
+    try {
+      const response: Response = await fetch(file)
+      const routing: NsWowResponseRouting = await response.json()
+      config.value.articles[locale] = routing.pages
+      config.value.menus[locale] = routing.menu
+    } catch (e) {
+      console.error(`"${file}" could not be loaded.`)
+    }
+  }
 }
+
+getData()
+
+
 
 export default function useConfig() {
   return config;

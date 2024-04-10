@@ -1,7 +1,7 @@
 import { createI18n, type I18nOptions, type LocaleMessages } from 'vue-i18n'
 import useConfig from '@/composables/config'
 
-const config = await useConfig()
+const config = useConfig()
 const defaultMessages: LocaleMessages<any> = {}
 
 const locales = import.meta.glob('@/locales/**/*.json', { eager: true, import: "default" });
@@ -22,25 +22,28 @@ const options: I18nOptions = {
   messages: {}
 }
 
-const file = `${config.value.baseUrl}/json/translations_hosting.json`
-try {
-  const response: Response = await fetch(file)
-  const importMessages: LocaleMessages<any> = await response.json();
+async function getTranslation() {
+  const file = `${config.value.baseUrl}/json/translations_hosting.json`
+  try {
+    const response: Response = await fetch(file)
+    const importMessages: LocaleMessages<any> = await response.json();
 
-  for ( const lang in importMessages ) {
-    if (typeof defaultMessages[lang] !== "undefined") {
-      importMessages[lang] = Object.assign(
-        defaultMessages[lang],
-        importMessages[lang]
-      )
+    for ( const lang in importMessages ) {
+      if (typeof defaultMessages[lang] !== "undefined") {
+        importMessages[lang] = Object.assign(
+          defaultMessages[lang],
+          importMessages[lang]
+        )
+      }
     }
-  }
 
-  options.messages = importMessages
-} catch (e) {
-  options.messages = defaultMessages
-  console.error(`"${file}" could not be loaded.`)
+    options.messages = importMessages
+  } catch (e) {
+    options.messages = defaultMessages
+    console.error(`"${file}" could not be loaded.`)
+  }
 }
+getTranslation()
 
 if (navigator && navigator.language && typeof options.messages[navigator.language] !== "undefined") {
   options.locale = navigator.language;

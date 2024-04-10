@@ -16,7 +16,7 @@ $column-gap: map-get(nswow.$grid-gutter, print, column-gap);
     position: relative;
   }
 
-  &__years> {
+  &__years {
     display: block;
     position: absolute;
     top: 0;
