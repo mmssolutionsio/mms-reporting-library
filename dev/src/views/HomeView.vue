@@ -13,6 +13,10 @@ const locale = computed<string>(() => {
 <template>
   <div class="srl-main">
     <h1>Welcome {{ locale }}</h1>
+    <h3>Dokumentation Frontend Toolkit für Komponenten als auch APP:</h3>
+    <p>
+      <a href="https://mmssolutionsio.github.io/mms-reporting-docs/docs/category/frontend-toolkit" target="_blank">Dokumentation</a>
+    </p>
   </div>
 </template>
 
@@ -21,7 +25,9 @@ const locale = computed<string>(() => {
 
 .srl-main {
   @include nswow.grid-container();
+  padding: nswow.system-size-unit(100) 0;
   margin-left: auto;
   margin-right: auto;
+  min-height: 80vh;
 }
 </style>
