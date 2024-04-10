@@ -2,8 +2,8 @@
 
 @import "modern-css-reset";
 
+@include index.core-styles;
 @include index.system-core-styles;
-@include index.meta-core-styles;
 @include index.fonts-core-styles;
 @include index.grid-core-styles;
 @include index.colors-core-styles;

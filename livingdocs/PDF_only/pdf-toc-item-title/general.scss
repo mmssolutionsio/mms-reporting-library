@@ -1,1 +1,5 @@
 @use "nswow";
+
+.srl-pdf-toc-item-title {
+  @include nswow.typography-headline4(true);
+}

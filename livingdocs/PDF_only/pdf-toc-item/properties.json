@@ -2,6 +2,6 @@
   "toc-title": {
     "label": "Show as title",
     "type": "option",
-    "value": "lc-pdf-toc__item--title"
+    "value": "srl-pdf-toc__item--title"
   }
 }

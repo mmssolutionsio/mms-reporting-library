@@ -2,21 +2,23 @@
   {
   	"name": "chart",
   	"label": "Highchart / Lottie",
-	"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-highchart.min.svg",
+	  "iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-highchart.min.svg",
     "properties": [
-		"web-width",
-		"pdf-width",
-		"show-pdf-image"
-	]
+      "web-width",
+      "pdf-width",
+      "show-pdf-image"
+    ]
   }
 </script>
-<div class="lc-component lc-chart" data-container-label="Chart container">
-    <h4 class="lc-chart__title ld-title-h4" doc-editable="chart-title" doc-optional>Chart Title</h4>
-    <p class="lc-chart__text" doc-editable="text" doc-optional>Total</p>
-    <div doc-html="free-html" class="lc-chart__chart">
+<div class="srl-component srl-chart srl-article__grid srl-article__grid--indent" data-container-label="Chart container">
+    <div class="srl-article__grid--inner">
+      <p class="srl-chart__title" doc-editable="chart-title" doc-optional>Chart Title</p>
+      <p class="srl-chart__text" doc-editable="text" doc-optional>Total</p>
+      <div doc-html="free-html" class="srl-chart__chart">
         <div class="iframe-placeholder"></div>
+      </div>
+      <figure class="srl-chart__image-container">
+        <img class="srl-chart__image" doc-image="pdf-image">
+      </figure>
     </div>
-	<figure class="lc-chart__image-container">
-		<img class="lc-chart__image" doc-image="pdf-image">
-	</figure>
 </div>

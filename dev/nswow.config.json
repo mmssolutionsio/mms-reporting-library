@@ -3,6 +3,20 @@
     "default-font": "Roboto, sans-serif",
     "font-base-path": "../src/assets/fonts"
   },
+  "meta": {
+    "padding": {
+      "base": 8,
+      "small": 16,
+      "medium": 24,
+      "large": 32
+    },
+    "spacer": {
+      "small": 48,
+      "medium": 64,
+      "large": 96,
+      "extra-large": 192
+    }
+  },
   "typography": {
     "typography": [
       {

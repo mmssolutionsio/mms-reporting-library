@@ -1,5 +1,5 @@
 {
-  "web-width-media": {
+  "web-width": {
     "label": "Web width",
     "type": "select",
     "options": [
@@ -8,19 +8,15 @@
       },
       {
         "caption": "Content width",
-        "value": "lc-component--web-content-width"
+        "value": "srl-article__grid--content-web"
       },
       {
         "caption": "Full width",
-        "value": "lc-component--web-full-width"
-      },
-      {
-        "caption": "Screen width",
-        "value": "lc-component--web-screen-width"
+        "value": "srl-article__grid--full-web"
       }
     ]
   },
-  "pdf-width-media": {
+  "pdf-width": {
     "label": "PDF width",
     "type": "select",
     "options": [
@@ -28,12 +24,12 @@
         "caption": "Text width"
       },
       {
-        "caption": "Full width",
-        "value": "lc-component--pdf-full-width"
+        "caption": "Content width",
+        "value": "srl-article__grid--content-pdf"
       },
       {
-        "caption": "Page width",
-        "value": "lc-component--pdf-page-width"
+        "caption": "Full width",
+        "value": "srl-article__grid--full-pdf"
       }
     ]
   },

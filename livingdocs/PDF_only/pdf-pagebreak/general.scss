@@ -1,1 +1,4 @@
-@use "nswow";
+.srl-pdf-pagebreak {
+  page-break-before: always;
+  page-break-after: always;
+}

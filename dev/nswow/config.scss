@@ -1,10 +1,25 @@
 @use "@multivisio/nswow/scss/system/variables.scss" as systemVariables with (
-  $environment: development
+  $environment: production
 );
 
 @use "@multivisio/nswow/scss/fonts/variables.scss" as fontsVariables with (
   $default-font: "Roboto, sans-serif",
   $font-base-path: "../src/assets/fonts"
+);
+
+@use "@multivisio/nswow/scss/meta/variables.scss" as metaVariables with (
+  $padding: (
+    base: 8,
+    small: 16,
+    medium: 24,
+    large: 32
+  ),
+  $spacer: (
+    small: 48,
+    medium: 64,
+    large: 96,
+    extra-large: 192
+  )
 );
 
 @use "@multivisio/nswow/scss/grid/variables.scss" as gridVariables with (

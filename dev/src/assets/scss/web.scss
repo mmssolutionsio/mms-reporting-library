@@ -12,12 +12,14 @@
     &.srl-article__grid--indent:not(.srl-article__grid--full-web)
     {
       @include nswow.grid-container();
+      margin-left: auto;
+      margin-right: auto;
     }
 
     &.srl-article__grid--indent:not(.srl-article__grid--full-web):not(.srl-article__grid--content-web),
     &.srl-article__grid--indent-web
     {
-      > .srl-article__grid-text {
+      > .srl-article__grid--inner {
         @include nswow.grid-col(12, phone);
         @include nswow.grid-col(12, portrait);
         @include nswow.grid-col(12, landscape);
@@ -33,7 +35,7 @@
     &.srl-article__grid--content,
     &.srl-article__grid--content-web
     {
-      > .srl-article__grid-text {
+      > .srl-article__grid--inner {
         @include nswow.grid-col(12, phone);
         @include nswow.grid-col(12, portrait);
         @include nswow.grid-col(12, landscape);

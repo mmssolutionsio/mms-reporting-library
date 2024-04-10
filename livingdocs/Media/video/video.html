@@ -4,8 +4,8 @@
   	"label": "Video",
 	"iconUrl": "https://mms-xbrl.s3.eu-central-1.amazonaws.com/design/svg/editor/icon-video.min.svg",
   	"properties": [
-		"web-width-media",
-		"pdf-width-media",
+		"web-width",
+		"pdf-width",
 		"hide-in-pdf"
 	],
   	"directives": {
@@ -16,22 +16,9 @@
   	}
   }
 </script>
-<div class="lc-component lc-video">
-	<div class="lc-video__inner">
-		<div class="lc-video__thumbnail-container">
-			<div class="lc-video__thumbnail" doc-image="background">
-			</div>
-			<div class="lc-video__play">
-				<button class="lc-button lc-button--round" type="button">
-					<div class="lc-button__inner">
-						<svg class="svg svg-play" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M1.27735 0.583975C1.12392 0.481689 0.92665 0.472153 0.764071 0.559163C0.601492 0.646172 0.5 0.815602 0.5 1V17C0.5 17.1844 0.601492 17.3538 0.764071 17.4408C0.92665 17.5278 1.12392 17.5183 1.27735 17.416L13.2774 9.41603C13.4164 9.32329 13.5 9.16718 13.5 9C13.5 8.83282 13.4164 8.67671 13.2774 8.58397L1.27735 0.583975Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-				</button>
-			</div>
-		</div>
-		<div doc-html="free-html" class="lc-video__video-container">
+<div class="srl-video srl-article__grid srl-article__grid--indent">
+	<div class="srl-video__inner srl-article__grid--inner">
+		<div doc-html="free-html" class="srl-video__video-container">
 			<div class="iframe-placeholder"></div>
 		</div>
 	</div>

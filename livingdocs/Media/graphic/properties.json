@@ -8,11 +8,11 @@
       },
       {
         "caption": "Content width",
-        "value": "lc-component--web-content-width"
+        "value": "srl-article__grid--content-web"
       },
       {
         "caption": "Full width",
-        "value": "lc-component--web-full-width"
+        "value": "srl-article__grid--full-web"
       }
     ]
   },
@@ -24,8 +24,12 @@
         "caption": "Text width"
       },
       {
+        "caption": "Content width",
+        "value": "srl-article__grid--content-pdf"
+      },
+      {
         "caption": "Full width",
-        "value": "lc-component--pdf-full-width"
+        "value": "srl-article__grid--full-pdf"
       }
     ]
   }

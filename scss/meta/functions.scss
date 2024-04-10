@@ -47,3 +47,17 @@
     @return false;
   }
 }
+
+@function spacer($name) {
+  @if not map-has-key(variables.$spacer, $name) {
+    @error "Invalid name for spacer specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  @return map-get(variables.$spacer, $name)
+}
+
+@function padding($name) {
+  @if not map-has-key(variables.$padding, $name) {
+    @error "Invalid name for padding specified! Choose one of #{map-keys(variables.$padding)}";
+  }
+  @return map-get(variables.$padding, $name)
+}

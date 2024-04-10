@@ -1,1 +1,5 @@
 @use "nswow";
+
+.srl-unordered-list-group {
+  @include nswow.typography-copy1();
+}

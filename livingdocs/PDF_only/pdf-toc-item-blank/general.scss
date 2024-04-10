@@ -1,1 +1,5 @@
 @use "nswow";
+
+.srl-pdf-toc-item-blank {
+  @include nswow.typography-copy1(true);
+}

@@ -1,1 +1,10 @@
 @use "nswow";
+.srl-anchor {
+  &:not(.active) {
+    display: none;
+  }
+
+  &__text {
+    display: none;
+  }
+}

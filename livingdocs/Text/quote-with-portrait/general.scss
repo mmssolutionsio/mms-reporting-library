@@ -1,1 +1,73 @@
 @use "nswow";
+
+.srl-quote-width-portrait {
+
+  break-before: auto;
+  break-inside: avoid;
+  break-after: auto;
+
+  &__container {
+    padding: nswow.system-size-unit(20);
+    background-color: nswow.colors-secondary-light();
+    @include nswow.grid-row();
+  }
+
+  &__image {
+    @include nswow.grid-col(12, phone);
+    @include nswow.grid-col(4, portrait);
+    @include nswow.grid-col(4, landscape);
+    @include nswow.grid-col(4, desktop);
+    @include nswow.grid-col(4, print);
+
+    &-figure {
+      text-align: center;
+    }
+    &-img {
+      max-width: 100%;
+    }
+  }
+
+  &.round-portrait {
+    .srl-quote-width-portrait__image-img {
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__text {
+    @include nswow.grid-col(12, phone);
+    @include nswow.grid-col(8, portrait);
+    @include nswow.grid-col(8, landscape);
+    @include nswow.grid-col(8, desktop);
+    @include nswow.grid-col(8, print);
+
+    @include nswow.typography-blockquote();
+    color: nswow.colors-gray-800();
+  }
+
+  &:not(.hide-quote-characters) {
+    .srl-quote-width-portrait__text {
+      &:before {
+        content: "\301E";
+      }
+      &:after {
+        content: "\301D";
+      }
+    }
+  }
+
+  &__cite {
+    margin-top: nswow.system-size-unit(20);
+  }
+
+  &__author {
+    @include nswow.typography-copy3(true);
+    font-weight: 700;
+    color: nswow.colors-gray-800();
+  }
+
+  &__function {
+    @include nswow.typography-copy3(true);
+    color: nswow.colors-gray-800();
+  }
+}

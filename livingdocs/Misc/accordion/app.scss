@@ -41,7 +41,7 @@ $iconSize: 20;
   &__content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 500ms linear;
+    transition: grid-template-rows 300ms linear;
     overflow: hidden;
 
     &-wrapper {

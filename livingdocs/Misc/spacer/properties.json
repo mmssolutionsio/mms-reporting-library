@@ -1,75 +1,51 @@
 {
   "web-spacer": {
-    "label": "Web spacer (appears in violet)",
+    "label": "Web spacer",
     "type": "select",
     "options": [
       {
         "caption": "Default"
       },
       {
-        "caption": "XS spacer",
-        "value": "lc-spacer-xs"
+        "caption": "Small",
+        "value": "srl-spacer-web-small"
       },
       {
-        "caption": "S spacer",
-        "value": "lc-spacer-sm"
+        "caption": "Medium",
+        "value": "srl-spacer-web-medium"
       },
       {
-        "caption": "M spacer",
-        "value": "lc-spacer-md"
+        "caption": "Large",
+        "value": "srl-spacer-web-large"
       },
       {
-        "caption": "L spacer",
-        "value": "lc-spacer-lg"
-      },
-      {
-        "caption": "XL spacer",
-        "value": "lc-spacer-xl"
-      },
-      {
-        "caption": "XXL spacer",
-        "value": "lc-spacer-xxl"
+        "caption": "Extra Large",
+        "value": "srl-spacer-web-extra-large"
       }
     ]
   },
   "pdf-spacer": {
-    "label": "PDF spacer (appears in grey)",
+    "label": "PDF spacer",
     "type": "select",
     "options": [
       {
         "caption": "Default"
       },
       {
-        "caption": "XXXS spacer",
-        "value": "lc-spacer-pdf-xs"
+        "caption": "Small",
+        "value": "srl-spacer-print-small"
       },
       {
-        "caption": "XXS spacer",
-        "value": "lc-spacer-pdf-xs"
+        "caption": "Medium",
+        "value": "srl-spacer-print-medium"
       },
       {
-        "caption": "XS spacer",
-        "value": "lc-spacer-pdf-xs"
+        "caption": "Large",
+        "value": "srl-spacer-print-large"
       },
       {
-        "caption": "S spacer",
-        "value": "lc-spacer-pdf-sm"
-      },
-      {
-        "caption": "M spacer",
-        "value": "lc-spacer-pdf-md"
-      },
-      {
-        "caption": "L spacer",
-        "value": "lc-spacer-pdf-lg"
-      },
-      {
-        "caption": "XL spacer",
-        "value": "lc-spacer-pdf-xl"
-      },
-      {
-        "caption": "XXL spacer",
-        "value": "lc-spacer-pdf-xxl"
+        "caption": "Extra Large",
+        "value": "srl-spacer-print-extra-large"
       }
     ]
   }

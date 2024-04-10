@@ -3,7 +3,7 @@
  * @class
  */
 abstract class ArticleLoader {
-  element: Node
+  element: HTMLElement
   options: any
 
   /**

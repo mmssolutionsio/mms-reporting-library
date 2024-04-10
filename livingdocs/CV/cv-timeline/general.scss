@@ -1,1 +1,13 @@
 @use "nswow";
+@use "nswow/grid";
+
+$numberSize: 50;
+
+.srl-title-h2 {
+  @include nswow.typography-copy1(true);
+  color: nswow.colors-gray-800();
+
+  break-before: auto;
+  break-inside: avoid;
+  break-after: auto;
+}

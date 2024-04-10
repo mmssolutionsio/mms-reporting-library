@@ -1,5 +1,4 @@
 @use "nswow";
-@use "nswow/grid";
 
 $numberSize: 50;
 
@@ -10,23 +9,4 @@ $numberSize: 50;
   break-before: auto;
   break-inside: avoid;
   break-after: auto;
-}
-
-.srl-article-root,
-.ns-article
-{
-  > .srl-footnote {
-    @include nswow.grid-container();
-    @include nswow.grid-row();
-
-    > span {
-      @include nswow.grid-col(12, phone);
-      @include nswow.grid-col(12, portrait);
-      @include nswow.grid-col(12, landscape);
-      @include nswow.grid-col(9, desktop);
-      @include nswow.grid-offset(2, desktop);
-      @include nswow.grid-col(9, print);
-      @include nswow.grid-offset(2, print);
-    }
-  }
 }

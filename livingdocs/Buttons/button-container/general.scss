@@ -10,22 +10,3 @@
     text-align: right;
   }
 }
-
-.srl-article-root,
-.ns-article
-{
-  > .srl-button-container {
-    @include nswow.grid-container();
-    @include nswow.grid-row();
-
-    .srl-button-container__inner {
-      @include nswow.grid-col(12, phone);
-      @include nswow.grid-col(12, portrait);
-      @include nswow.grid-col(12, landscape);
-      @include nswow.grid-col(9, desktop);
-      @include nswow.grid-offset(2, desktop);
-      @include nswow.grid-col(9, print);
-      @include nswow.grid-offset(2, print);
-    }
-  }
-}
