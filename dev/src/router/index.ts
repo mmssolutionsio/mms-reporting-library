@@ -1,85 +1,47 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Tr from "@/i18n/translation"
 import HomeView from '@/views/HomeView.vue'
-import ArticleView from '@/views/ArticleView.vue'
-import PageNotFound from '@/views/PageNotFound.vue'
 import SearchView from '@/views/SearchView.vue'
 import DownloadsView from '@/views/DownloadsView.vue'
-import axios from 'axios';
-
-let currentLanguage = 'de';
-let defaultLangRoutes = [];
+import ArticleView from '@/views/ArticleView.vue'
+import PageNotFound from '@/views/PageNotFound.vue'
 
 const router = createRouter({
-  history: createWebHistory( <string>window.baseUrl !== '' ? <string>window.baseUrl : import.meta.env.BASE_URL),
+  history: createWebHistory( window.baseUrl !== '' ? window.baseUrl : import.meta.env.BASE_URL),
   scrollBehavior() {
     window.scrollTo(0, 0)
   },
   routes: [
     {
-      path: `/:lang`,
+      path: "/:locale?",
+      name: "home",
       component: HomeView,
-      props: route => ({ query: route.query.q }),
+      beforeEnter: Tr.routeMiddleware
     },
     {
-      path: `/:lang/:id`,
-      component: ArticleView,
-      name: 'article',
-      props: route => ({ query: route.query.q }),
-    },
-    {
-      path: `/:lang/search`,
+      path: "/:locale/search",
+      name: "search",
       component: SearchView,
-      name: 'search',
-      props: route => ({ query: route.query.q }),
+      beforeEnter: Tr.routeMiddleware
     },
     {
-      path: `/:lang/downloads`,
+      path: "/:locale/downloads",
+      name: "downloads",
       component: DownloadsView,
-      name: 'downloads',
-      props: route => ({ query: route.query.q }),
+      beforeEnter: Tr.routeMiddleware
     },
     {
-      path: `/:catchAll(.*)`,
+      path: "/:locale/404",
+      name: "pageNotFound",
       component: PageNotFound,
-      naem: 'catchall'
+      beforeEnter: Tr.routeMiddleware
     },
     {
-      path: `/:lang/404`,
-      component: PageNotFound,
-      name: 'error404'
-    },
-    {
-      path: ``,
-      redirect: `de`,
+      path: "/:locale/:slug+",
+      component: ArticleView,
+      beforeEnter: Tr.routeMiddleware
     }
   ]
 })
-
-axios
-  .get(`${window.baseUrl}/json/settings.json`)
-  .then(response => {
-    currentLanguage = response?.data?.defaultLanguage;
-    defaultLangRoutes = response?.data?.languages?.map((langValue) => {
-      router.addRoute(
-        {
-          path: `/${langValue}`,
-          name: langValue,
-          component: HomeView,
-        }
-      );
-    });
-
-    router.addRoute(
-      {
-        path: '/',
-        redirect: to => {
-          return { path: `/${currentLanguage}`}
-        },
-      },
-    )
-  })
-  .catch((error) => {
-    console.log('error', error.toJSON());
-  });
 
 export default router

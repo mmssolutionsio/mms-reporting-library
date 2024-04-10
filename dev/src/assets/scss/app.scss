@@ -1,4 +1,5 @@
 @use "nswow";
+@use "web";
 
 .fade-enter-from {
   opacity: 0;
@@ -22,4 +23,13 @@
 
 .fade-leave-active {
   transition: opacity 300ms linear;
+}
+
+.srl-article-root,
+.ns-article
+{
+  > .srl-article__grid {
+    margin-right: auto;
+    margin-left: auto;
+  }
 }

@@ -1,59 +1,47 @@
-<script>
-import axios from 'axios';
-import {useLanguageStore} from '@/stores/languagestore'
+<script lang="ts" setup>
+import { computed, ref } from 'vue'
+import { useI18n } from "vue-i18n"
+import useConfig from '@/composables/config'
 
-export default {
-  data() {
-    return {
-      routeConfig: null,
-      language: '',
-      subNavigationVisible: false,
-      activeSubmenu: [],
-      activeSubSubmenu: [],
-    }
-  },
-  mounted() {
-    const languageStore = useLanguageStore();
-    this.language = languageStore.language;
+const { locale } = useI18n()
+const config = useConfig()
+const subNavigationVisible = ref<boolean>(false)
+const activeSubmenu = ref<NsWowMenu[]>([])
+const activeSubSubmenu = ref<NsWowMenu[]>([])
 
-    axios
-      .get(`${window.baseUrl}/json/routing_${this.language}.json`)
-      .then(response => (this.routeConfig = response.data))
-      .catch((error) => {
-        console.log('error', error.toJSON());
-      })
-  },
-  updated() {
-    const languageStore = useLanguageStore();
+const currentMenus = computed(() => {
+  return config.value.menus[locale.value]??{}
+})
 
-    if (this.language !== languageStore.language) {
-      this.language = languageStore.language;
-      axios
-        .get(`${window.baseUrl}/json/routing_${this.language}.json`)
-        .then(response => (this.routeConfig = response.data))
-        .catch((error) => {
-          console.log('error', error.toJSON());
-        })
-    }
-  },
-  methods: {
-    getLinkByPage(page) {
-      const languageStore = useLanguageStore();
-      const currentPage = this.routeConfig && this.routeConfig.pages.find(element => element.uuid === page);
+const currentMenu =  computed(() => {
+  const m = currentMenus.value.menuMain;
+  return m??[];
+})
 
-      return `/${languageStore.language}/${currentPage.slug}`;
-    },
-    activateSubmenu(index) {
-      this.activeSubmenu = this.routeConfig?.menu?.menuMain[index].submenuEntries;
+const currentArticles = computed<NsWowArticle[]>(() => {
+  return config.value.articles[locale.value]??[]
+})
 
-      if (!this.subNavigationVisible) {
-        this.subNavigationVisible = !this.subNavigationVisible;
-      }
-    },
-    closeSubmenu() {
-      this.subNavigationVisible = false;
+
+function getLinkByPage(page: string): string {
+  const currentPage = currentArticles.value.find(element => element.uuid === page);
+  return currentPage?
+    `/${locale.value}/${currentPage.slug}`:"";
+}
+
+function activateSubmenu(index: number): void {
+  const menu = currentMenu.value[index];
+  if (menu) {
+    activeSubmenu.value = menu.submenuEntries??[]
+
+    if (!subNavigationVisible.value) {
+      subNavigationVisible.value = !subNavigationVisible.value;
     }
   }
+}
+
+function closeSubmenu() {
+  subNavigationVisible.value = false;
 }
 </script>
 
@@ -62,7 +50,7 @@ export default {
     <div class="mms__nav-top">
       <div class="mms__container">
         <ul class="mms__main-navigation">
-          <li class="mms__main-navigation-li" v-for="(level1Item, level1ItemIndex) in routeConfig?.menu?.menuMain" @click="activateSubmenu(level1ItemIndex)">
+          <li class="mms__main-navigation-li" v-for="(level1Item, level1ItemIndex) in currentMenu" @click="activateSubmenu(level1ItemIndex)">
             {{ level1Item.label }}
           </li>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" @click="subNavigationVisible = false" v-if="subNavigationVisible">
@@ -120,29 +108,3 @@ export default {
     </div>
   </nav>
 </template>
-
-<style scoped>
-.fade-enter-from {
-  opacity: 0;
-}
-
-.fade-enter-to {
-  opacity: 1;
-}
-
-.fade-enter-active {
-  transition: opacity 300ms linear;
-}
-
-.fade-leave-from {
-  opacity: 1;
-}
-
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-leave-active {
-  transition: opacity 300ms linear;
-}
-</style>

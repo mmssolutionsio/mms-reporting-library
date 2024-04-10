@@ -477,13 +477,13 @@
                         box-sizing: border-box;
                         overflow: hidden;
 
-                        @if $row-gap {
-                            margin-right: system.size-unit(math.div($row-gap, -2), in);
-                            margin-left: system.size-unit(math.div($row-gap, -2), in);
+                        @if $column-gap {
+                            margin-right: system.size-unit(math.div($column-gap, -2), in);
+                            margin-left: system.size-unit(math.div($column-gap, -2), in);
                         }
 
-                        @if $column-gap {
-                            margin-bottom: system.size-unit(-$column-gap, in);
+                        @if $row-gap {
+                            margin-bottom: system.size-unit(-$row-gap, in);
                         }
 
                         &:after {
@@ -502,13 +502,13 @@
                             width: math.div(100%, variables.$column-default-span);
                             overflow: hidden;
 
-                            @if $row-gap {
-                                padding-right: system.size-unit(math.div($row-gap, 2), in);
-                                padding-left: system.size-unit(math.div($row-gap, 2), in);
+                            @if $column-gap {
+                                padding-right: system.size-unit(math.div($column-gap, 2), in);
+                                padding-left: system.size-unit(math.div($column-gap, 2), in);
                             }
 
-                            @if $column-gap {
-                                padding-bottom: system.size-unit($column-gap, in);
+                            @if $row-gap {
+                                padding-bottom: system.size-unit($row-gap, in);
                             }
                         }
                     }

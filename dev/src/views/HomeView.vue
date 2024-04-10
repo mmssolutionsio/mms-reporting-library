@@ -1,49 +1,27 @@
-<script>
-import axios from 'axios';
-import { useLanguageStore } from '@/stores/languagestore'
+<script setup lang="ts">
+import {computed} from "vue"
+import { ArrayToString } from '@/utils/variables'
+import { useRoute } from 'vue-router'
 
-export default {
-  data() {
-      return {
-          language: '',
-      }
-  },
-  props: {
-      route: {
-          type: String,
-      },
-  },
-  mounted() {
-    const languageStore = useLanguageStore();
-    this.language = languageStore.language;
-    
-    if (Object.keys(this.$route.query).length !== 0) {
-      if (this.$route.query.action === 'reloadPage') {
-        languageStore.setCurrentLanguage(this.$route.query.lang)
-        this.$router.push({path: `/${this.$route.query.lang}/${this.$route.query.slug}`})
-      } else {
-        this.language = languageStore.language;
-        this.$router.push({path: `/${this.$route.query.path}`})
-      }
-    } else {
-      this.language = languageStore.language;
-      axios
-        .get(`${window.baseUrl}/json/routing_${this.language}.json`)
-        .then(({data}) => {
-            this.$router.push({path: `/${this.language}/${data.pages.find(element => element.index === true).slug}`})
-        })
-        .catch((error) => {
-            console.log('error', error.toJSON());
-        })
-    }
-  },
-}
+const route = useRoute()
+
+const locale = computed<string>(() => {
+  return ArrayToString(route.params.locale)
+})
 </script>
 
 <template>
-  <div class="mms__container"></div>
+  <div class="srl-main">
+    <h1>Welcome {{ locale }}</h1>
+  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped lang="scss">
+@use "nswow";
 
+.srl-main {
+  @include nswow.grid-container();
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

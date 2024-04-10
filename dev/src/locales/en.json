@@ -1,0 +1,12 @@
+{
+  "page": {
+    "next": "Next page",
+    "prev": "Previous page",
+    "notFound": "Page not found"
+  },
+  "search": {
+    "title": "Search results",
+    "for": "Your search for {search} returned {count} hits"
+  },
+  "scrollToTop": "Scroll to top"
+}

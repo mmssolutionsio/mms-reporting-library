@@ -1,35 +1,12 @@
-<script>
-import { useLanguageStore } from "@/stores/languagestore";
+<script setup lang="ts">
 
-export default {
-  data() {
-    return {
-      routeConfig: null,
-      language: "",
-    };
-  },
-  mounted() {
-    const languageStore = useLanguageStore();
-    this.language = languageStore.language;
-  },
-  methods: {
-    get404Title() {
-      switch (this.language) {
-        case "de":
-          return "Seite nicht gefunden";
-        case "en":
-          return "Page not found";
-      }
-    },
-  },
-};
 </script>
 
 <template>
-  <main>
-    <div class="intro">
+  <div class="srl-notfound">
+    <div class="srl-notfound__inner">
       <h1>404</h1>
-      <h2>{{ get404Title() }}</h2>
+      <h2>{{ $t("page.notFound") }}</h2>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -46,98 +23,48 @@ export default {
         />
       </svg>
     </div>
-  </main>
+  </div>
 </template>
 
-<style scoped>
-@keyframes introH2Animation {
-  0% {
-    top: 60px;
-    opacity: 0;
-  }
-  100% {
-    top: 0;
-    opacity: 1;
-  }
-}
-@keyframes spin {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
+<style scoped lang="scss">
+@use "nswow";
 
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
+.srl-notfound {
+  @include nswow.grid-container();
+  @include nswow.fonts-core-styles();
+  margin: 0 auto;
 
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
+  &__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 80vh;
 
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
+    svg {
+      height: 100px;
+      width: 100px;
+      margin-top: 2rem;
+      animation: spin 600ms linear 2;
 
-main {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 200px);
-  align-items: center;
-}
+      @keyframes spin {
+        10%, 90% {
+          transform: translate3d(-1px, 0, 0);
+        }
 
-.intro {
-  background-color: var(--mms-black-75);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  flex: 1;
-}
+        20%, 80% {
+          transform: translate3d(2px, 0, 0);
+        }
 
-.intro h1,
-.intro h2 {
-  line-height: 1;
-  font-weight: 700;
-  padding-bottom: 3rem;
-  position: relative;
-}
+        30%, 50%, 70% {
+          transform: translate3d(-4px, 0, 0);
+        }
 
-.intro h1 {
-  font-size: 10rem;
-  color: var(--mms-purple-75);
-  padding-top: 2rem;
-}
-
-.intro h2 {
-  font-size: 3em;
-  animation: introH2Animation 600ms linear 1;
-}
-
-.intro svg {
-  height: 100px;
-  width: 100px;
-  margin-top: 2rem;
-  animation: spin 600ms linear 2;
-}
-
-@media (min-width: 920px) {
-  main {
-    flex-direction: row;
-  }
-
-  .intro__logo {
-    margin-top: 0;
-    margin-bottom: 2rem;
-  }
-
-  .intro h1 {
-    font-size: 20rem;
-    padding-top: 0;
-  }
-
-  .intro h2 {
-    font-size: 4em;
-    padding-bottom: 0;
+        40%, 60% {
+          transform: translate3d(4px, 0, 0);
+        }
+      }
+    }
   }
 }
 </style>

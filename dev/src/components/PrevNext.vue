@@ -1,121 +1,86 @@
 <script lang="ts" setup>
 import ScrollToTop from '@/components/ScrollToTop.vue'
-import axios from 'axios'
-import { useLanguageStore } from '@/stores/languagestore'
-import { onMounted, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import useConfig from '@/composables/config'
+import { ArrayToString } from '@/utils/variables'
 
-const allPages = ref(null)
-const flatMenu = ref([])
-const language = ref('')
-const router = useRouter()
+const config = useConfig()
 const route = useRoute()
 
-onMounted(() => {
-  const languageStore = useLanguageStore()
-  language.value = languageStore.language
-
-  axios
-    .get(`${window.baseUrl}/json/routing_${language.value}.json`)
-    .then(response => {
-      allPages.value = response.data.pages
-      flatMenu.value = flatten(response && response.data && response.data.menu && response.data.menu.menuMain)
-    })
-    .catch((error) => {
-      console.log('error', error.toJSON())
-    })
+const locale = computed<string>(() => {
+  return ArrayToString(route.params.locale)
 })
 
-function flatten(input) {
-  let flattenedArray = []
-
-  input && input.map(function(valueOne, index) {
-    valueOne?.page && flattenedArray.push(
-      valueOne
-    )
-    valueOne.submenuEntries?.map(function(valueTwo, index) {
-      valueTwo?.page && flattenedArray.push(
-        valueTwo
-      )
-      valueTwo.submenuEntries?.map(function(valueThree, index) {
-        valueThree?.page && flattenedArray.push(
-          valueThree
-        )
-        valueThree?.submenuEntries?.map(function(valueFour, index) {
-          valueFour?.page && flattenedArray.push(
-            valueFour
-          )
-        })
-      })
-    })
-  })
-
-  return flattenedArray
-}
-
-function navigateRoutes(direction) {
-  const currentPage = allPages.value.find(element => element.slug === route.params.id)
-  const currentIndex = flatMenu.value && flatMenu.value.findIndex((element) => element.page === currentPage.uuid)
-
-  if (direction === 'next') {
-    if (currentIndex === flatMenu.value.length - 1) {
-      returnLink(0)
-    } else {
-      returnLink(currentIndex + 1)
-    }
-  } else {
-    if (currentIndex === 0) {
-      returnLink(flatMenu.value.length - 1)
-    } else {
-      returnLink(currentIndex - 1)
+const articles = computed<NsWowArticle[]>(() => {
+  const a = config.value.articles[locale.value]
+  const res = []
+  if (a) {
+    for (let i = 0; i < a.length; i++) {
+      if (a[i].originalLanguageOfArticle) {
+        res.push(a[i])
+      }
     }
   }
-}
+  return res
+})
 
-function returnLink(index) {
-  const pageToLinkTo = allPages.value.find(element => element.uuid === flatMenu.value[index].page)
-  router.push(`/${language.value}/${pageToLinkTo.slug}`)
-}
+const activeArticle = computed<number>(() => {
+  return articles.value.findIndex(i => i.slug === ArrayToString(route.params.slug))
+})
 
-function getNextTitle() {
-  switch (language.value) {
-    case 'de':
-      return 'Nächste Seite'
-    case 'en':
-      return 'Next page'
+const nextRoute = computed(() => {
+  if (activeArticle.value === -1) {
+    return null
   }
-}
-
-function getPrevTitle() {
-  switch (language.value) {
-    case 'de':
-      return 'Vorherige Seite'
-    case 'en':
-      return 'Previous page'
+  let nextIndex: number = activeArticle.value + 1;
+  if (nextIndex >= articles.value.length) {
+    nextIndex = 0;
   }
-}
+  return {
+    params: {
+      locale: locale.value,
+      slug: articles.value[nextIndex].slug.split("/")
+    }
+  }
+})
+
+const prevRoute = computed(() => {
+  if (activeArticle.value === -1) {
+    return null
+  }
+  let prevIndex: number = activeArticle.value - 1;
+  if (prevIndex < 0) {
+    prevIndex = articles.value.length - 1;
+  }
+  return {
+    params: {
+      locale: locale.value,
+      slug: articles.value[prevIndex].slug.split("/")
+    }
+  }
+})
+
 </script>
 <template>
   <div class="srl-nav-holder">
-    <div class="srl-nav-holder__nav-btn" @click.prevent="navigateRoutes('prev')">
+    <router-link v-if="prevRoute" :to="prevRoute" class="srl-nav-holder__nav-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left left"
            viewBox="0 0 16 16">
         <path fill-rule="evenodd"
               d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
       </svg>
-      {{ getPrevTitle() }}
-    </div>
-
+      {{ $t("page.prev") }}
+    </router-link>
     <ScrollToTop />
-
-    <div class="srl-nav-holder__nav-btn" @click.prevent="navigateRoutes('next')">
-      {{ getNextTitle() }}
+    <router-link v-if="nextRoute" :to="nextRoute" class="srl-nav-holder__nav-btn">
+      {{ $t("page.next") }}
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
            class="bi bi-chevron-right right" viewBox="0 0 16 16">
         <path fill-rule="evenodd"
               d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
       </svg>
-    </div>
+    </router-link>
   </div>
 </template>
 

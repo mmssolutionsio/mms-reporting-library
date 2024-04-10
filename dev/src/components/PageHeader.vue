@@ -1,32 +1,25 @@
 <script lang="ts" setup>
-import { useLanguageStore } from '@/stores/languagestore'
 import { RouterLink } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import {useI18n} from 'vue-i18n'
+import LanguageSwitch from '@/components/LanguageSwitch.vue'
 
-const languageStore = useLanguageStore()
+const {locale} = useI18n();
 const srlSearch = ref()
-let searchValue = ''
-
-function changeLanguage() {
-  return `/${languageStore.language}`
-}
+let searchValue = ref('')
 
 function toggleSearchVisible() {
   srlSearch.value.classList.toggle('visible')
 }
-
-onMounted(() => {
-  changeLanguage()
-})
 </script>
 
 <template>
   <header>
     <div class="srl-header__inner">
-      <router-link class="srl-header__inner-logo" :to="{ path: `/` }"></router-link>
+      <router-link class="srl-header__inner-logo" :to="{ path: `/${locale}` }"></router-link>
       <div class="srl-header__inner-content">
         <div class="srl-header__inner-languages">
-          <router-link :to="{ path: `/${languageStore.language}/downloads` }">
+          <router-link :to="{ path: `/${locale}/downloads` }">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,16 +52,7 @@ onMounted(() => {
               />
             </svg>
           </button>
-          <button
-            v-for="langCode in languageStore.allLanguages || ['de', 'en']"
-            :key="langCode"
-            type="button"
-            :class="{ active: languageStore.language === langCode }"
-            @click="languageStore.setCurrentLanguage(langCode)"
-            @click.prevent="$router.push(changeLanguage())"
-          >
-            {{ langCode.toUpperCase() }}
-          </button>
+          <LanguageSwitch/>
         </div>
       </div>
     </div>
@@ -77,7 +61,7 @@ onMounted(() => {
         type="search"
         placeholder="Search ..."
         v-model="searchValue"
-        @keypress.enter="$router.push(`/${languageStore.language}/search?searchValue=${searchValue}`); toggleSearchVisible()"
+        @keypress.enter="$router.push(`/${locale}/search?searchValue=${searchValue}`); toggleSearchVisible()"
       />
     </div>
   </header>
@@ -116,20 +100,6 @@ header {
         @include nswow.grid-col(9, portrait);
         @include nswow.grid-col(10, landscape);
         @include nswow.grid-col(10, desktop);
-      }
-
-      &-languages {
-        display: flex;
-        justify-content: flex-end;
-        min-height: nswow.system-size-unit(5);
-
-        button {
-          color: nswow.colors-light();
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          outline: none;
-        }
       }
     }
 
