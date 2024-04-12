@@ -4,6 +4,11 @@ $numberSize: 50;
 $iconSize: 20;
 
 .srl-accordion {
+  &__toggle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   &__head {
     background-color: nswow.colors-on-secondary-light();
     padding: nswow.system-size-unit(20) nswow.system-size-unit(10);

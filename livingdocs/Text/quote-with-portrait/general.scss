@@ -27,6 +27,14 @@
     }
   }
 
+  &__text {
+    @include nswow.grid-col(12, phone);
+    @include nswow.grid-col(8, portrait);
+    @include nswow.grid-col(8, landscape);
+    @include nswow.grid-col(8, desktop);
+    @include nswow.grid-col(8, print);
+  }
+
   &.round-portrait {
     .srl-quote-width-portrait__image-img {
       border-radius: 50%;

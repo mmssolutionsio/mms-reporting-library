@@ -7,6 +7,7 @@ import LanguageSwitch from '@/components/LanguageSwitch.vue'
 const { locale } = useI18n()
 const srlSearch = ref()
 let searchValue = ref('')
+const baseUrl = ref(window.baseUrl ?? '')
 
 function toggleSearchVisible() {
   srlSearch.value.classList.toggle('visible')
@@ -16,7 +17,9 @@ function toggleSearchVisible() {
 <template>
   <header>
     <div class="srl-header__inner">
-      <router-link class="srl-header__inner-logo" :to="{ path: `/${locale}` }"></router-link>
+      <router-link class="srl-header__inner-logo" :to="{ path: `/${locale}` }">
+        <img :src="`${baseUrl}/assets/mms-logo-white.svg`" alt="logo"/>
+      </router-link>
       <div class="srl-header__inner-content">
         <div class="srl-header__inner-languages">
           <router-link :to="{ path: `/${locale}/downloads` }">
@@ -87,12 +90,14 @@ header {
         @include nswow.grid-col(3, portrait);
         @include nswow.grid-col(2, landscape);
         @include nswow.grid-col(2, desktop);
-
-        background-image: url("@/assets/images/mms-logo-white.svg");
-        background-repeat: no-repeat;
         height: nswow.system-size-unit(60);
         width: 100%;
         display: block;
+
+        img {
+          height: 100%;
+          max-width: 150px;
+        }
       }
 
       &-languages {
