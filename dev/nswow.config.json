@@ -5,6 +5,7 @@
   },
   "meta": {
     "padding": {
+      "tiny": 4,
       "base": 8,
       "small": 16,
       "medium": 24,

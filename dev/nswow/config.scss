@@ -9,6 +9,7 @@
 
 @use "@multivisio/nswow/scss/meta/variables.scss" as metaVariables with (
   $padding: (
+    tiny: 4,
     base: 8,
     small: 16,
     medium: 24,

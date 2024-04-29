@@ -1,2 +1,26 @@
 @use "nswow";
 @use "web";
+
+.ns-temp-highlight {
+  background: nswow.colors-primary();
+}
+
+$editor-color-nswow: nswow.colors-gray-200();
+
+span.ns-nowrap {
+  --b: 1px; /* thickness of the border */
+  --c: #{$editor-color-nswow}; /* color of the border */
+  --w: 6px; /* width of border */
+  border: var(--b) solid #0000; /* space for the border */
+  --_g: #0000 90deg, var(--c) 0;
+  --_p: var(--w) var(--w) border-box no-repeat;
+  background: conic-gradient(from 90deg at top var(--b) left var(--b), var(--_g)) 0 0    / var(--_p),
+  conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0    / var(--_p),
+  conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% / var(--_p),
+  conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100% 100% / var(--_p);
+}
+
+span.ns-key-figure {
+  color: nswow.colors-on-primary();
+  background-color: nswow.colors-primary();
+}

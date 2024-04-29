@@ -17,7 +17,7 @@ type langItem = {
   route: langRoute;
 }
 
-const config = useConfig()
+const config = await useConfig()
 const route = useRoute()
 
 const languageItems = ref<langItem[]>([])

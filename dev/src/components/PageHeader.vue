@@ -55,7 +55,9 @@ function toggleSearchVisible() {
               />
             </svg>
           </button>
-          <LanguageSwitch />
+          <suspense>
+            <LanguageSwitch />
+          </suspense>
         </div>
       </div>
     </div>

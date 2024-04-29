@@ -5,7 +5,7 @@ import useConfig from '@/composables/config'
 import { MenuArticle, MenuEntry, MenuExternal } from '@/components/MenuItem'
 
 const { locale } = useI18n()
-const config = useConfig()
+const config = await useConfig()
 const subNavigationVisible = ref<boolean>(false)
 const activeSubmenu = ref<NsWowMenu[]>([])
 const activeSubSubmenu = ref<NsWowMenu[]>([])

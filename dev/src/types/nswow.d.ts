@@ -30,6 +30,7 @@ declare global {
   }
 
   export type NsWowConfig = {
+    loaded: boolean;
     baseUrl: string;
     settings: NsWowSettings;
     articles: NsWowArticles;

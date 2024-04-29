@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick, computed, watch, onMounted } from 'vue'
+import { ref, nextTick, computed, watch, onMounted, markRaw } from 'vue'
 import { useRoute } from 'vue-router'
 import useConfig from '@/composables/config'
 import Autoload from '@/Autoload'
@@ -7,7 +7,7 @@ import PrevNext from '@/components/PrevNext.vue'
 import { useRouter } from 'vue-router'
 import { ArrayToString } from '@/utils/variables'
 
-const config = useConfig()
+const config = await useConfig()
 const router = useRouter()
 const route = useRoute()
 const articleContent = ref<HTMLDivElement | undefined>()
@@ -28,7 +28,7 @@ async function getContent() {
     try {
       const response = await fetch(file)
       res = await response.text()
-      output.value = res
+      output.value = res;
       await nextTick(() => {
         if (articleContent.value) {
           Autoload.init(articleContent.value)
@@ -43,9 +43,9 @@ async function getContent() {
   }
 }
 
-watch(route,() => getContent())
-onMounted(() => {
-  getContent()
+watch(route,async () => await getContent())
+onMounted(async () => {
+  await getContent()
 })
 </script>
 

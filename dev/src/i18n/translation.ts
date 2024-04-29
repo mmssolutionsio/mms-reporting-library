@@ -1,8 +1,10 @@
 import useConfig from '@/composables/config'
 import i18n from '@/i18n'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import {ref} from "vue"
 
-const config = useConfig();
+let config = ref({});
+useConfig().then(c=> config = c);
 
 const Translate = {
   isLocaleSupported(locale: string) { // <--- 1

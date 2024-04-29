@@ -2,6 +2,7 @@ import { ref } from 'vue'
 
 
 const config = ref<NsWowConfig>({
+  loaded: false,
   baseUrl: window.baseUrl??"",
   settings: {
     languages:["de","en"],
@@ -38,12 +39,13 @@ async function getData() {
       console.error(`"${file}" could not be loaded.`)
     }
   }
+
+  config.value.loaded = true;
 }
 
-getData()
-
-
-
-export default function useConfig() {
+export default async function useConfig() {
+  if (!config.value.loaded) {
+    await getData()
+  }
   return config;
 }

@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 import useConfig from '@/composables/config'
 import { ArrayToString } from '@/utils/variables'
 
-const config = useConfig()
+const config = await useConfig()
 const route = useRoute()
 
 const locale = computed<string>(() => {

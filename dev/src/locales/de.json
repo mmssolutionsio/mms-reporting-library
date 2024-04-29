@@ -8,5 +8,8 @@
     "title": "Suchergebnisse",
     "for": "Ihre Suche nach {search} ergab {count} Treffer"
   },
-  "scrollToTop": "Nach oben scrollen"
+  "scrollToTop": "Nach oben scrollen",
+  "buttons": {
+    "close": "Schließen"
+  }
 }

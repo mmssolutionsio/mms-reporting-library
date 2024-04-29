@@ -1,1 +1,273 @@
 @use "nswow";
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin: 0;
+  table-layout: fixed;
+}
+
+td, th {
+  border-bottom: 1px solid #{nswow.colors-dark()};
+  @include nswow.typography-copy2();
+  padding: nswow.system-size-unit(nswow.padding(small));
+  vertical-align: bottom;
+
+  @include nswow.grid-media(print) {
+    padding: nswow.system-size-unit(nswow.padding(small), in);
+  }
+
+  /**
+  Paddings
+   */
+  &[class*="noline"] {
+    padding: 0;
+  }
+
+  &[class*="noline_space"] {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /*
+  Font colors
+  */
+
+  /*
+  Font Sizes
+  */
+  &.head {
+    @include nswow.typography-copy2();
+  }
+
+  &.head_small {
+    @include nswow.typography-copy3();
+  }
+
+  .pdf-font-size-small & {
+    @include nswow.grid-media(print) {
+      @include nswow.typography-copy3();
+    }
+  }
+
+  /*
+  PDF Cell Paddings
+  */
+  .pdf-padding-small & {
+    @include nswow.grid-media(print) {
+      padding: nswow.system-size-unit(nswow.padding(base));
+      @include nswow.grid-media(print) {
+        padding: nswow.system-size-unit(nswow.padding(base), in);
+      }
+    }
+  }
+
+  .pdf-padding-tiny & {
+    @include nswow.grid-media(print) {
+      padding: nswow.system-size-unit(nswow.padding(tiny));
+      @include nswow.grid-media(print) {
+        padding: nswow.system-size-unit(nswow.padding(tiny), in);
+      }
+    }
+  }
+
+  /*
+  Font Weights
+  */
+  &[class*="head"],
+  &[class*="bold"] {
+    font-weight: 700;
+  }
+
+  /*
+  First and last child paddings
+  has to be after the pdf paddings, to override
+  */
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+
+    &[class*="background"] {
+      padding-right: nswow.system-size-unit(nswow.padding(small));
+      @include nswow.grid-media(print) {
+        padding-right: nswow.system-size-unit(nswow.padding(small), in);
+      }
+    }
+  }
+
+  /*
+  Borders
+  */
+  &[class="line"] {
+    border-bottom: 1px solid #{nswow.colors-dark()};
+  }
+
+  &[class*="head"],
+  &[class*="bline"] {
+    border-bottom: 2px solid #{nswow.colors-dark()};
+  }
+
+  &[class*="noline"] {
+    border-bottom: 0;
+  }
+
+  /*
+  Indents
+  */
+  &[class*="_ind"] {
+    &:first-child {
+      padding-left: nswow.system-size-unit(nswow.padding(small));
+      @include nswow.grid-media(print) {
+        padding-left: nswow.system-size-unit(nswow.padding(small), in);
+      }
+    }
+  }
+
+  &[class*="_ind_ind"] {
+    &:first-child {
+      padding-left: nswow.system-size-unit(nswow.padding(small) * 2);
+      @include nswow.grid-media(print) {
+        padding-left: nswow.system-size-unit(nswow.padding(small) * 2, in);
+      }
+    }
+  }
+
+  /*
+  Cell Backgrounds
+  DEFINE HERE; DIFFERENT CSS CLASSES IN EVERY PROJECT
+  */
+  &[class*="background-01"] {
+    background-color: nswow.colors-gray-100();
+    color: nswow.colors-on-gray-100();
+  }
+
+  &[class*="background-02"] {
+    background-color: nswow.colors-gray-200();
+    color: nswow.colors-on-gray-200();
+  }
+
+  &[class*="background-03"] {
+    background-color: nswow.colors-gray-300();
+    color: nswow.colors-on-gray-300();
+  }
+
+  &[class*="background-04"] {
+    background-color: nswow.colors-gray-400();
+    color: nswow.colors-on-gray-400();
+  }
+
+  &[class*="background-05"] {
+    background-color: nswow.colors-gray-500();
+    color: nswow.colors-on-gray-500();
+  }
+
+  &[class*="background-06"] {
+    background-color: nswow.colors-gray-600();
+    color: nswow.colors-on-gray-600();
+  }
+
+  &[class*="background-07"] {
+    background-color: nswow.colors-gray-700();
+    color: nswow.colors-on-gray-700();
+  }
+
+  &[class*="background-08"] {
+    background-color: nswow.colors-gray-800();
+    color: nswow.colors-on-gray-800();
+  }
+
+  &[class*="background-09"] {
+    background-color: nswow.colors-gray-900();
+    color: nswow.colors-on-gray-900();
+  }
+
+  &[class*="background-10"] {
+    background-color: nswow.colors-primary();
+    color: nswow.colors-on-primary();
+  }
+
+  /*
+  Alignments
+  */
+  &.ns-horizontal-left {
+    text-align: left;
+  }
+
+  &.ns-horizontal-center {
+    text-align: center;
+  }
+
+  &.ns-horizontal-right {
+    text-align: right;
+  }
+
+  &[class*="vatop"] {
+    vertical-align: top;
+  }
+
+  &[class*="vamiddle"] {
+    vertical-align: middle;
+  }
+
+  &[class*="vabottom"] {
+    vertical-align: bottom;
+  }
+
+  /*
+  Responsive CSS tables
+  */
+  &:first-child {
+    .responsive-table & {
+      background: white;
+      position: sticky;
+      left: 0;
+      z-index: 2;
+    }
+
+    &:not(:first-child) {
+      .responsive-table & {
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    .has-shadow & {
+      box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &:nth-child(2) {
+    .has-shadow & {
+      padding-left: calc(#{nswow.spacer(small)} + 24px);
+    }
+  }
+
+  /*
+  Paragraphs and spans
+  */
+
+  p span {
+    white-space: pre-line;
+
+    &.bold {
+      font-weight: 700;
+    }
+
+    &:empty {
+      &:before {
+        content: " ";
+      }
+    }
+  }
+
+  &[class*="noline"] p span {
+    white-space: normal;
+  }
+}
+
+
+

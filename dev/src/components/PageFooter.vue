@@ -5,7 +5,7 @@ import useConfig from '@/composables/config'
 import {useI18n} from 'vue-i18n'
 
 const { locale } = useI18n();
-const config = useConfig()
+const config = await useConfig()
 const navigation = ref<NsWowMenu[]>([])
 
 const currentMenus = computed<NsWowMenus>(() => {

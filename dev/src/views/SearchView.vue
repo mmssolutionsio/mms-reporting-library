@@ -12,7 +12,7 @@ type searchDataType = {
   firstParagraph: string;
 }
 
-const config = useConfig()
+const config = await useConfig()
 const route = useRoute()
 const isLoading = ref<boolean>(true)
 const searchData = ref<searchDataType[]>([])

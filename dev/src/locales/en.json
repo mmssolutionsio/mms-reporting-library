@@ -8,5 +8,8 @@
     "title": "Search results",
     "for": "Your search for {search} returned {count} hits"
   },
-  "scrollToTop": "Scroll to top"
+  "scrollToTop": "Scroll to top",
+  "buttons": {
+    "close": "Close"
+  }
 }
