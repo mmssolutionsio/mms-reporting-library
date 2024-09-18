@@ -121,9 +121,9 @@ getSearchResult()
 @use "nswow";
 
 .srl-article {
+  margin: 0 auto;
   @include nswow.grid-container();
   @include nswow.typography-core-styles();
-  margin: 0 auto;
 }
 
 </style>

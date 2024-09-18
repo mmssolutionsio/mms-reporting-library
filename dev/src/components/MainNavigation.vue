@@ -105,8 +105,8 @@ function closeSubmenu() {
   &__menuMain,
   &__subNav {
     &-inner {
-      @include nswow.grid-container();
       margin: 0 auto;
+      @include nswow.grid-container();
 
       ul {
         margin: 0 0 0 0;

@@ -30,9 +30,9 @@
 @use "nswow";
 
 .srl-notfound {
+  margin: 0 auto;
   @include nswow.grid-container();
   @include nswow.fonts-core-styles();
-  margin: 0 auto;
 
   &__inner {
     display: flex;

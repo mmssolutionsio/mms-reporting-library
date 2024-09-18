@@ -83,9 +83,9 @@ header {
 
   .srl-header {
     &__inner {
+      margin: 0 auto;
       @include nswow.grid-container();
       @include nswow.grid-row();
-      margin: 0 auto;
 
       &-logo {
         @include nswow.grid-col(4, phone);

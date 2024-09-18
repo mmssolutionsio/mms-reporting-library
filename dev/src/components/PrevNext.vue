@@ -101,8 +101,8 @@ const prevRoute = computed(() => {
     align-items: center;
     background-color: nswow.colors-primary();
     color: nswow.colors-light();
-    @include nswow.typography-copy3();
     padding: nswow.system-size-unit(10) nswow.system-size-unit(15);
+    @include nswow.typography-copy3();
 
     svg {
       transition: all 200ms ease;

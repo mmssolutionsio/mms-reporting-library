@@ -57,8 +57,8 @@ getDownloads()
 @use "nswow";
 
 .srl-download {
-  @include nswow.grid-container();
   margin: 0 auto;
+  @include nswow.grid-container();
 
   &__list {
     list-style-type: none;
