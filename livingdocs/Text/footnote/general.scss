@@ -3,10 +3,10 @@
 $numberSize: 50;
 
 .srl-footnote {
-  @include nswow.typography-copy3(true);
   color: nswow.colors-gray-800();
 
   break-before: auto;
   break-inside: avoid;
   break-after: auto;
+  @include nswow.typography-copy3(true);
 }
