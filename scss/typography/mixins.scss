@@ -15,31 +15,45 @@
 @mixin _build-typo ($typo, $map, $margins: false, $media: false, $media-defaults: ()) {
     @if not $media {
         @if (map.has-key($map, font-family)) or (system.$environment == development) {
-            font-family: functions.get-font-family($typo);
+            & {
+                font-family: functions.get-font-family($typo);
+            }
         }
 
         @if (map.has-key($map, font-size)) or (system.$environment == development) {
-            font-size: functions.get-font-size($typo);
+            & {
+                font-size: functions.get-font-size($typo);
+            }
         }
 
         @if (map.has-key($map, line-height)) or (system.$environment == development) {
-            line-height: functions.get-line-height($typo);
+            & {
+                line-height: functions.get-line-height($typo);
+            }
         }
 
         @if (map.has-key($map, font-style)) or (system.$environment == development) {
-            font-style: functions.get-font-style($typo);
+            & {
+                font-style: functions.get-font-style($typo);
+            }
         }
 
         @if (map.has-key($map, font-weight)) or (system.$environment == development) {
-            font-weight: functions.get-font-weight($typo);
+            & {
+                font-weight: functions.get-font-weight($typo);
+            }
         }
 
         @if $margins {
             @if (map.has-key($map, margin-top)) or (system.$environment == development) {
-                margin-top: functions.get-margin-top($typo);
+                & {
+                    margin-top: functions.get-margin-top($typo);
+                }
             }
             @if (map.has-key($map, margin-bottom)) or (system.$environment == development) {
-                margin-bottom: functions.get-margin-bottom($typo);
+                & {
+                    margin-bottom: functions.get-margin-bottom($typo);
+                }
             }
         }
 

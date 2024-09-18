@@ -10,9 +10,9 @@ table {
 
 td, th {
   border-bottom: 1px solid #{nswow.colors-dark()};
-  @include nswow.typography-copy2();
   padding: nswow.system-size-unit(nswow.padding(small));
   vertical-align: bottom;
+  @include nswow.typography-copy2();
 
   @include nswow.grid-media(print) {
     padding: nswow.system-size-unit(nswow.padding(small), in);
@@ -268,6 +268,3 @@ td, th {
     white-space: normal;
   }
 }
-
-
-

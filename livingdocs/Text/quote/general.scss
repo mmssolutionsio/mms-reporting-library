@@ -12,8 +12,8 @@
   }
 
   &__text {
-    @include nswow.typography-blockquote();
     color: nswow.colors-gray-800();
+    @include nswow.typography-blockquote();
   }
 
   &:not(.hide-quote-characters) {
@@ -32,14 +32,14 @@
   }
 
   &__author {
-    @include nswow.typography-copy3(true);
     font-weight: 700;
     color: nswow.colors-gray-800();
+    @include nswow.typography-copy3(true);
   }
 
   &__function {
-    @include nswow.typography-copy3(true);
     color: nswow.colors-gray-800();
+    @include nswow.typography-copy3(true);
   }
 
 }

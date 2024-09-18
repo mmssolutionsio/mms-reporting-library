@@ -88,13 +88,13 @@ header {
       @include nswow.grid-row();
 
       &-logo {
+        height: nswow.system-size-unit(60);
+        width: 100%;
+        display: block;
         @include nswow.grid-col(4, phone);
         @include nswow.grid-col(3, portrait);
         @include nswow.grid-col(2, landscape);
         @include nswow.grid-col(2, desktop);
-        height: nswow.system-size-unit(60);
-        width: 100%;
-        display: block;
 
         img {
           height: 100%;
@@ -125,12 +125,12 @@ header {
     }
 
     &__search {
-      @include nswow.grid-container();
       margin: 0 auto;
       height: 0;
       opacity: 0;
       overflow: hidden;
       transition: height 100ms linear;
+      @include nswow.grid-container();
 
       &.visible {
         min-height: nswow.system-size-unit(40);
