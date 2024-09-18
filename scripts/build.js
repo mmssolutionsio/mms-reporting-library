@@ -6,7 +6,7 @@ import { beaver } from "./beaver.js";
 import { build as viteBuild } from 'vite';
 import { build as finalizeLdd } from "./migrate-livingdocs-build/bin/build.js";
 import { readPackageJson, writePackageJson, readLivingDocsJson, writeLivingDocsJson } from "./utils.js";
-import { camelCase } from 'cheerio/lib/utils';
+import { camelCase } from 'cheerio/utils';
 
 const CWD = process.cwd();
 const nswowPath = resolve(CWD, '.nswow');
