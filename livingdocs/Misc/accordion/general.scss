@@ -16,8 +16,8 @@ $iconSize: 20;
   }
 
   &__head {
-    @include nswow.typography-headline3;
     color: nswow.colors-primary();
+    @include nswow.typography-headline3;
 
     @include nswow.grid-col(12, phone);
     @include nswow.grid-col(12, portrait);

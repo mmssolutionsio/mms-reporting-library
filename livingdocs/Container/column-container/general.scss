@@ -3,13 +3,13 @@
 .srl-columns {
   padding-bottom: nswow.system-size-unit(30);
 
-  @include nswow.grid-media(print) {
-    padding-bottom: nswow.system-size-unit(30, in);
-  }
-
   break-before: auto;
   break-inside: auto;
   break-after: auto;
+
+  @include nswow.grid-media(print) {
+    padding-bottom: nswow.system-size-unit(30, in);
+  }
 
   &__grid {
     @include nswow.grid-row();

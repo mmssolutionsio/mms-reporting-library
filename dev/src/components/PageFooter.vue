@@ -53,8 +53,8 @@ footer {
 
   .srl-footer {
     &__inner {
-      @include nswow.grid-container();
       margin: 0 auto;
+      @include nswow.grid-container();
 
       &-imprint {
         text-align: center;

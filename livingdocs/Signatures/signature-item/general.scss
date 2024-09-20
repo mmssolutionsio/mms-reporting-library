@@ -1,6 +1,7 @@
 @use "nswow";
 
 .srl-signature-item {
+  margin-bottom: nswow.system-size-unit(nswow.padding(base));
   @include nswow.grid-col(12, phone);
   @include nswow.grid-col(6, portrait);
   @include nswow.grid-col(6, landscape);
@@ -9,7 +10,7 @@
 
   @include nswow.helpers-trim-margins;
 
-  margin-bottom: nswow.system-size-unit(nswow.padding(base));
+
 
   @include nswow.grid-media(phone) {
     &:last-child {

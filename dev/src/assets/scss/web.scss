@@ -11,9 +11,9 @@
     &.srl-article__grid--content:not(.srl-article__grid--full-web),
     &.srl-article__grid--indent:not(.srl-article__grid--full-web)
     {
-      @include nswow.grid-container();
       margin-left: auto;
       margin-right: auto;
+      @include nswow.grid-container();
     }
 
     &.srl-article__grid--indent:not(.srl-article__grid--full-web):not(.srl-article__grid--content-web),

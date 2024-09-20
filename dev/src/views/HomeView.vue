@@ -24,10 +24,10 @@ const locale = computed<string>(() => {
 @use "nswow";
 
 .srl-main {
-  @include nswow.grid-container();
   padding: nswow.system-size-unit(100) 0;
   margin-left: auto;
   margin-right: auto;
   min-height: 80vh;
+  @include nswow.grid-container();
 }
 </style>
