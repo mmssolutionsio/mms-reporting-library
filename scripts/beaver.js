@@ -2,7 +2,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { colors } from './colors.js';
 import { readNsWowJson } from "./utils.js";
-
+import colorPalette from '@kne/color-palette'
 /**
  * Maps the values of an object or array recursively.
  *
@@ -183,11 +183,14 @@ async function beaver(verbose = 0) {
 
     if (typeof configJson.fonts !== "undefined") {
         const fontBasePath = configJson.fonts["font-base-path"] ?? "";
+        if (fontBasePath.length) {
+            configJson.fonts["font-base-path"] = '.' + fontBasePath;
+        }
         if (typeof configJson.fonts.fonts !== "undefined") {
             for (let x = 0; x < configJson.fonts.fonts.length; x++) {
                 let font = configJson.fonts.fonts[x];
                 if (typeof font === "string") {
-                    configJson.fonts.fonts[x] = JSON.parse(resolve(process.cwd(), `${fontBasePath}/${font}/styles.json`));
+                    configJson.fonts.fonts[x] = JSON.parse(readFileSync(resolve(process.cwd(), `${fontBasePath}/${font}/styles.json`)));
                 }
             }
         }
@@ -202,8 +205,23 @@ async function beaver(verbose = 0) {
         }
     }
 
+    if (map?.colors?.colors?.shade) {
+        const shade = map.colors.colors.shade.color
+        if (!map.colors.colors['shade-50']) { map.colors.colors['shade-50'] = { color: colorPalette(shade, .5) }}
+        if (!map.colors.colors['shade-100']) { map.colors.colors['shade-100'] = { color: colorPalette(shade, 1) }}
+        if (!map.colors.colors['shade-200']) { map.colors.colors['shade-200'] = { color: colorPalette(shade, 2) }}
+        if (!map.colors.colors['shade-300']) { map.colors.colors['shade-300'] = { color: colorPalette(shade, 3) }}
+        if (!map.colors.colors['shade-400']) { map.colors.colors['shade-400'] = { color: colorPalette(shade, 4) }}
+        if (!map.colors.colors['shade-500']) { map.colors.colors['shade-500'] = { color: colorPalette(shade, 5) }}
+        if (!map.colors.colors['shade-600']) { map.colors.colors['shade-600'] = { color: colorPalette(shade, 6) }}
+        if (!map.colors.colors['shade-700']) { map.colors.colors['shade-700'] = { color: colorPalette(shade, 7) }}
+        if (!map.colors.colors['shade-800']) { map.colors.colors['shade-800'] = { color: colorPalette(shade, 8) }}
+        if (!map.colors.colors['shade-900']) { map.colors.colors['shade-900'] = { color: colorPalette(shade, 9) }}
+        if (!map.colors.colors['shade-950']) { map.colors.colors['shade-950'] = { color: colorPalette(shade, 9.5) }}
+    }
+
     let configOutput = [];
-    ['system', 'fonts', 'meta', 'grid', 'colors', 'typography', 'helpers'].forEach(file => {
+    ['system', 'fonts', 'meta', 'grid', 'colors', 'typography', 'spacer', 'helpers'].forEach(file => {
         if (typeof map[file] !== "undefined") {
             const o = [];
             o.push(`@use "@multivisio/nswow/scss/${file}/variables.scss" as ${file}Variables with (`);

@@ -8,52 +8,37 @@
     @if not map.has-key(variables.$typography, $typo) {
         @error "Invalid typo for typography specified! Choose one of #{map.keys(variables.$typography)}";
     }
-    $t: map.get(variables.$typography, $typo);
     @include _build-typo($typo, map.get(variables.$typography, $typo),  $margins);
 }
 
 @mixin _build-typo ($typo, $map, $margins: false, $media: false, $media-defaults: ()) {
     @if not $media {
         @if (map.has-key($map, font-family)) or (system.$environment == development) {
-            & {
-                font-family: functions.get-font-family($typo);
-            }
+            font-family: functions.get-font-family($typo);
         }
 
         @if (map.has-key($map, font-size)) or (system.$environment == development) {
-            & {
-                font-size: functions.get-font-size($typo);
-            }
+            font-size: functions.get-font-size($typo);
         }
 
         @if (map.has-key($map, line-height)) or (system.$environment == development) {
-            & {
-                line-height: functions.get-line-height($typo);
-            }
+            line-height: functions.get-line-height($typo);
         }
 
         @if (map.has-key($map, font-style)) or (system.$environment == development) {
-            & {
-                font-style: functions.get-font-style($typo);
-            }
+            font-style: functions.get-font-style($typo);
         }
 
         @if (map.has-key($map, font-weight)) or (system.$environment == development) {
-            & {
-                font-weight: functions.get-font-weight($typo);
-            }
+            font-weight: functions.get-font-weight($typo);
         }
 
         @if $margins {
-            @if (map.has-key($map, margin-top)) or (system.$environment == development) {
-                & {
-                    margin-top: functions.get-margin-top($typo);
-                }
+            @if map.has-key($map, margin-top) {
+                margin-top: functions.get-margin-top($typo);
             }
-            @if (map.has-key($map, margin-bottom)) or (system.$environment == development) {
-                & {
-                    margin-bottom: functions.get-margin-bottom($typo);
-                }
+            @if map.has-key($map, margin-bottom) {
+                margin-bottom: functions.get-margin-bottom($typo);
             }
         }
 
@@ -94,10 +79,10 @@
             }
 
             @if $margins {
-                @if (map.has-key($map, margin-top)) or (system.$environment == development) {
+                @if map.has-key($map, margin-top) {
                     margin-top: functions.get-margin-top($typo, $media);
                 }
-                @if (map.has-key($map, margin-bottom)) or (system.$environment == development) {
+                @if map.has-key($map, margin-bottom) {
                     margin-bottom: functions.get-margin-bottom($typo, $media);
                 }
             }
@@ -118,34 +103,41 @@
                 margin-bottom: 0
         ), $map);
 
+        @if (map.has-key($map, font-family)) or (system.$environment == development) {
+            @include system.add-root-style(
+                #{variables.$variable-prefix}typography-#{$typo}-font-family,
+                unquote(map.get($defaults, font-family))
+            );
+        }
+
         @include system.add-root-style(
-                        #{variables.$variable-prefix}typography-#{$typo}-font-size,
-                        system.size-unit(map.get($defaults, font-size))
+            #{variables.$variable-prefix}typography-#{$typo}-font-size,
+            system.size-unit(map.get($defaults, font-size))
         );
 
         @include system.add-root-style(
-                        #{variables.$variable-prefix}typography-#{$typo}-line-height,
-                        system.size-unit(map.get($defaults, line-height), em)
+            #{variables.$variable-prefix}typography-#{$typo}-line-height,
+            system.size-unit(map.get($defaults, line-height), em)
         );
 
         @include system.add-root-style(
-                        #{variables.$variable-prefix}typography-#{$typo}-font-style,
-                        unquote(map.get($defaults, font-style))
+            #{variables.$variable-prefix}typography-#{$typo}-font-style,
+            unquote(map.get($defaults, font-style))
         );
 
         @include system.add-root-style(
-                        #{variables.$variable-prefix}typography-#{$typo}-font-weight,
-                        map.get($defaults, font-weight)
+            #{variables.$variable-prefix}typography-#{$typo}-font-weight,
+            map.get($defaults, font-weight)
         );
 
         @include system.add-root-style(
-                        #{variables.$variable-prefix}typography-#{$typo}-margin-top,
-                        system.size-unit(map.get($defaults, margin-top))
+            #{variables.$variable-prefix}typography-#{$typo}-margin-top,
+            system.size-unit(map.get($defaults, margin-top))
         );
 
         @include system.add-root-style(
-                        #{variables.$variable-prefix}typography-#{$typo}-margin-bottom,
-                        system.size-unit(map.get($defaults, margin-bottom))
+            #{variables.$variable-prefix}typography-#{$typo}-margin-bottom,
+            system.size-unit(map.get($defaults, margin-bottom))
         );
 
         @if map.has-key($map, media) {
@@ -169,49 +161,49 @@
 
         @if (map.has-key($map, font-family)) or (system.$environment == development) {
             @include system.add-root-style(
-                            #{variables.$variable-prefix}typography-#{$typo}-font-family-#{$media},
-                            map.get($defaults, font-family)
+                #{variables.$variable-prefix}typography-#{$typo}-font-family-#{$media},
+                unquote(map.get($defaults, font-family))
             );
         }
 
         @if (map.has-key($map, font-size)) or (system.$environment == development) {
             @include system.add-root-style(
-                            #{variables.$variable-prefix}typography-#{$typo}-font-size-#{$media},
-                            system.size-unit(map.get($defaults, font-size))
+                #{variables.$variable-prefix}typography-#{$typo}-font-size-#{$media},
+                system.size-unit(map.get($defaults, font-size))
             );
         }
 
         @if map.has-key($map, line-height) or system.$environment == development {
             @include system.add-root-style(
-                            #{variables.$variable-prefix}typography-#{$typo}-line-height-#{$media},
-                            system.size-unit(map.get($defaults, line-height), em)
+                #{variables.$variable-prefix}typography-#{$typo}-line-height-#{$media},
+                system.size-unit(map.get($defaults, line-height), em)
             );
         }
 
         @if map.has-key($map, font-style) or system.$environment == development {
             @include system.add-root-style(
-                            #{variables.$variable-prefix}typography-#{$typo}-font-style-#{$media},
-                            unquote(map.get($defaults, font-style))
+                #{variables.$variable-prefix}typography-#{$typo}-font-style-#{$media},
+                unquote(map.get($defaults, font-style))
             );
         }
 
         @if map.has-key($map, font-weight) or system.$environment == development {
             @include system.add-root-style(
-                            #{variables.$variable-prefix}typography-#{$typo}-font-weight-#{$media},
-                            map.get($defaults, font-weight)
+                #{variables.$variable-prefix}typography-#{$typo}-font-weight-#{$media},
+                map.get($defaults, font-weight)
             );
         }
 
         @if map.has-key($map, margin-top) or $media == print or system.$environment == development {
             @if $media == print {
                 @include system.add-root-style(
-                                #{variables.$variable-prefix}typography-#{$typo}-margin-top-#{$media},
-                                system.size-unit(map.get($defaults, margin-top), in)
+                    #{variables.$variable-prefix}typography-#{$typo}-margin-top-#{$media},
+                    system.size-unit(map.get($defaults, margin-top), in)
                 );
             } @else {
                 @include system.add-root-style(
-                                #{variables.$variable-prefix}typography-#{$typo}-margin-top-#{$media},
-                                system.size-unit(map.get($defaults, margin-top))
+                    #{variables.$variable-prefix}typography-#{$typo}-margin-top-#{$media},
+                    system.size-unit(map.get($defaults, margin-top))
                 );
             }
 
@@ -220,13 +212,13 @@
         @if map.has-key($map, margin-bottom) or $media == print or system.$environment == development {
             @if $media == print {
                 @include system.add-root-style(
-                                #{variables.$variable-prefix}typography-#{$typo}-margin-bottom-#{$media},
-                                system.size-unit(map.get($defaults, margin-bottom), in)
+                    #{variables.$variable-prefix}typography-#{$typo}-margin-bottom-#{$media},
+                    system.size-unit(map.get($defaults, margin-bottom), in)
                 );
             } @else {
                 @include system.add-root-style(
-                                #{variables.$variable-prefix}typography-#{$typo}-margin-bottom-#{$media},
-                                system.size-unit(map.get($defaults, margin-bottom))
+                    #{variables.$variable-prefix}typography-#{$typo}-margin-bottom-#{$media},
+                    system.size-unit(map.get($defaults, margin-bottom))
                 );
             }
 
@@ -235,7 +227,7 @@
 }
 
 @mixin set-font-family($typo, $value) {
-    --#{variables.$variable-prefix}typography-#{$typo}-font-family: #{$value};
+    --#{variables.$variable-prefix}typography-#{$typo}-font-family: #{unquote($value)};
 }
 
 @mixin set-font-size($typo, $value) {
@@ -267,4 +259,9 @@
 }
 
 @mixin core-styles {
+    @each $typo, $values in variables.$typography {
+        .#{variables.$class-prefix}typo-#{"" + $typo} {
+            @include get($typo);
+        }
+    }
 }

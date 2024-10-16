@@ -48,10 +48,10 @@ function closeSubmenu() {
 
 <template>
   <nav class="srl-navigation">
-    <div class="srl-navigation__menuMain">
+    <div class="srl-navigation__menuMain srl-bg-secondary-light">
       <div class="srl-navigation__menuMain-inner">
         <ul>
-          <li v-for="(level1Item, level1ItemIndex) in currentMenu" :class="level1Item.type">
+          <li class="srl-typo-copy1" v-for="(level1Item, level1ItemIndex) in currentMenu" :class="level1Item.type">
             <MenuArticle v-if="level1Item.type==='Article'" :label="level1Item.label"
                          :page="getLinkByPage(<string>level1Item.page)"
                          @click="closeSubmenu()" />
@@ -59,7 +59,7 @@ function closeSubmenu() {
                        @click="activateSubmenu(level1ItemIndex)" />
             <MenuExternal v-if="level1Item.type==='ExternalLink'" :label="level1Item.label" :url="level1Item.url" />
           </li>
-          <li v-if="subNavigationVisible" @click="subNavigationVisible = false">
+          <li class="srl-typo-copy1" v-if="subNavigationVisible" @click="subNavigationVisible = false">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
                  viewBox="0 0 16 16">
               <path
@@ -71,10 +71,10 @@ function closeSubmenu() {
     </div>
 
     <transition name="fade">
-      <div class="srl-navigation__subNav">
+      <div class="srl-navigation__subNav srl-bg-secondary-light">
         <div class="srl-navigation__subNav-inner">
           <ul v-if="activeSubmenu.length && subNavigationVisible">
-            <li v-for="(level2Item, level2ItemIndex) in activeSubmenu">
+            <li class="srl-typo-copy1" v-for="(level2Item, level2ItemIndex) in activeSubmenu">
               <MenuArticle v-if="level2Item.type==='Article'" :label="level2Item.label"
                            :page="getLinkByPage(<string>level2Item.page)" @click="closeSubmenu()" />
               <MenuEntry v-if="level2Item.type==='MenuEntry'" :label="level2Item.label" />
@@ -82,7 +82,7 @@ function closeSubmenu() {
                             :url="<string>level2Item.url" />
 
               <ul>
-                <li v-for="(level3Item, index) in level2Item && level2Item.submenuEntries">
+                <li class="srl-typo-copy1" v-for="(level3Item, index) in level2Item && level2Item.submenuEntries">
                   <MenuArticle v-if="level3Item.type==='Article'" :label="level3Item.label"
                                :page="getLinkByPage(<string>level3Item.page)" @click="closeSubmenu()" />
                   <MenuEntry v-if="level3Item.type==='MenuEntry'" :label="level3Item.label" />
@@ -114,8 +114,6 @@ function closeSubmenu() {
         list-style-type: none;
 
         li {
-          @include nswow.typography-copy1();
-
           a {
             text-decoration: none;
           }
@@ -125,7 +123,6 @@ function closeSubmenu() {
   }
 
   &__menuMain {
-    background: nswow.colors-secondary-light();
 
     &-inner {
       ul {
@@ -148,8 +145,7 @@ function closeSubmenu() {
   }
 
   &__subNav {
-    background: nswow.colors-secondary-light();
-    border-bottom: nswow.system-size-unit(1) solid nswow.colors-gray-800();
+    border-bottom: nswow.system-size-unit(1) solid nswow.colors-shade-800();
 
     &-inner {
 

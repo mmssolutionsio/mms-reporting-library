@@ -14,6 +14,10 @@
   @include typography.get("display3", $margins);
 }
 
+@mixin display4($margins: false) {
+  @include typography.get("display4", $margins);
+}
+
 @mixin headline1($margins: false) {
   @include typography.get("headline1", $margins);
 }
@@ -38,6 +42,26 @@
   @include typography.get("headline6", $margins);
 }
 
+@mixin blockquote($margins: false) {
+  @include typography.get("blockquote", $margins);
+}
+
+@mixin lead($margins: false) {
+  @include typography.get("lead", $margins);
+}
+
+@mixin lead1($margins: false) {
+  @include typography.get("lead1", $margins);
+}
+
+@mixin lead2($margins: false) {
+  @include typography.get("lead2", $margins);
+}
+
+@mixin lead3($margins: false) {
+  @include typography.get("lead3", $margins);
+}
+
 @mixin copy1($margins: false) {
   @include typography.get("copy1", $margins);
 }
@@ -50,10 +74,22 @@
   @include typography.get("copy3", $margins);
 }
 
-@mixin blockquote($margins: false) {
-  @include typography.get("blockquote", $margins);
+@mixin label1($margins: false) {
+  @include typography.get("label1", $margins);
 }
 
-@mixin lead($margins: false) {
-  @include typography.get("lead", $margins);
+@mixin label2($margins: false) {
+  @include typography.get("label2", $margins);
+}
+
+@mixin label3($margins: false) {
+  @include typography.get("label3", $margins);
+}
+
+@mixin keyfigure1($margins: false) {
+  @include typography.get("keyfigure1", $margins);
+}
+
+@mixin keyfigure2($margins: false) {
+  @include typography.get("keyfigure2", $margins);
 }

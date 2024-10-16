@@ -15,7 +15,7 @@ const locale = computed<string>(() => {
     <h1>Welcome {{ locale }}</h1>
     <h3>Dokumentation Frontend Toolkit für Komponenten als auch APP:</h3>
     <p>
-      <a href="https://mmssolutionsio.github.io/mms-reporting-docs/docs/category/frontend-toolkit" target="_blank">Dokumentation</a>
+      <a href="https://mmssolutionsio.github.io/mms-reporting-docs/docs/intro" target="_blank">Dokumentation</a>
     </p>
   </div>
 </template>

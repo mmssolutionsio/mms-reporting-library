@@ -15,8 +15,11 @@
         @if map.has-key($font, "font-weight") {
           font-weight: map.get($font, "font-weight");
         }
-        @if map.has-key($font, "font-style"){
+        @if map.has-key($font, "font-style") {
           font-style: "#{map.get($font, "font-style")}";
+        }
+        @if map.has-key($font, "font-display") {
+          font-display: "#{map.get($font, "font-display")}";
         }
       }
     }

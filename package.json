@@ -1,6 +1,6 @@
 {
   "name": "@multivisio/nswow",
-  "version": "0.1.71",
+  "version": "0.1.74",
   "description": "Manage nswow templates, build and publish",
   "bin": {
     "nswow": "cli.js"
@@ -8,6 +8,7 @@
   "type": "module",
   "main": "cli.js",
   "dependencies": {
+    "@kne/color-palette": "^0.1.0",
     "archiver": "^7.0.1",
     "cheerio": "^1.0.0",
     "colors": "^1.4.0",

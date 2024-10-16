@@ -22,7 +22,7 @@ if (currentMenus.value?.footer) {
 </script>
 
 <template>
-  <footer>
+  <footer class="srl-bg-secondary-light srl-color-on-secondary-light">
     <div class="srl-footer__inner">
       <div class="srl-footer__inner-navigation">
         <h2>Footernavigation</h2>
@@ -46,8 +46,6 @@ if (currentMenus.value?.footer) {
 @use "nswow";
 
 footer {
-  background-color: nswow.colors-secondary-light();
-  color: nswow.colors-on-secondary-light();
   min-height: nswow.system-size-unit(60);
   padding: nswow.system-size-unit(20) 0;
 

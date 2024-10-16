@@ -4,7 +4,7 @@ function toTheTop() {
 }
 </script>
 <template>
-  <div class="srl-scrollToTop" @click="toTheTop">
+  <div class="srl-scrollToTop srl-bg-primary srl-color-light" @click="toTheTop">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up"
          viewBox="0 0 16 16">
       <path fill-rule="evenodd"
@@ -30,8 +30,6 @@ function toTheTop() {
   z-index: 999;
   width: nswow.system-size-unit(40);
   height: nswow.system-size-unit(40);
-  background: nswow.colors-primary();
-  color: nswow.colors-light();
 
   span {
     display: none;

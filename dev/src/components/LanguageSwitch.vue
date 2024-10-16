@@ -78,6 +78,7 @@ watch(route, makeLanguageSwitch)
   <div     v-for="link in languageItems"
            :key="link.label">
     <router-link
+      class="srl-color-light"
       :to="link.route"
       :class="{ active: link.active }"
     >
@@ -96,7 +97,6 @@ watch(route, makeLanguageSwitch)
   gap: nswow.system-size-unit(5);
 
   a {
-    color: nswow.colors-light();
     background: transparent;
     border: none;
     cursor: pointer;

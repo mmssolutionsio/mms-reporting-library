@@ -1,0 +1,476 @@
+@use "sass:map";
+@use "variables";
+@use "../grid";
+@use "../system";
+
+@mixin margin($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin margin-block($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin-block: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin-block: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin-block: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin-block: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin margin-inline($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin-inline: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin-inline: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin-inline: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin-inline: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin margin-top($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin-block-start: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin-block-start: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin-block-start: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin-block-start: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin margin-right($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin-inline-end: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin-inline-end: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin-inline-end: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin-inline-end: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin margin-bottom($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin-block-end: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin-block-end: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin-block-end: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin-block-end: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin margin-left($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid margin specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  margin-inline-start: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            margin-inline-start: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            margin-inline-start: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          margin-inline-start: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding-block($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding-block: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding-block: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding-block: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding-block: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding-inline($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding-inline: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding-inline: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding-inline: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding-inline: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding-top($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding-block-start: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding-block-start: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding-block-start: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding-block-start: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding-right($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding-inline-end: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding-inline-end: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding-inline-end: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding-inline-end: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding-bottom($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding-block-end: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding-block-end: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding-block-end: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding-block-end: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin padding-left($size) {
+  @if not map-has-key(variables.$spacer, $size) {
+    @error "Invalid padding specified! Choose one of #{map-keys(variables.$spacer)}";
+  }
+  $spacerValue: map-get(variables.$spacer, $size);
+  padding-inline-start: system.size-unit(map-get($spacerValue, size));
+  $media: map-get($spacerValue, media);
+  @if $media {
+    @each $breakpoint, $breakpointValue in $media {
+      @if $breakpoint == up {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-up($upBreakpoint) {
+            padding-inline-start: system.size-unit($size);
+          }
+        }
+      } @else if $breakpoint == down {
+        @each $upBreakpoint, $size in $breakpointValue {
+          @include grid.media-down($upBreakpoint) {
+            padding-inline-start: system.size-unit($size);
+          }
+        }
+      } @else {
+        @include grid.media($breakpoint) {
+          padding-inline-start: system.size-unit($breakpointValue);
+        }
+      }
+    }
+  }
+}
+
+@mixin core-styles {
+  @at-root {
+    @each $spacer, $spacerValue in variables.$spacer {
+
+      .#{variables.$class-prefix}ma-#{"" + $spacer} {
+        @include margin($spacer);
+      }
+      .#{variables.$class-prefix}mbl-#{"" + $spacer} {
+        @include margin-block($spacer);
+      }
+      .#{variables.$class-prefix}min-#{"" + $spacer} {
+        @include margin-inline($spacer);
+      }
+      .#{variables.$class-prefix}mt-#{"" + $spacer} {
+        @include margin-top($spacer);
+      }
+      .#{variables.$class-prefix}mr-#{"" + $spacer} {
+        @include margin-right($spacer);
+      }
+      .#{variables.$class-prefix}mb-#{"" + $spacer} {
+        @include margin-bottom($spacer);
+      }
+      .#{variables.$class-prefix}ml-#{"" + $spacer} {
+        @include margin-left($spacer);
+      }
+
+      .#{variables.$class-prefix}pa-#{"" + $spacer} {
+        @include padding($spacer);
+      }
+      .#{variables.$class-prefix}pbl-#{"" + $spacer} {
+        @include padding-block($spacer);
+      }
+      .#{variables.$class-prefix}pin-#{"" + $spacer} {
+        @include padding-inline($spacer);
+      }
+      .#{variables.$class-prefix}pt-#{"" + $spacer} {
+        @include padding-top($spacer);
+      }
+      .#{variables.$class-prefix}pr-#{"" + $spacer} {
+        @include padding-right($spacer);
+      }
+      .#{variables.$class-prefix}pb-#{"" + $spacer} {
+        @include padding-bottom($spacer);
+      }
+      .#{variables.$class-prefix}pl-#{"" + $spacer} {
+        @include padding-left($spacer);
+      }
+
+    }
+  }
+}

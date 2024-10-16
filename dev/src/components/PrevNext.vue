@@ -64,7 +64,7 @@ const prevRoute = computed(() => {
 </script>
 <template>
   <div class="srl-nav-holder">
-    <router-link v-if="prevRoute" :to="prevRoute" class="srl-nav-holder__nav-btn">
+    <router-link v-if="prevRoute" :to="prevRoute" class="srl-nav-holder__nav-btn srl-bg-primary srl-color-light srl-typo-headline3">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left left"
            viewBox="0 0 16 16">
         <path fill-rule="evenodd"
@@ -73,7 +73,7 @@ const prevRoute = computed(() => {
       {{ $t("page.prev") }}
     </router-link>
     <ScrollToTop />
-    <router-link v-if="nextRoute" :to="nextRoute" class="srl-nav-holder__nav-btn">
+    <router-link v-if="nextRoute" :to="nextRoute" class="srl-nav-holder__nav-btn srl-bg-primary srl-color-light srl-typo-headline3">
       {{ $t("page.next") }}
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
            class="bi bi-chevron-right right" viewBox="0 0 16 16">
@@ -99,10 +99,7 @@ const prevRoute = computed(() => {
     display: flex;
     cursor: pointer;
     align-items: center;
-    background-color: nswow.colors-primary();
-    color: nswow.colors-light();
     padding: nswow.system-size-unit(10) nswow.system-size-unit(15);
-    @include nswow.typography-copy3();
 
     svg {
       transition: all 200ms ease;
